@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://furqanagwan.vercel.app/",
+        url: "https://furqanagwan.com",
       },
     ],
   },
