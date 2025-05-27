@@ -11,7 +11,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://furqanagwan.vercel.app/"),
+  metadataBase: new URL("https://furqanagwan.com"),
   title: {
     default: "Furqan Agwan",
     template: "%s | Furqan Agwan",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Furqan Agwan",
     description: "Developer, cardist and maker of things.",
-    url: "https://furqanagwan.vercel.app/",
+    url: "https://furqanagwan.com",
     siteName: "Furqan Agwan",
     locale: "en_US",
     type: "website",
@@ -50,6 +50,7 @@ export default function RootLayout({
         <div className="max-w-4xl mx-auto px-4 py-8">
           <Navbar />
           {children}
+          <Analytics/>
         </div>
       </body>
     </html>
