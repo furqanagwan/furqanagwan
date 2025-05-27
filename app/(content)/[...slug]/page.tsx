@@ -74,20 +74,24 @@ export default async function Page({
           }}
         />
         {/* Title with accent */}
-        <h1 className="text-4xl font-bold mb-4 text-white flex items-center">
+        <h1 className="text-4xl font-bold mb-4 text-black dark:text-white flex items-center">
           <span className="text-accent mr-2">*</span>
           {metadata?.title}
         </h1>
         {/* Description */}
         {metadata?.description && (
-          <div className="mb-6 text-lg text-gray-300">{metadata.description}</div>
+          <div className="mb-6 text-lg text-gray-800 dark:text-gray-300">
+            {metadata.description}
+          </div>
         )}
         {/* Date */}
-        <div className="mb-8 flex items-center text-sm text-gray-400">
-          {metadata?.date && <time dateTime={metadata.date}>{formattedDate}</time>}
+        <div className="mb-8 flex items-center text-sm text-gray-600 dark:text-gray-400">
+          {metadata?.date && (
+            <time dateTime={metadata.date}>{formattedDate}</time>
+          )}
         </div>
         {/* Post Content */}
-        <article className="prose prose-invert max-w-none prose-headings:text-white prose-a:text-accent hover:prose-a:underline">
+        <article className="prose max-w-none prose-headings:text-black dark:prose-headings:text-white prose-a:text-accent hover:prose-a:underline dark:prose-invert">
           <Post />
         </article>
       </section>
@@ -96,4 +100,3 @@ export default async function Page({
     notFound();
   }
 }
-

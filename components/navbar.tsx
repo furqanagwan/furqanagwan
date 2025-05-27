@@ -1,10 +1,11 @@
-"use client"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Navbar() {
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -14,25 +15,25 @@ export function Navbar() {
         document.activeElement?.tagName === "TEXTAREA" ||
         event.target instanceof HTMLInputElement
       ) {
-        return
+        return;
       }
 
       switch (event.key.toLowerCase()) {
         case "h":
-          router.push("/")
-          break
+          router.push("/");
+          break;
         case "b":
-          router.push("/blog")
-          break
+          router.push("/blog");
+          break;
         case "e":
-          router.push("/projects")
-          break
+          router.push("/projects");
+          break;
       }
-    }
+    };
 
-    window.addEventListener("keydown", handleKeyPress)
-    return () => window.removeEventListener("keydown", handleKeyPress)
-  }, [router])
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [router]);
 
   return (
     <nav className="flex items-center justify-between mb-12 text-sm">
@@ -57,6 +58,7 @@ export function Navbar() {
           [p] projects
         </Link>
       </div>
+      <ThemeToggle />
     </nav>
-  )
+  );
 }

@@ -69,7 +69,8 @@ const educationItems: Item[] = [
     degree: "BSc Computer Science",
     period: "Sep 2014 – Jul 2018",
     href: "https://www.dmu.ac.uk/",
-    description: "Graduated with a focus on software engineering, AI, and memes. 🎓",
+    description:
+      "Graduated with a focus on software engineering, AI, and memes. 🎓",
   },
   {
     title: "Beauchamp College",

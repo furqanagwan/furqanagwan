@@ -5,35 +5,35 @@ import { Metadata } from "next";
 
 const posts = getAllPosts().sort(
   (a, b) =>
-    new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
+    new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime(),
 );
 
 export default function BlogPage() {
   return (
     <main className="animate-fade-in-up relative">
-      <h1 className="text-4xl font-bold mb-8 text-white">
+      <h1 className="text-4xl font-bold mb-8 text-black dark:text-white">
         <span className="text-accent mr-2">*</span>
         <ScrambleText text="blog" />
       </h1>
-      <p className="hidden sm:block text-sm text-gray-400 mb-8">
+      <p className="hidden sm:block text-sm text-gray-700 dark:text-gray-400 mb-8">
         press{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
+        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
           /
         </kbd>{" "}
         to search • use{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
+        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
           ctrl / ⌘ j
         </kbd>{" "}
         and{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
+        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
           ctrl / ⌘ k
         </kbd>{" "}
         or{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
+        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
           ↑
         </kbd>{" "}
         and{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-700 rounded">
+        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
           ↓
         </kbd>{" "}
         to navigate
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://www.nexxel.dev/og/home?title=blog",
+        url: "https://furqanagwan.vercel.app/",
       },
     ],
   },

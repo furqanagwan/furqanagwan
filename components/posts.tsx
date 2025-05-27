@@ -17,7 +17,7 @@ export function Posts({ posts }: PostsProps) {
   const selectedItemRef = useRef<HTMLDivElement>(null);
 
   const filteredPosts = posts.filter((item) =>
-    item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase())
+    item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   useEffect(() => {
@@ -61,17 +61,13 @@ export function Posts({ posts }: PostsProps) {
               ? prev + 1
               : prev
             : prev > 0
-            ? prev - 1
-            : prev;
+              ? prev - 1
+              : prev;
 
           scrollSelectedIntoView();
           return newIndex;
         });
-      } else if (
-        isSearching &&
-        e.key === "Enter" &&
-        filteredPosts.length > 0
-      ) {
+      } else if (isSearching && e.key === "Enter" && filteredPosts.length > 0) {
         router.push(filteredPosts[selectedIndex].url);
       }
     };
@@ -83,11 +79,13 @@ export function Posts({ posts }: PostsProps) {
   return (
     <>
       {/* Search UI here if you want */}
-      <div className="space-y-8 sm:space-y-4">
+      <div className="space-y-8 sm:space-y-4 text-black dark:text-white">
         {filteredPosts.map((item, index) => (
           <div
             key={item.slug}
-            ref={isSearching && index === selectedIndex ? selectedItemRef : null}
+            ref={
+              isSearching && index === selectedIndex ? selectedItemRef : null
+            }
           >
             <PostItem
               post={item}

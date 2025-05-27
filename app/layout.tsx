@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next"
 import { Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/navbar";
 import "../styles/global.css";
@@ -10,20 +11,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.nexxel.dev"),
+  metadataBase: new URL("https://furqanagwan.vercel.app/"),
   title: {
     default: "Furqan Agwan",
     template: "%s | Furqan Agwan",
   },
-  description: "Developer, cardist and maker of things.",
+  description: "Better than tomorrow",
   openGraph: {
     title: "Furqan Agwan",
     description: "Developer, cardist and maker of things.",
-    url: "https://www.nexxel.dev",
+    url: "https://furqanagwan.vercel.app/",
     siteName: "Furqan Agwan",
     locale: "en_US",
     type: "website",
-    images: [{ url: "https://www.nexxel.dev/og/home" }],
   },
   robots: {
     index: true,

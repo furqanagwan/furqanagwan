@@ -25,7 +25,7 @@ export function SectionList({
 }: SectionListProps) {
   return (
     <section className="mb-16 animate-fade-in-up">
-      <h2 className="text-2xl font-bold mb-6 flex items-center text-white">
+      <h2 className="text-2xl font-bold mb-6 flex items-center text-black dark:text-white">
         <span className="text-accent mr-2">*</span>
         {title}
       </h2>
@@ -38,16 +38,18 @@ export function SectionList({
               rel="noopener noreferrer"
               className="block"
             >
-              <h3 className="text-xl font-semibold mb-1 text-white group-hover:text-accent transition-colors duration-200">
+              <h3 className="text-xl font-semibold mb-1 text-black dark:text-white group-hover:text-accent transition-colors duration-200">
                 {item.title}
               </h3>
               {(item.degree || item.role || item.period) && (
-                <p className="text-sm text-gray-400 mb-2">
+                <p className="text-sm text-gray-700 dark:text-gray-400 mb-2">
                   {[item.degree, item.role].filter(Boolean).join(" / ")}
                   {item.period && ` (${item.period})`}
                 </p>
               )}
-              <p className="text-gray-300">{item.description}</p>
+              <p className="text-gray-800 dark:text-gray-300">
+                {item.description}
+              </p>
             </Link>
           </div>
         ))}

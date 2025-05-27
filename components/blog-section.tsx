@@ -6,7 +6,7 @@ import { getAllPosts } from "../lib/blog";
 const posts = getAllPosts()
   .sort(
     (a, b) =>
-      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
+      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime(),
   )
   .slice(0, 4);
 
@@ -21,7 +21,7 @@ function formatDate(dateString: string) {
 export function BlogSection() {
   return (
     <section className="mb-16 animate-fade-in-up">
-      <h2 className="text-2xl font-bold mb-6 flex items-center text-white">
+      <h2 className="text-2xl font-bold mb-6 flex items-center text-black dark:text-white">
         <span className="text-accent mr-2">*</span>blog
       </h2>
       <div className="space-y-4">
@@ -32,11 +32,11 @@ export function BlogSection() {
           >
             <Link
               href={`/${post.slug}`}
-              className="text-gray-200 hover:text-accent transition-colors duration-200"
+              className="text-gray-800 dark:text-gray-200 hover:text-accent transition-colors duration-200"
             >
               {post.metadata.title.toLowerCase()}
             </Link>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
               {formatDate(post.metadata.date)}
             </span>
           </div>

@@ -16,7 +16,7 @@ export type MDXFileData = {
   slug: string; // always posts-relative, no extension, e.g. "recipes/pancakes"
   type: string;
   subType?: string;
-  url: string;  // always `/${slug}`
+  url: string; // always `/${slug}`
 };
 
 // --- Helpers ---
@@ -36,7 +36,10 @@ function getMDXFiles(dir: string): string[] {
   return results;
 }
 
-function parseFrontmatter(fileContent: string): { metadata: Metadata; content: string } {
+function parseFrontmatter(fileContent: string): {
+  metadata: Metadata;
+  content: string;
+} {
   const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
   const match = frontmatterRegex.exec(fileContent);
   if (!match) throw new Error("No frontmatter found");
@@ -55,12 +58,21 @@ function parseFrontmatter(fileContent: string): { metadata: Metadata; content: s
   return { metadata: metadata as Metadata, content };
 }
 
-function getMDXData(dir: string, type: string, subType?: string): MDXFileData[] {
+function getMDXData(
+  dir: string,
+  type: string,
+  subType?: string,
+): MDXFileData[] {
   const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((filePath) => {
-    const { metadata, content } = parseFrontmatter(fs.readFileSync(filePath, "utf-8"));
+    const { metadata, content } = parseFrontmatter(
+      fs.readFileSync(filePath, "utf-8"),
+    );
     // always get posts-relative path, e.g. "reviews/movies/barbie-2023"
-    const relSlug = path.relative(path.join(process.cwd(), "posts"), filePath).replace(/\\/g, "/").replace(/\.mdx$/, "");
+    const relSlug = path
+      .relative(path.join(process.cwd(), "posts"), filePath)
+      .replace(/\\/g, "/")
+      .replace(/\.mdx$/, "");
     const slug = metadata.slug || relSlug;
     const url = `/${slug}`;
     return { metadata, content, slug, type, subType, url };
@@ -110,6 +122,6 @@ export function getAllPosts(): MDXFileData[] {
     ...getHolidays(),
     ...getFashion(),
     ...getFitness(),
-    ...getPolitics()
+    ...getPolitics(),
   ];
 }

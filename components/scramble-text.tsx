@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useScramble } from "use-scramble"
+import { useScramble } from "use-scramble";
 
 export function ScrambleText({
   text,
@@ -11,13 +11,13 @@ export function ScrambleText({
   scramble = 5,
   seed = 3,
 }: {
-  text: string
-  className?: string
-  speed?: number
-  tick?: number
-  step?: number
-  scramble?: number
-  seed?: number
+  text: string;
+  className?: string;
+  speed?: number;
+  tick?: number;
+  step?: number;
+  scramble?: number;
+  seed?: number;
 }) {
   const { ref } = useScramble({
     text,
@@ -27,7 +27,7 @@ export function ScrambleText({
     scramble,
     seed,
     overdrive: true,
-  })
+  });
 
-  return <span ref={ref} className={className} />
+  return <span ref={ref} className={className} />;
 }

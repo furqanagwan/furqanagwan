@@ -1,9 +1,15 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* LIGHT MODE DEFAULTS */
+  --background: #fafafa;
+  --foreground: #111;
+}
+
+.dark {
+  /* DARK MODE OVERRIDES */
   --background: #111;
   --foreground: #d1d5db;
 }
@@ -32,7 +38,7 @@ body {
 
 .prose a.anchor::before {
   @apply absolute -left-4 opacity-0 transition-opacity duration-200;
-  content: '#';
+  content: "#";
 }
 
 .prose a.anchor:hover::before {

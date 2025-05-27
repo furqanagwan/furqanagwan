@@ -1,12 +1,12 @@
-import type { NextConfig } from "next"
+import type { NextConfig } from "next";
 
-const withMDX = require('@next/mdx')({
+const withMDX = require("@next/mdx")({
   extension: /\.(md|mdx)$/,
-   options: {
+  options: {
     // THIS enables frontmatter as named exports:
     frontmatter: true,
   },
-})
+});
 
 const nextConfig: NextConfig = withMDX({
   experimental: {
@@ -29,7 +29,7 @@ const nextConfig: NextConfig = withMDX({
       },
     ],
   },
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-})
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+});
 
-export default nextConfig
+export default nextConfig;
