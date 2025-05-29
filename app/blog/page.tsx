@@ -15,29 +15,6 @@ export default function BlogPage() {
         <span className="text-accent mr-2">*</span>
         <ScrambleText text="blog" />
       </h1>
-      <p className="hidden sm:block text-sm text-gray-700 dark:text-gray-400 mb-8">
-        press{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
-          /
-        </kbd>{" "}
-        to search • use{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
-          ctrl / ⌘ j
-        </kbd>{" "}
-        and{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
-          ctrl / ⌘ k
-        </kbd>{" "}
-        or{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
-          ↑
-        </kbd>{" "}
-        and{" "}
-        <kbd className="px-1 py-0.5 text-xs border border-gray-400 dark:border-gray-700 rounded">
-          ↓
-        </kbd>{" "}
-        to navigate
-      </p>
       <PostsList posts={posts} />
     </main>
   );
@@ -45,7 +22,7 @@ export default function BlogPage() {
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Writings on programming, computer science, and more.",
+  description: "",
   openGraph: {
     images: [
       {

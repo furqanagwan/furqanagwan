@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 import { Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/navbar";
 import "../styles/global.css";
@@ -50,7 +50,7 @@ export default function RootLayout({
         <div className="max-w-4xl mx-auto px-4 py-8">
           <Navbar />
           {children}
-          <Analytics/>
+          <Analytics />
         </div>
       </body>
     </html>
