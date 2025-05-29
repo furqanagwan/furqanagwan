@@ -9,9 +9,10 @@ type PostsProps = {
   posts: MDXFileData[];
 };
 
-const PAGE_SIZE = 5; // Adjust for more/less per page
+const MOBILE_PAGE_SIZE = 5;
+const DESKTOP_MIN_HEIGHT = 56; // Minimum post height estimate (px, tweak as needed)
+const BREAKPOINT = 640; // px
 
-// Get unique types from all posts
 function getAllTypes(posts: MDXFileData[]) {
   const set = new Set<string>();
   posts.forEach((p) => {
@@ -26,35 +27,52 @@ export function Posts({ posts }: PostsProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [page, setPage] = useState(1);
   const [filterType, setFilterType] = useState("all");
+  const [pageSize, setPageSize] = useState(MOBILE_PAGE_SIZE);
 
   const router = useRouter();
   const selectedItemRef = useRef<HTMLDivElement>(null);
 
+  // Dynamically set page size on desktop
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < BREAKPOINT) {
+        setPageSize(MOBILE_PAGE_SIZE);
+      } else {
+        // Height available for posts: window height - static header (estimate)
+        const headerHeight = 150; // header/search/filter+margin height (px), adjust for your layout
+        const footerHeight = 100; // pagination + margin (px)
+        const available = window.innerHeight - headerHeight - footerHeight;
+        const items = Math.max(1, Math.floor(available / DESKTOP_MIN_HEIGHT));
+        setPageSize(items);
+      }
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const postTypes = getAllTypes(posts);
 
-  // --- FILTER & SEARCH ---
   let filteredPosts = posts;
   if (filterType !== "all") {
     filteredPosts = filteredPosts.filter((item) => item.type === filterType);
   }
   if (searchQuery.trim()) {
     filteredPosts = filteredPosts.filter((item) =>
-      item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase())
+      item.metadata.title.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   }
 
-  // --- PAGINATION ---
-  const pageCount = Math.ceil(filteredPosts.length / PAGE_SIZE);
+  const pageCount = Math.ceil(filteredPosts.length / pageSize);
   const paginatedPosts = filteredPosts.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
+    (page - 1) * pageSize,
+    page * pageSize,
   );
 
-  // Reset to first page/filter/search as needed
   useEffect(() => {
     setSelectedIndex(0);
-    setPage(1); // Reset page when search/filter changes
-  }, [searchQuery, filterType]);
+    setPage(1);
+  }, [searchQuery, filterType, pageSize]);
 
   const scrollSelectedIntoView = () => {
     if (selectedItemRef.current) {
@@ -93,13 +111,17 @@ export function Posts({ posts }: PostsProps) {
               ? prev + 1
               : prev
             : prev > 0
-            ? prev - 1
-            : prev;
+              ? prev - 1
+              : prev;
 
           scrollSelectedIntoView();
           return newIndex;
         });
-      } else if (isSearching && e.key === "Enter" && paginatedPosts.length > 0) {
+      } else if (
+        isSearching &&
+        e.key === "Enter" &&
+        paginatedPosts.length > 0
+      ) {
         router.push(paginatedPosts[selectedIndex].url);
       }
     };
@@ -109,10 +131,9 @@ export function Posts({ posts }: PostsProps) {
   }, [isSearching, paginatedPosts, selectedIndex, router]);
 
   return (
-    <div className="space-y-8 sm:space-y-4 text-black dark:text-white">
+    <div className="flex flex-col min-h-screen space-y-8 sm:space-y-4 text-black dark:text-white">
       {/* Filter & Search Controls */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6 items-center">
-        {/* Filter by Type */}
         <select
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
@@ -125,8 +146,6 @@ export function Posts({ posts }: PostsProps) {
             </option>
           ))}
         </select>
-
-        {/* Search */}
         <input
           type="text"
           placeholder="Search posts..."
@@ -136,47 +155,52 @@ export function Posts({ posts }: PostsProps) {
         />
       </div>
 
-      {/* Posts List */}
-      {paginatedPosts.length === 0 ? (
-        <div className="py-12 text-center text-gray-500 dark:text-gray-400">
-          No posts found.
-        </div>
-      ) : (
-        paginatedPosts.map((item, index) => (
-          <div
-            key={item.slug}
-            ref={
-              isSearching && index === selectedIndex ? selectedItemRef : null
-            }
-          >
-            <PostItem
-              post={item}
-              isSelected={isSearching && index === selectedIndex}
-            />
+      <div className="flex-grow">
+        {paginatedPosts.length === 0 ? (
+          <div className="py-12 text-center text-gray-500 dark:text-gray-400">
+            No posts found.
           </div>
-        ))
-      )}
-
-      {/* Pagination Controls */}
-      <div className="flex justify-center gap-2 mt-8">
-        <button
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          disabled={page === 1}
-          className="px-3 py-1 rounded border bg-gray-200 dark:bg-gray-800 text-black dark:text-white disabled:opacity-50"
-        >
-          Prev
-        </button>
-        <span className="px-2 py-1">
-          Page {page} of {pageCount}
-        </span>
-        <button
-          onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
-          disabled={page === pageCount}
-          className="px-3 py-1 rounded border bg-gray-200 dark:bg-gray-800 text-black dark:text-white disabled:opacity-50"
-        >
-          Next
-        </button>
+        ) : (
+          paginatedPosts.map((item, index) => (
+            <div
+              key={item.slug}
+              ref={
+                isSearching && index === selectedIndex ? selectedItemRef : null
+              }
+            >
+              <PostItem
+                post={item}
+                isSelected={isSearching && index === selectedIndex}
+              />
+            </div>
+          ))
+        )}
       </div>
+
+      {/* Numbered Pagination */}
+      {pageCount > 1 && (
+        <div className="flex justify-center mt-8 mb-6">
+          <div className="flex flex-wrap gap-2 max-w-full overflow-x-auto">
+            {[...Array(pageCount)].map((_, idx) => (
+              <button
+                key={idx + 1}
+                onClick={() => setPage(idx + 1)}
+                className={`px-3 py-1 rounded border 
+                  ${
+                    page === idx + 1
+                      ? "bg-gray-900 dark:bg-white text-white dark:text-black font-bold border-gray-900 dark:border-white"
+                      : "bg-gray-200 dark:bg-gray-800 text-black dark:text-white border-gray-200 dark:border-gray-800"
+                  }
+                  transition-colors
+                `}
+                aria-current={page === idx + 1 ? "page" : undefined}
+              >
+                {idx + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

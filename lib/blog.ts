@@ -1,5 +1,7 @@
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
+import { estimateReadTime } from "./helper";
 
 // --- Types ---
 export type Metadata = {
@@ -7,16 +9,20 @@ export type Metadata = {
   description: string;
   date: string;
   slug?: string;
+  calories?: number;
+  macros?: { protein: number; carbs: number; fat: number };
+  cities?: string[];
+  readTime?: number;
   [key: string]: any;
 };
 
 export type MDXFileData = {
   metadata: Metadata;
   content: string;
-  slug: string; // always posts-relative, no extension, e.g. "recipes/pancakes"
+  slug: string;
   type: string;
   subType?: string;
-  url: string; // always `/${slug}`
+  url: string;
 };
 
 // --- Helpers ---
@@ -40,22 +46,8 @@ function parseFrontmatter(fileContent: string): {
   metadata: Metadata;
   content: string;
 } {
-  const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
-  const match = frontmatterRegex.exec(fileContent);
-  if (!match) throw new Error("No frontmatter found");
-  const frontmatter = match[1];
-  const content = fileContent.replace(frontmatterRegex, "").trim();
-  const frontmatterLines = frontmatter.trim().split("\n");
-  const metadata: Partial<Metadata> = {};
-  frontmatterLines.forEach((line) => {
-    const [key, ...values] = line.split(": ");
-    let value = values.join(": ").trim();
-    value = value.replace(/^['"](.*)['"]$/, "$1"); // Remove quotes
-    if (key && value) {
-      metadata[key.trim()] = value;
-    }
-  });
-  return { metadata: metadata as Metadata, content };
+  const { data, content } = matter(fileContent);
+  return { metadata: data as Metadata, content };
 }
 
 function getMDXData(
@@ -68,14 +60,23 @@ function getMDXData(
     const { metadata, content } = parseFrontmatter(
       fs.readFileSync(filePath, "utf-8"),
     );
-    // always get posts-relative path, e.g. "reviews/movies/barbie-2023"
     const relSlug = path
       .relative(path.join(process.cwd(), "posts"), filePath)
       .replace(/\\/g, "/")
       .replace(/\.mdx$/, "");
     const slug = metadata.slug || relSlug;
     const url = `/${slug}`;
-    return { metadata, content, slug, type, subType, url };
+
+    // --- Calculate and attach readTime ---
+    const readTime = estimateReadTime(content);
+    return {
+      metadata: { ...metadata, readTime },
+      content,
+      slug,
+      type,
+      subType,
+      url,
+    };
   });
 }
 
