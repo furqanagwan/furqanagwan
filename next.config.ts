@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+<<<<<<< HEAD
 const withMDX = require("@next/mdx")({
   extension: /\.(md|mdx)$/,
   options: {
@@ -31,5 +32,10 @@ const nextConfig: NextConfig = withMDX({
   },
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 });
+=======
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+>>>>>>> origin/migration
 
 export default nextConfig;

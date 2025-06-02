@@ -4,6 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
+<<<<<<< HEAD
+=======
+.yarn/install-state.gz
+>>>>>>> origin/migration
 
 # testing
 /coverage
@@ -18,6 +22,11 @@
 # misc
 .DS_Store
 *.pem
+<<<<<<< HEAD
+=======
+certificates
+package-lock.json
+>>>>>>> origin/migration
 
 # debug
 npm-debug.log*
@@ -33,6 +42,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+<<<<<<< HEAD
 yarn.lock
 .env
 
@@ -46,3 +56,5 @@ yarn.lock
 .env
 
 .next
+=======
+>>>>>>> origin/migration
