@@ -1,56 +1,4 @@
 import Link from "next/link";
-<<<<<<< HEAD
-import { ArrowUpRight } from "lucide-react";
-import { getAllPosts } from "../lib/blog";
-
-// Get the 4 latest posts, sorted by date (descending)
-const posts = getAllPosts()
-  .sort(
-    (a, b) =>
-      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime(),
-  )
-  .slice(0, 4);
-
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
-export function BlogSection() {
-  return (
-    <section className="mb-16 animate-fade-in-up">
-      <h2 className="text-2xl font-bold mb-6 flex items-center text-black dark:text-white">
-        <span className="text-accent mr-2">*</span>blog
-      </h2>
-      <div className="space-y-4">
-        {posts.map((post) => (
-          <div
-            key={post.slug}
-            className="flex justify-between items-center group"
-          >
-            <Link
-              href={`/${post.slug}`}
-              className="text-gray-800 dark:text-gray-200 hover:text-accent transition-colors duration-200"
-            >
-              {post.metadata.title.toLowerCase()}
-            </Link>
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              {formatDate(post.metadata.date)}
-            </span>
-          </div>
-        ))}
-      </div>
-      <Link
-        href="/blog"
-        className="inline-flex items-center gap-1 mt-6 text-accent hover:underline group"
-      >
-        all posts{" "}
-        <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-      </Link>
-=======
 import { getMarkdownFiles, getPostInformation } from "@/utils/file";
 import type { CompletePost } from "@/types";
 
@@ -98,7 +46,6 @@ export default function Blog() {
           View all →
         </Link>
       </p>
->>>>>>> origin/migration
     </section>
   );
 }

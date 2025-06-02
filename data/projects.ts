@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// data/projects.ts
-=======
->>>>>>> origin/migration
 export type Project = {
   title: string;
   projectName?: string;
