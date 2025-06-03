@@ -12,7 +12,7 @@ export default function History() {
     },
     {
       title: "Hastings Direct",
-      role: "Customer Service Representative (Insurance Broker)",
+      role: "Insurance Broker",
       period: "2016 – 2017",
     },
     { title: "Debenhams", role: "Sales Assistant", period: "2014 – 2016" },
