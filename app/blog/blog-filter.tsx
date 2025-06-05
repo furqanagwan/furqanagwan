@@ -59,6 +59,40 @@ function renderMeta(post: CompletePost) {
   return null;
 }
 
+function renderReviewMeta(post: CompletePost) {
+  if (getCategory(post) !== "reviews") return null;
+
+  if (post.reviewedOn === "PC" && post.distribution) {
+    return (
+      <>
+        {" "}
+        · <span className="font-medium">PC ({post.distribution})</span>
+        {post.stars !== undefined && renderStars(post.stars)}
+      </>
+    );
+  }
+
+  if (post.reviewedOn === "Console" && post.console && post.distribution) {
+    return (
+      <>
+        {" "}
+        ·{" "}
+        <span className="font-medium">
+          {post.console} ({post.distribution})
+        </span>
+        {post.stars !== undefined && renderStars(post.stars)}
+      </>
+    );
+  }
+
+  // Fallback: if legacy, still show stars
+  if (post.stars !== undefined) {
+    return renderStars(post.stars);
+  }
+
+  return null;
+}
+
 function renderDiet(diet?: string[]) {
   if (!diet || diet.length === 0) return null;
   if (diet.includes("Vegan"))
@@ -168,9 +202,6 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
               >
                 {post.title}
               </Link>
-              {getCategory(post) === "reviews" && post.stars !== undefined
-                ? renderStars(post.stars)
-                : null}
             </h3>
             <p className="text-xs text-muted-foreground mb-1">
               {formatDate(post.date)}
@@ -182,6 +213,7 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
               )}
               <> · {post.readingTime}</>
               {renderMeta(post)}
+              {renderReviewMeta(post)}
               {renderDiet(post.diet)}
             </p>
             {post.summary && (

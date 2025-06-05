@@ -94,6 +94,26 @@ export default async function Post({ params }: { params: Promise<Params> }) {
                 </span>
               </>
             )}
+          {frontmatter.reviewedOn === "PC" && frontmatter.distribution && (
+            <>
+              {" "}
+              ·{" "}
+              <span className="font-medium">
+                Reviewed on PC ({frontmatter.distribution})
+              </span>
+            </>
+          )}
+          {frontmatter.reviewedOn === "Console" &&
+            frontmatter.console &&
+            frontmatter.distribution && (
+              <>
+                {" "}
+                ·{" "}
+                <span className="font-medium">
+                  Reviewed on {frontmatter.console} ({frontmatter.distribution})
+                </span>
+              </>
+            )}
           {reading && <> · {reading}</>}
         </p>
       </header>
