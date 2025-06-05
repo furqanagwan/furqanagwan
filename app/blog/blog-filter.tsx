@@ -1,13 +1,21 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import type { CompletePost } from "@/types";
+import type { CompletePost, RecipeType } from "@/types";
 
 const CATEGORIES = [
   { label: "All", value: "all" },
   { label: "Recipes", value: "recipes" },
   { label: "Holiday", value: "holiday" },
   { label: "Reviews", value: "reviews" },
+];
+
+const RECIPE_TYPES: { label: string; value: RecipeType | "all" }[] = [
+  { label: "All Types", value: "all" },
+  { label: "Breakfast", value: "Breakfast" },
+  { label: "Lunch", value: "Lunch" },
+  { label: "Dinner", value: "Dinner" },
+  { label: "Dessert", value: "Dessert" },
 ];
 
 function getCategory(post: CompletePost): string {
@@ -39,9 +47,26 @@ function renderMeta(post: CompletePost) {
       <>
         {" "}
         · 🍽️ {post.calories} cal · {protein}P {carbs}C {fat}F
+        {post.type && (
+          <>
+            {" "}
+            · <span className="font-medium">{post.type}</span>
+          </>
+        )}
       </>
     );
   }
+  return null;
+}
+
+function renderDiet(diet?: string[]) {
+  if (!diet || diet.length === 0) return null;
+  if (diet.includes("Vegan"))
+    return <span className="ml-2 text-green-600 font-semibold">🌱 Vegan</span>;
+  if (diet.includes("Vegetarian"))
+    return (
+      <span className="ml-2 text-orange-500 font-semibold">🥕 Vegetarian</span>
+    );
   return null;
 }
 
@@ -72,12 +97,17 @@ function renderStars(rating?: number) {
 
 export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
   const [category, setCategory] = useState("all");
+  const [type, setType] = useState<RecipeType | "all">("all");
   const [query, setQuery] = useState("");
 
   const filtered = posts
     .filter((post) => {
       if (category === "all") return true;
       return getCategory(post) === category;
+    })
+    .filter((post) => {
+      if (category !== "recipes" || type === "all") return true;
+      return post.type === type;
     })
     .filter((post) => {
       const q = query.toLowerCase();
@@ -93,7 +123,10 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
         <select
           className="px-2 py-1 rounded border text-sm bg-background"
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => {
+            setCategory(e.target.value);
+            setType("all"); // Reset type when changing category
+          }}
         >
           {CATEGORIES.map((cat) => (
             <option key={cat.value} value={cat.value}>
@@ -101,6 +134,21 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
             </option>
           ))}
         </select>
+
+        {category === "recipes" && (
+          <select
+            className="px-2 py-1 rounded border text-sm bg-background"
+            value={type}
+            onChange={(e) => setType(e.target.value as RecipeType | "all")}
+          >
+            {RECIPE_TYPES.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        )}
+
         <input
           className="px-2 py-1 rounded border text-sm ml-2"
           type="text"
@@ -134,6 +182,7 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
               )}
               <> · {post.readingTime}</>
               {renderMeta(post)}
+              {renderDiet(post.diet)}
             </p>
             {post.summary && (
               <p className="text-sm text-neutral-700 dark:text-neutral-300">

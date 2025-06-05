@@ -72,14 +72,34 @@ export default async function Post({ params }: { params: Promise<Params> }) {
               · by <strong>{frontmatter.author}</strong>
             </>
           )}
+          {frontmatter.type && (
+            <>
+              {" "}
+              · <span className="font-medium">{frontmatter.type}</span>
+            </>
+          )}
+          {frontmatter.diet?.includes("Vegan") && (
+            <>
+              {" "}
+              · <span className="text-green-600 font-semibold">🌱 Vegan</span>
+            </>
+          )}
+          {!frontmatter.diet?.includes("Vegan") &&
+            frontmatter.diet?.includes("Vegetarian") && (
+              <>
+                {" "}
+                ·{" "}
+                <span className="text-orange-500 font-semibold">
+                  🥕 Vegetarian
+                </span>
+              </>
+            )}
           {reading && <> · {reading}</>}
         </p>
       </header>
-
       <main className="max-w-5xl mx-auto w-full px-4 prose prose-neutral dark:prose-invert mb-20">
         <MDXRemote source={source} options={options} components={components} />
       </main>
-
       <footer className="max-w-5xl mx-auto w-full px-4 py-8 text-xs text-muted-foreground flex flex-col sm:flex-row gap-3 justify-between mt-auto border-t border-border">
         <span>© {new Date().getFullYear()} Furqan Agwan</span>
         <Link href="/colophon" className="hover:underline text-foreground">

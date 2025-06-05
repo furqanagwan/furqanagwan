@@ -1,3 +1,6 @@
+export type RecipeType = "Breakfast" | "Lunch" | "Dinner" | "Dessert";
+export type Diet = "Vegan" | "Vegetarian";
+
 export type Post = {
   title: string;
   date: string;
@@ -14,6 +17,8 @@ export type Post = {
     carbs: number;
     fat: number;
   };
+  type?: RecipeType;
+  diet?: Diet[];
   slug: string;
   stars?: number;
   readingTime?: string;
