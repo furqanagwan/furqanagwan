@@ -188,7 +188,6 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
   return (
     <section className="max-w-5xl mx-auto w-full px-4 mb-12">
       <div className="flex flex-wrap items-center gap-2 mb-6">
-        {/* Category dropdown */}
         <select
           className="px-2 py-1 rounded border text-sm bg-background"
           value={category}
@@ -204,8 +203,6 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
             </option>
           ))}
         </select>
-
-        {/* Recipe type radio toggles */}
         {category === "recipes" && (
           <div className="flex items-center gap-2">
             {RECIPE_TYPES.map((t) => (
@@ -231,8 +228,6 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
             ))}
           </div>
         )}
-
-        {/* Review type radio toggles */}
         {category === "reviews" && (
           <div className="flex items-center gap-2">
             {REVIEW_TYPES.map((t) => (
@@ -258,8 +253,6 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
             ))}
           </div>
         )}
-
-        {/* Search bar */}
         <input
           className="px-2 py-1 rounded border text-sm ml-2"
           type="text"
