@@ -5,8 +5,9 @@ import type { CompletePost, RecipeType } from "@/types";
 
 const CATEGORIES = [
   { label: "All", value: "all" },
-  { label: "Recipes", value: "recipes" },
+  { label: "Fitness", value: "fitness" },
   { label: "Holiday", value: "holiday" },
+  { label: "Recipes", value: "recipes" },
   { label: "Reviews", value: "reviews" },
 ];
 
@@ -18,7 +19,9 @@ const RECIPE_TYPES: { label: string; value: RecipeType | "all" }[] = [
   { label: "Dessert", value: "Dessert" },
 ];
 
+// Now: category comes from MDX frontmatter for fitness (and is undefined for legacy)
 function getCategory(post: CompletePost): string {
+  if (post.category) return post.category;
   if ("macros" in post && post.macros) return "recipes";
   if ("cities" in post && post.cities) return "holiday";
   return "reviews";
@@ -53,6 +56,15 @@ function renderMeta(post: CompletePost) {
             · <span className="font-medium">{post.type}</span>
           </>
         )}
+      </>
+    );
+  }
+  // Optional: add a meta badge for fitness type if desired
+  if (getCategory(post) === "fitness" && post.type) {
+    return (
+      <>
+        {" "}
+        · <span className="font-semibold text-blue-700">{post.type}</span>
       </>
     );
   }
@@ -134,7 +146,12 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
   const [type, setType] = useState<RecipeType | "all">("all");
   const [query, setQuery] = useState("");
 
-  const filtered = posts
+  // Sort posts: newest first (latest date first)
+  const sortedPosts = [...posts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+
+  const filtered = sortedPosts
     .filter((post) => {
       if (category === "all") return true;
       return getCategory(post) === category;
@@ -154,6 +171,7 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
   return (
     <section className="max-w-5xl mx-auto w-full px-4 mb-12">
       <div className="flex flex-wrap items-center gap-2 mb-6">
+        {/* Category dropdown */}
         <select
           className="px-2 py-1 rounded border text-sm bg-background"
           value={category}
@@ -169,20 +187,34 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
           ))}
         </select>
 
+        {/* Recipe type radio toggles */}
         {category === "recipes" && (
-          <select
-            className="px-2 py-1 rounded border text-sm bg-background"
-            value={type}
-            onChange={(e) => setType(e.target.value as RecipeType | "all")}
-          >
+          <div className="flex items-center gap-2">
             {RECIPE_TYPES.map((t) => (
-              <option key={t.value} value={t.value}>
+              <label
+                key={t.value}
+                className={`px-2 py-1 rounded border text-sm cursor-pointer transition-all
+                  ${
+                    type === t.value
+                      ? "bg-blue-100 border-blue-400 font-semibold text-blue-700"
+                      : "bg-background border"
+                  }`}
+              >
+                <input
+                  type="radio"
+                  className="sr-only"
+                  name="recipe-type"
+                  value={t.value}
+                  checked={type === t.value}
+                  onChange={() => setType(t.value as RecipeType | "all")}
+                />
                 {t.label}
-              </option>
+              </label>
             ))}
-          </select>
+          </div>
         )}
 
+        {/* Search bar */}
         <input
           className="px-2 py-1 rounded border text-sm ml-2"
           type="text"
