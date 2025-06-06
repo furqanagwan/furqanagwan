@@ -1,4 +1,5 @@
-export type RecipeType = "Breakfast" | "Lunch" | "Dinner" | "Dessert";
+export type RecipeType = "Breakfast" | "Lunch" | "Dinner" | "Dessert" | "Snack";
+export type ReviewType = "Movie" | "Game" | "Music";
 export type Diet = "Vegan" | "Vegetarian";
 
 export type PCDistribution = "Steam" | "Epic" | "Xbox PC";
@@ -28,7 +29,7 @@ export type Post = {
     carbs: number;
     fat: number;
   };
-  type?: RecipeType;
+  type?: RecipeType | ReviewType;
   diet?: Diet[];
   slug: string;
   stars?: number;

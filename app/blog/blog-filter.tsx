@@ -19,11 +19,16 @@ const RECIPE_TYPES: { label: string; value: RecipeType | "all" }[] = [
   { label: "Dessert", value: "Dessert" },
 ];
 
-// Now: category comes from MDX frontmatter for fitness (and is undefined for legacy)
+const REVIEW_TYPES = [
+  { label: "All Types", value: "all" },
+  { label: "Movies", value: "Movie" },
+  { label: "Games", value: "Game" },
+  { label: "Music", value: "Music" },
+];
+
 function getCategory(post: CompletePost): string {
   if (post.category) return post.category;
   if ("macros" in post && post.macros) return "recipes";
-  if ("cities" in post && post.cities) return "holiday";
   return "reviews";
 }
 
@@ -59,12 +64,19 @@ function renderMeta(post: CompletePost) {
       </>
     );
   }
-  // Optional: add a meta badge for fitness type if desired
   if (getCategory(post) === "fitness" && post.type) {
     return (
       <>
         {" "}
         · <span className="font-semibold text-blue-700">{post.type}</span>
+      </>
+    );
+  }
+  if (getCategory(post) === "reviews" && post.type) {
+    return (
+      <>
+        {" "}
+        · <span className="font-semibold text-purple-700">{post.type}</span>
       </>
     );
   }
@@ -97,7 +109,6 @@ function renderReviewMeta(post: CompletePost) {
     );
   }
 
-  // Fallback: if legacy, still show stars
   if (post.stars !== undefined) {
     return renderStars(post.stars);
   }
@@ -144,9 +155,11 @@ function renderStars(rating?: number) {
 export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
   const [category, setCategory] = useState("all");
   const [type, setType] = useState<RecipeType | "all">("all");
+  const [reviewType, setReviewType] = useState<
+    "all" | "Movie" | "Game" | "Music"
+  >("all");
   const [query, setQuery] = useState("");
 
-  // Sort posts: newest first (latest date first)
   const sortedPosts = [...posts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
@@ -159,6 +172,10 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
     .filter((post) => {
       if (category !== "recipes" || type === "all") return true;
       return post.type === type;
+    })
+    .filter((post) => {
+      if (category !== "reviews" || reviewType === "all") return true;
+      return post.type === reviewType;
     })
     .filter((post) => {
       const q = query.toLowerCase();
@@ -177,7 +194,8 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
           value={category}
           onChange={(e) => {
             setCategory(e.target.value);
-            setType("all"); // Reset type when changing category
+            setType("all");
+            setReviewType("all");
           }}
         >
           {CATEGORIES.map((cat) => (
@@ -207,6 +225,33 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
                   value={t.value}
                   checked={type === t.value}
                   onChange={() => setType(t.value as RecipeType | "all")}
+                />
+                {t.label}
+              </label>
+            ))}
+          </div>
+        )}
+
+        {/* Review type radio toggles */}
+        {category === "reviews" && (
+          <div className="flex items-center gap-2">
+            {REVIEW_TYPES.map((t) => (
+              <label
+                key={t.value}
+                className={`px-2 py-1 rounded border text-sm cursor-pointer transition-all
+                  ${
+                    reviewType === t.value
+                      ? "bg-purple-100 border-purple-400 font-semibold text-purple-700"
+                      : "bg-background border"
+                  }`}
+              >
+                <input
+                  type="radio"
+                  className="sr-only"
+                  name="review-type"
+                  value={t.value}
+                  checked={reviewType === t.value}
+                  onChange={() => setReviewType(t.value as any)}
                 />
                 {t.label}
               </label>
