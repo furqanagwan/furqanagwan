@@ -17,6 +17,7 @@ const RECIPE_TYPES: { label: string; value: RecipeType | "all" }[] = [
   { label: "Lunch", value: "Lunch" },
   { label: "Dinner", value: "Dinner" },
   { label: "Dessert", value: "Dessert" },
+  { label: "Snack", value: "Snack" },
 ];
 
 const REVIEW_TYPES = [

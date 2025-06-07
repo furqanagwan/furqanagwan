@@ -15,12 +15,12 @@ export const getMarkdownFiles = (): string[] => {
       const fullPath = path.join(dir, file);
       if (fs.statSync(fullPath).isDirectory()) return walkDir(fullPath);
       if (RE.test(file)) {
-        return [path.relative(path.join(process.cwd(), "data"), fullPath)];
+        return [path.relative(path.join(process.cwd(), "content"), fullPath)];
       }
       return [];
     });
 
-  return walkDir(path.join(process.cwd(), "data"));
+  return walkDir(path.join(process.cwd(), "content"));
 };
 
 /**
@@ -29,7 +29,7 @@ export const getMarkdownFiles = (): string[] => {
 export const getSource = async (
   filename: string,
 ): Promise<string | undefined> => {
-  const sourcePath = path.join(process.cwd(), "data", filename);
+  const sourcePath = path.join(process.cwd(), "content", filename);
   if (!fs.existsSync(sourcePath)) return;
   return await fs.promises.readFile(sourcePath, "utf8");
 };
@@ -38,7 +38,7 @@ export const getSource = async (
  * Reads a file from the data folder synchronously.
  */
 export const getSourceSync = (filename: string): string | undefined => {
-  const sourcePath = path.join(process.cwd(), "data", filename);
+  const sourcePath = path.join(process.cwd(), "content", filename);
   if (!fs.existsSync(sourcePath)) return;
   return fs.readFileSync(sourcePath, "utf8");
 };
@@ -56,7 +56,7 @@ export const getMarkdownFromSlug = async (
   | undefined
 > => {
   const filename = `${slug}.mdx`;
-  const fullPath = path.join(process.cwd(), "data", filename);
+  const fullPath = path.join(process.cwd(), "content", filename);
   if (!fs.existsSync(fullPath)) return;
 
   const source = await getSource(filename);
