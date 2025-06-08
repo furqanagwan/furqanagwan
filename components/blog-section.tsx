@@ -23,27 +23,27 @@ export default function Blog() {
       <h2 className="pt-2 border-t-2 border-neutral-900 dark:border-neutral-300 font-semibold text-sm leading-tight w-fit mb-2">
         Blog
       </h2>
-      <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-1 mb-4">
+      <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 mb-4">
         {posts.map((post) => (
-          <li key={post.slug} className="mb-4">
-            <h3>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="hover:underline text-foreground font-medium"
-              >
-                {post.title}
-              </Link>
-            </h3>
-            <p className="text-neutral-400 text-xs">
-              {formatDate(post.date)} · {post.author}
+          <li key={post.slug}>
+            <Link
+              href={`/blog/${post.slug}`}
+              className="hover:underline text-foreground font-medium text-base block mb-1"
+            >
+              {post.title}
+            </Link>
+            <div className="text-neutral-400 text-xs mb-1">
+              {formatDate(post.date)} &middot; {post.author}
+            </div>
+            <p className="text-neutral-500 text-sm line-clamp-3">
+              {post.summary}
             </p>
-            <p className="text-neutral-500 text-sm">{post.summary}</p>
           </li>
         ))}
       </ol>
       <p>
         <Link href="/blog" className="text-foreground hover:underline">
-          View all →
+          View all &rarr;
         </Link>
       </p>
     </section>

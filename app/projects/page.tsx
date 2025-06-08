@@ -1,33 +1,12 @@
 import { projects } from "@/data/projects";
-import Link from "next/link";
 import Footer from "@/components/footer";
 
-function InfoSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function TechnologyBadge({ tech }: { tech: string }) {
   return (
-    <section className="flex flex-col items-start gap-2 min-w-[160px]">
-      <h2 className="pt-2 border-t-2 border-black dark:border-white font-semibold text-[13px] leading-tight w-fit mb-0">
-        {title}
-      </h2>
-      <div className="text-sm text-foreground">{children}</div>
-    </section>
-  );
-}
-
-function formatTechnologies(tech: string[]) {
-  return tech.map((t) => (
-    <span
-      key={t}
-      className="px-2 py-0.5 text-xs rounded bg-gray-200 dark:bg-gray-800 text-black dark:text-white"
-    >
-      {t}
+    <span className="px-2 py-0.5 text-xs rounded bg-gray-200 dark:bg-gray-800 text-black dark:text-white">
+      {tech}
     </span>
-  ));
+  );
 }
 
 export default function ProjectsPage() {
@@ -44,9 +23,12 @@ export default function ProjectsPage() {
       </header>
 
       {/* Projects Grid */}
-      <section className="max-w-5xl mx-auto w-full px-4 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 mb-12">
+      <section
+        className="max-w-5xl mx-auto w-full px-4 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 mb-12"
+        aria-label="Projects"
+      >
         {projects.map((project) => (
-          <div key={project.title} className="flex flex-col gap-4">
+          <article key={project.title} className="flex flex-col gap-4">
             <h2 className="text-lg font-semibold text-foreground">
               {project.href ? (
                 <a
@@ -65,9 +47,10 @@ export default function ProjectsPage() {
               {project.description}
             </p>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 italic">
-              {project.role} {project.period && `(${project.period})`}
+              {project.role}
+              {project.period && ` (${project.period})`}
             </p>
-            <div>
+            <section>
               <h3 className="text-xs font-semibold text-foreground mb-1">
                 Achievements
               </h3>
@@ -76,16 +59,18 @@ export default function ProjectsPage() {
                   <li key={i}>{item}</li>
                 ))}
               </ul>
-            </div>
-            <div>
+            </section>
+            <section>
               <h3 className="text-xs font-semibold text-foreground mb-1">
                 Technologies
               </h3>
               <div className="flex flex-wrap gap-2">
-                {formatTechnologies(project.technologies)}
+                {project.technologies.map((t) => (
+                  <TechnologyBadge key={t} tech={t} />
+                ))}
               </div>
-            </div>
-          </div>
+            </section>
+          </article>
         ))}
       </section>
 

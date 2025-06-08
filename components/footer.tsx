@@ -11,9 +11,6 @@ export default function Footer() {
           icon={<Sun className="h-4 w-4 dark:hidden" />}
           darkIcon={<Moon className="h-4 w-4 hidden dark:inline" />}
         />
-        <Link href="/colophon" className="hover:underline text-foreground">
-          Colophon
-        </Link>
       </div>
     </footer>
   );

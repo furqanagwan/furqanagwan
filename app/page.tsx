@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import Human from "@/components/human-section";
 import InfoRow from "@/components/info-row";
 import History from "@/components/history-section";
+import AthleticStatsSection from "@/components/athletic-stats-section"; // Import here
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <History />
       </div>
       <Human />
+      <AthleticStatsSection /> {/* Add here */}
       <Footer />
     </div>
   );

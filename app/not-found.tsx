@@ -20,9 +20,6 @@ export default function NotFound() {
 
       <footer className="max-w-5xl mx-auto w-full px-4 py-8 text-xs text-muted-foreground flex flex-col sm:flex-row gap-3 justify-between mt-auto border-t border-border">
         <span>© {new Date().getFullYear()} Furqan Agwan</span>
-        <Link href="/colophon" className="hover:underline text-foreground">
-          Colophon
-        </Link>
       </footer>
     </main>
   );

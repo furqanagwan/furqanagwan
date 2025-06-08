@@ -26,7 +26,7 @@ export default function InfoRow() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="inline-block w-2 h-2 align-middle bg-[#ED1A3B]" />{" "}
+          <span className="inline-block w-2 h-2 align-middle bg-[#ED1A3B]" />
           BAE Systems
         </a>
       </InfoSection>
@@ -39,12 +39,12 @@ export default function InfoRow() {
         </Link>
       </InfoSection>
       <InfoSection title="Get in touch">
-        <a
-          href="mailto:furqanagwan@.outlook.com"
+        <Link
+          href="/contact"
           className="font-medium text-foreground hover:underline"
         >
-          furqanagwan@.outlook.com
-        </a>
+          Form
+        </Link>
       </InfoSection>
       <InfoSection title="Found elsewhere">
         <ul className="flex flex-wrap gap-3 text-sm">

@@ -1,8 +1,10 @@
 "use client";
-
 import { useState } from "react";
+import FactList, { Fact } from "./factlist";
 
 type UnitSystem = "imperial" | "metric";
+
+const birthDate = new Date(1996, 8, 5);
 
 function calculateAge(birthDate: Date): number {
   const today = new Date();
@@ -12,8 +14,6 @@ function calculateAge(birthDate: Date): number {
   if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) age--;
   return age;
 }
-
-const birthDate = new Date(1996, 8, 5); // 5th September 1996
 
 function formatHeight(unit: UnitSystem) {
   return unit === "imperial" ? `5'4"` : "162.5 cm";
@@ -28,9 +28,7 @@ function formatWingspan(unit: UnitSystem) {
 export default function HumanSection() {
   const [unit, setUnit] = useState<UnitSystem>("imperial");
 
-  // You can add any logic for conversion if you want to calculate dynamically
-
-  const humanFacts = [
+  const humanFacts: Fact[] = [
     { label: "Height", value: formatHeight(unit) },
     { label: "Weight", value: formatWeight(unit) },
     { label: "Wingspan", value: formatWingspan(unit) },
@@ -49,7 +47,6 @@ export default function HumanSection() {
         <h2 className="pt-2 border-t-2 border-neutral-900 dark:border-neutral-300 font-semibold text-sm leading-tight w-fit">
           Human
         </h2>
-        {/* Unit switch */}
         <div className="flex items-center gap-2">
           <button
             className={`text-xs px-2 py-1 rounded ${
@@ -76,18 +73,7 @@ export default function HumanSection() {
           </button>
         </div>
       </div>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-sm text-neutral-700 dark:text-neutral-200">
-        {humanFacts.map((fact) => (
-          <li key={fact.label} className="flex justify-between">
-            <span className="text-neutral-500 dark:text-neutral-400">
-              {fact.label}:
-            </span>
-            <span className="font-medium text-neutral-900 dark:text-neutral-100">
-              {fact.value}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <FactList facts={humanFacts} />
     </section>
   );
 }
