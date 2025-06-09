@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { CompletePost, RecipeType } from "@/types";
 
@@ -26,6 +26,21 @@ const REVIEW_TYPES = [
   { label: "Games", value: "Game" },
   { label: "Music", value: "Music" },
 ];
+
+function usePostsPerPage() {
+  const [postsPerPage, setPostsPerPage] = useState(6);
+  useEffect(() => {
+    function updatePostsPerPage() {
+      if (window.innerWidth >= 1024) setPostsPerPage(10);
+      else if (window.innerWidth >= 640) setPostsPerPage(8);
+      else setPostsPerPage(6);
+    }
+    updatePostsPerPage();
+    window.addEventListener("resize", updatePostsPerPage);
+    return () => window.removeEventListener("resize", updatePostsPerPage);
+  }, []);
+  return postsPerPage;
+}
 
 function getCategory(post: CompletePost): string {
   if (post.category) return post.category;
@@ -154,12 +169,14 @@ function renderStars(rating?: number) {
 }
 
 export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
+  const postsPerPage = usePostsPerPage();
   const [category, setCategory] = useState("all");
   const [type, setType] = useState<RecipeType | "all">("all");
   const [reviewType, setReviewType] = useState<
     "all" | "Movie" | "Game" | "Music"
   >("all");
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
 
   const sortedPosts = [...posts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
@@ -186,17 +203,38 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
       );
     });
 
+  const totalPages = Math.ceil(filtered.length / postsPerPage);
+  const paginatedPosts = filtered.slice(
+    (page - 1) * postsPerPage,
+    page * postsPerPage,
+  );
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
+    setType("all");
+    setReviewType("all");
+    setPage(1);
+  };
+  const handleTypeChange = (val: RecipeType | "all") => {
+    setType(val);
+    setPage(1);
+  };
+  const handleReviewTypeChange = (val: "all" | "Movie" | "Game" | "Music") => {
+    setReviewType(val);
+    setPage(1);
+  };
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    setPage(1);
+  };
+
   return (
     <section className="max-w-5xl mx-auto w-full px-4 mb-12">
       <div className="flex flex-wrap items-center gap-2 mb-6">
         <select
           className="px-2 py-1 rounded border text-sm bg-background"
           value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-            setType("all");
-            setReviewType("all");
-          }}
+          onChange={handleCategoryChange}
         >
           {CATEGORIES.map((cat) => (
             <option key={cat.value} value={cat.value}>
@@ -205,7 +243,7 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
           ))}
         </select>
         {category === "recipes" && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {RECIPE_TYPES.map((t) => (
               <label
                 key={t.value}
@@ -222,7 +260,9 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
                   name="recipe-type"
                   value={t.value}
                   checked={type === t.value}
-                  onChange={() => setType(t.value as RecipeType | "all")}
+                  onChange={() =>
+                    handleTypeChange(t.value as RecipeType | "all")
+                  }
                 />
                 {t.label}
               </label>
@@ -230,7 +270,7 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
           </div>
         )}
         {category === "reviews" && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {REVIEW_TYPES.map((t) => (
               <label
                 key={t.value}
@@ -247,7 +287,7 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
                   name="review-type"
                   value={t.value}
                   checked={reviewType === t.value}
-                  onChange={() => setReviewType(t.value as any)}
+                  onChange={() => handleReviewTypeChange(t.value as any)}
                 />
                 {t.label}
               </label>
@@ -259,12 +299,12 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
           type="text"
           placeholder="Search posts..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleQueryChange}
         />
       </div>
 
       <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 mb-4">
-        {filtered.map((post) => (
+        {paginatedPosts.map((post) => (
           <li key={post.slug}>
             <h3 className="flex items-center">
               <Link
@@ -298,6 +338,45 @@ export default function BlogFilter({ posts }: { posts: CompletePost[] }) {
 
       {filtered.length === 0 && (
         <p className="text-muted-foreground text-sm mt-8">No posts found.</p>
+      )}
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <nav
+          className="flex flex-wrap justify-center mt-4 gap-2"
+          aria-label="pagination"
+        >
+          <button
+            className="px-3 py-1 rounded border bg-background disabled:opacity-40"
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
+            Prev
+          </button>
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx + 1}
+              className={`px-3 py-1 rounded border
+                ${
+                  page === idx + 1
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-background"
+                }
+              `}
+              onClick={() => setPage(idx + 1)}
+              aria-current={page === idx + 1 ? "page" : undefined}
+            >
+              {idx + 1}
+            </button>
+          ))}
+          <button
+            className="px-3 py-1 rounded border bg-background disabled:opacity-40"
+            onClick={() => setPage(page + 1)}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+        </nav>
       )}
     </section>
   );

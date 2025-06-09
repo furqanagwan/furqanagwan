@@ -17,11 +17,11 @@ export default function BlogPage() {
       const source = getSourceSync(filename);
       if (!post || !source) return undefined;
       return {
-        ...post, // includes path, category, subcategory, etc
+        ...post,
         readingTime: readingTime(source, 100).text,
       };
     })
-    .filter((post): post is CompletePost => Boolean(post)); // this type guard now matches the type above
+    .filter((post): post is CompletePost => Boolean(post));
 
   return (
     <div className="min-h-screen flex flex-col">
