@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
   try {
     const file = await getMarkdownFromSlug(slug);
 
-    await delay(500); // iot see the loading state on the client
+    await delay(500);
 
     if (!file) {
       return Response.json({ error: "The source file could not found" });

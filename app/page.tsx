@@ -1,9 +1,9 @@
 import AboutMe from "@/components/about-me";
 import Blog from "@/components/blog-section";
 import Footer from "@/components/footer";
-import Human from "@/components/human-section";
 import InfoRow from "@/components/info-row";
 import History from "@/components/history-section";
+import Human from "@/components/human-section";
 import AthleticStatsSection from "@/components/athletic-stats-section";
 
 export default function Home() {
