@@ -25,8 +25,8 @@ export default function Home() {
         <AboutMe />
         <History />
       </div>
-      <Human />
-      <AthleticStatsSection />
+      {/* <Human />
+      <AthleticStatsSection /> */}
       <Footer />
     </div>
   );

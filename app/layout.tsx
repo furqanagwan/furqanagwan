@@ -42,7 +42,6 @@ export const metadata: Metadata = {
   },
 };
 
-// App root layout
 export default function RootLayout({
   children,
 }: {

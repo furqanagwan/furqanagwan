@@ -1,6 +1,5 @@
-import Link from "next/link";
-import ThemeToggle from "@/components/theme-toggle";
 import { Moon, Sun } from "lucide-react";
+import ThemeToggle from "./ui/theme-toggle";
 
 export default function Footer() {
   return (

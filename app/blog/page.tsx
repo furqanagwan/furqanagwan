@@ -4,7 +4,7 @@ import {
   getSourceSync,
 } from "@/utils/file";
 import { readingTime } from "reading-time-estimator";
-import BlogFilter from "./blog-filter";
+import BlogFilter from "../../components/blog-filter";
 import Footer from "@/components/footer";
 import type { CompletePost } from "@/types";
 

@@ -3,13 +3,12 @@ import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState, ReactNode } from "react";
 
-export default function ThemeToggle({
-  icon,
-  darkIcon,
-}: {
+interface ThemeToggleProps {
   icon?: ReactNode;
   darkIcon?: ReactNode;
-}) {
+}
+
+export default function ThemeToggle({ icon, darkIcon }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
