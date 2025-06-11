@@ -1,4 +1,5 @@
-export default function StarRating({ rating }: { rating: number }) {
+export default function StarRating({ rating }: { rating?: number }) {
+  if (typeof rating !== "number") return null;
   const full = "★";
   const half = "½";
   const empty = "☆";
