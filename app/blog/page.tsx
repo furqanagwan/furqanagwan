@@ -1,27 +1,34 @@
 import {
   getMarkdownFiles,
   getPostInformation,
-  getSourceSync,
+  getSource, // use async
 } from "@/utils/file";
 import { readingTime } from "reading-time-estimator";
 import BlogFilter from "../../components/blog-filter";
 import Footer from "@/components/footer";
 import type { CompletePost } from "@/types";
 
-export default function BlogPage() {
-  const files = getMarkdownFiles();
+export default async function BlogPage() {
+  // now async
+  const files = await getMarkdownFiles();
 
-  const posts: CompletePost[] = files
-    .map((filename) => {
-      const post = getPostInformation(filename);
-      const source = getSourceSync(filename);
+  // Gather all post info and content (async!)
+  const postsArr = await Promise.all(
+    files.map(async (filename) => {
+      const post = await getPostInformation(filename);
+      const source = await getSource(filename);
       if (!post || !source) return undefined;
       return {
         ...post,
         readingTime: readingTime(source, 100).text,
       };
-    })
-    .filter((post): post is CompletePost => Boolean(post));
+    }),
+  );
+
+  // Filter out any undefined posts
+  const posts: CompletePost[] = postsArr.filter((post): post is CompletePost =>
+    Boolean(post),
+  );
 
   return (
     <div className="min-h-screen flex flex-col">

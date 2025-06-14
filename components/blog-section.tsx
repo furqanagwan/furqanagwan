@@ -10,10 +10,12 @@ function formatDate(dateString: string) {
   });
 }
 
-export default function Blog() {
-  const files = getMarkdownFiles();
-  const posts = files
-    .map(getPostInformation)
+export default async function Blog() {
+  const files = await getMarkdownFiles();
+  const postArr = await Promise.all(
+    files.map(async (filename) => await getPostInformation(filename)),
+  );
+  const posts: CompletePost[] = postArr
     .filter((post): post is CompletePost => !!post)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 4);

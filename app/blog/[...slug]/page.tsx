@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { MDXRemote, type MDXRemoteOptions } from "next-mdx-remote-client/rsc";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
 import { readingTime } from "reading-time-estimator";
-import Link from "next/link";
 import { plugins, remarkRehypeOptions } from "@/utils/mdx";
 import { getMarkdownFromSlug, getMarkdownFiles } from "@/utils/file";
 import type { Frontmatter } from "@/types";
@@ -128,7 +127,7 @@ export default async function Post({ params }: { params: Promise<Params> }) {
 }
 
 export async function generateStaticParams() {
-  const files = getMarkdownFiles();
+  const files = await getMarkdownFiles();
 
   return files.map((filename) => ({
     slug: filename.replace(/\.mdx?$/, "").split("/"),

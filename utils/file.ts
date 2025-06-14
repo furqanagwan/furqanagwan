@@ -1,51 +1,20 @@
-import fs from "fs";
-import path from "path";
 import { getFrontmatter } from "next-mdx-remote-client/utils";
 import type { Post, Frontmatter } from "@/types";
 import { getMarkdownExtension } from ".";
+import { getRemoteMarkdownFiles, getRemoteSource } from "./remoteFile";
 
 export const RE = /\.mdx?$/;
 
-/**
- * Recursively walk through the 'data' directory to collect all .mdx/.md files.
- */
-export const getMarkdownFiles = (): string[] => {
-  const walkDir = (dir: string): string[] =>
-    fs.readdirSync(dir).flatMap((file) => {
-      const fullPath = path.join(dir, file);
-      if (fs.statSync(fullPath).isDirectory()) return walkDir(fullPath);
-      if (RE.test(file)) {
-        return [path.relative(path.join(process.cwd(), "content"), fullPath)];
-      }
-      return [];
-    });
-
-  return walkDir(path.join(process.cwd(), "content"));
+export const getMarkdownFiles = async (): Promise<string[]> => {
+  return getRemoteMarkdownFiles();
 };
 
-/**
- * Reads a file from the data folder asynchronously.
- */
 export const getSource = async (
   filename: string,
 ): Promise<string | undefined> => {
-  const sourcePath = path.join(process.cwd(), "content", filename);
-  if (!fs.existsSync(sourcePath)) return;
-  return await fs.promises.readFile(sourcePath, "utf8");
+  return getRemoteSource(filename);
 };
 
-/**
- * Reads a file from the data folder synchronously.
- */
-export const getSourceSync = (filename: string): string | undefined => {
-  const sourcePath = path.join(process.cwd(), "content", filename);
-  if (!fs.existsSync(sourcePath)) return;
-  return fs.readFileSync(sourcePath, "utf8");
-};
-
-/**
- * Gets a markdown source + format from a hyphenated slug like 'recipes-pancakes'
- */
 export const getMarkdownFromSlug = async (
   slug: string,
 ): Promise<
@@ -56,33 +25,25 @@ export const getMarkdownFromSlug = async (
   | undefined
 > => {
   const filename = `${slug}.mdx`;
-  const fullPath = path.join(process.cwd(), "content", filename);
-  if (!fs.existsSync(fullPath)) return;
-
   const source = await getSource(filename);
   if (!source) return;
-
   return {
     source,
     format: getMarkdownExtension(filename as `${string}.md` | `${string}.mdx`),
   };
 };
 
-/**
- * Parses frontmatter from a given markdown file.
- * Validates presence of required fields and returns typed Post data.
- * Adds category/subcategory info from path for filtering.
- */
-export const getPostInformation = (
+export const getPostInformation = async (
   filename: string,
-):
+): Promise<
   | (Post & {
       category?: string;
       subcategory?: string;
       path: string;
     })
-  | undefined => {
-  const source = getSourceSync(filename);
+  | undefined
+> => {
+  const source = await getSource(filename);
   if (!source) return;
 
   try {
