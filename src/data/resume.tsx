@@ -29,7 +29,7 @@ export const DATA = {
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/posts", icon: NotebookIcon, label: "Blog" },
   ],
   contact: {
     email: "hello@example.com",
@@ -135,8 +135,8 @@ export const DATA = {
       href: "https://www.beauchamp.org.uk/",
       degree: "A-Levels",
       logoUrl: "/beauchamp.jpg",
-      start: "2016",
-      end: "2021",
+      start: "2013",
+      end: "2015",
     },
     {
       school: "Manor High School",
