@@ -90,7 +90,7 @@ export const DATA = {
       badges: [],
       location: "Leicester, UK",
       title: "Search Steward",
-      logoUrl: "/lcfc.jpg",
+      logoUrl: "/lcfc.png",
       start: "Aug 2017",
       end: "Jun 2018",
       description:
@@ -114,7 +114,7 @@ export const DATA = {
       badges: [],
       location: "Leicester, UK",
       title: "Sales Assistant",
-      logoUrl: "/debenhams.png",
+      logoUrl: "/debenhams.jpg",
       start: "Sep 2014",
       end: "Feb 2016",
       description:

@@ -1,9 +1,11 @@
+// src/app/[category]/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { format } from "date-fns";
+
 import { getPost } from "@/lib/github";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
 import { mdxComponents } from "@/components/mdx/mdx";
-import { format } from "date-fns";
 
 interface BlogPostPageProps {
   params: {
@@ -20,10 +22,13 @@ export async function generateMetadata({
 
   return {
     title: post.title,
-    description: post.content.slice(0, 160).replace(/\n/g, " "), // crude excerpt
+    description:
+      post.excerpt ||
+      post.summary ||
+      post.content.slice(0, 160).replace(/\n/g, " "),
     openGraph: {
       title: post.title,
-      description: post.content.slice(0, 160),
+      description: post.excerpt || post.summary || post.content.slice(0, 160),
     },
   };
 }
@@ -33,14 +38,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) return notFound();
 
   return (
-    <article className="max-w-3xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+    <article className="max-w-3xl mx-auto py-12 px-4 space-y-6">
+      {/* Title */}
+      <h1 className="text-3xl font-bold tracking-tight">{post.title}</h1>
+
+      {/* Metadata: Date + Reading Time */}
       <p className="text-sm text-muted-foreground">
         {format(new Date(post.date), "MMMM dd, yyyy")} · {post.readTime}
       </p>
 
-      {post.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-2 mb-6">
+      {/* Tags */}
+      {post.tags?.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-2">
           {post.tags.map((tag) => (
             <span
               key={tag}
@@ -52,10 +61,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       )}
 
-      <div className="prose prose-neutral dark:prose-invert">
-        <MDXRemote source={post.content} components={mdxComponents} />
-      </div>
+      {/* MDX Content */}
+      <MDXRemote source={post.content} components={mdxComponents} />
 
+      {/* Footer */}
       <div className="mt-10 border-t pt-6 text-sm text-muted-foreground">
         <p>
           Enjoyed this post?{" "}

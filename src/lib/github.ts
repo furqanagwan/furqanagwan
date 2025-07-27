@@ -6,15 +6,21 @@ import readingTime from "reading-time";
 import { BlogPost } from "@/app/types/post";
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_PAT, // Make sure this is in your .env.local
-  userAgent: "furqanagwan/1.0.0",
+  auth: process.env.GITHUB_PAT,
+  userAgent: "furqanagwan",
 });
 
 const REPO_OWNER = "furqanagwan";
 const REPO_NAME = "furqanagwan-content";
 
-// 👇 Update this to match the actual folders in the repo
-const CATEGORY_FOLDERS = ["fitness", "holiday", "recipes"];
+const CATEGORY_FOLDERS = [
+  "fitness",
+  "travel",
+  "recipes",
+  "opinions",
+  "finance",
+  "career",
+];
 
 /**
  * Fetches a single post by category and slug from GitHub

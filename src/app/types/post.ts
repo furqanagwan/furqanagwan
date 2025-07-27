@@ -7,6 +7,7 @@ export interface BlogPost {
   content: string;
   readTime: string;
   excerpt?: string;
+  summary?: string;
   coverImage?: string;
   updatedAt?: string;
 }

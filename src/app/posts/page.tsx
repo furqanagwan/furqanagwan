@@ -1,5 +1,5 @@
 import BlurFade from "@/components/magicui/blur-fade";
-import { getAllPosts } from "@/lib/github"; // <-- renamed from `getBlogPosts`
+import { getAllPosts } from "@/lib/github";
 import Link from "next/link";
 
 export const metadata = {
@@ -27,13 +27,16 @@ export default async function BlogPage() {
           >
             <Link
               className="flex flex-col space-y-1 mb-4"
-              href={`/${post.category}/${post.slug}`} // <-- category included
+              href={`/${post.category}/${post.slug}`}
             >
               <div className="w-full flex flex-col">
                 <p className="tracking-tight font-semibold">{post.title}</p>
-                <p className="text-xs text-muted-foreground">
-                  {new Date(post.date).toLocaleDateString()}
-                </p>
+
+                <div className="text-xs text-muted-foreground flex gap-2">
+                  <span>{new Date(post.date).toLocaleDateString()}</span>
+                  {post.readTime && <span>• {post.readTime}</span>}
+                </div>
+
                 {post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-1">
                     {post.tags.map((tag) => (
