@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Furqan Agwan Portfolio" src="/screenshot.png" width="80%">
+  <img alt="Furqan Agwan Portfolio" src="/me.jpg" width="80%">
 </div>
 
 # Furqan Agwan – Portfolio 🚀

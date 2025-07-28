@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "dev": "bun next dev",
+    "build": "bun next build",
+    "start": "bun next start",
+    "lint": "bun next lint",
+    "format": "bun prettier --write .",
+    "format:check": "bun prettier --check ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.0",
