@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun next dev",
-    "build": "bun next build",
-    "start": "bun next start",
-    "lint": "bun next lint",
-    "format": "bun prettier --write .",
-    "format:check": "bun prettier --check ."
+    "dev": "pnpm next dev --turbopack",
+    "build": "pnpm next build",
+    "start": "pnpm next start",
+    "lint": "pnpm next lint",
+    "format": "pnpm prettier --write .",
+    "format:check": "pnpm prettier --check ."
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.0",
@@ -77,6 +77,9 @@
     "zod": "^4.0.10"
   },
   "devDependencies": {
+    "@content-collections/core": "^0.10.0",
+    "@content-collections/mdx": "^0.2.2",
+    "@content-collections/next": "^0.2.6",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.17.30",
     "@types/react": "^18.3.20",
