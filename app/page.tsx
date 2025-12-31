@@ -1,65 +1,140 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { allProjects } from "content-collections";
+import ArticleCard from "@/components/ui/ArticleCard";
+import { Button } from "@/components/ui/Button";
+import { getFeaturedPost, getRecentPosts } from "@/src/features/blog/utils";
+
+export const metadata = {
+  title: "Furqan Agwan - Cloud & Software Engineer",
+  description:
+    "Portfolio and blog of Furqan Agwan, a Cloud & Software Engineer based in the UK.",
+};
 
 export default function Home() {
+  const featuredPost = getFeaturedPost();
+  const recentPosts = getRecentPosts(3);
+
+  // Get featured MDX projects sorted by date (newest first)
+  const sortedFeaturedMdx = allProjects
+    .filter((p) => p.featured)
+    .sort(
+      (a, b) =>
+        new Date(b.date.split(" - ")[0]).getTime() -
+        new Date(a.date.split(" - ")[0]).getTime(),
+    )
+    .slice(0, 2);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="max-w-full mx-auto px-6 md:max-w-[1440px] md:px-8 py-12 md:py-20 space-y-24">
+      {/* Hero Section */}
+      <section className="max-w-4xl">
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 heading-display">
+          Documenting my journey in engineering & life.
+        </h1>
+        <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mb-10">
+          I&apos;m Furqan, a software engineer and curious mind based in the UK.
+          This site is my digital garden—a place where I share my projects,
+          writings, and the things I&apos;m learning along the way.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <Button size="lg" asChild className="rounded-full px-8">
+            <Link href="/projects">View Projects</Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            asChild
+            className="rounded-full px-8"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            <Link href="/contact">Get in Touch</Link>
+          </Button>
+        </div>
+      </section>
+
+      {/* Featured Projects */}
+      {sortedFeaturedMdx.length > 0 && (
+        <section>
+          <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
+              Selected Work
+            </h2>
+            <Link
+              href="/projects"
+              className="group flex items-center gap-1 text-sm font-medium hover:opacity-70 transition-opacity"
+            >
+              View all projects
+              <ArrowRight
+                size={16}
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
+            {sortedFeaturedMdx.map((project) => (
+              <ArticleCard
+                key={project._meta.path}
+                title={project.title}
+                category={project.category}
+                date={new Date(project.date.split(" - ")[0])
+                  .getFullYear()
+                  .toString()}
+                imageUrl={project.image}
+                href={`/projects/${project.id.split("/").pop()}`}
+                variant="featured"
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Latest Writing */}
+      <section>
+        <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
+            Latest Writing
+          </h2>
+          <Link
+            href="/blog"
+            className="group flex items-center gap-1 text-sm font-medium hover:opacity-70 transition-opacity"
+          >
+            Read the blog
+            <ArrowRight
+              size={16}
+              className="transition-transform group-hover:translate-x-1"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </Link>
         </div>
-      </main>
+
+        <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
+          {/* Featured Post (Latest) */}
+          {featuredPost && (
+            <div className="md:col-span-2">
+              <ArticleCard
+                title={featuredPost.title}
+                category={featuredPost.category}
+                date={featuredPost.date}
+                imageUrl={featuredPost.image}
+                href={`/blog/${featuredPost.slug}`}
+                variant="featured"
+              />
+            </div>
+          )}
+
+          {/* Recent Posts List */}
+          {recentPosts.map((post) => (
+            <ArticleCard
+              key={post._meta.path}
+              title={post.title}
+              category={post.category}
+              date={post.date}
+              imageUrl={post.image}
+              href={`/blog/${post.slug}`}
+              variant="default"
+            />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

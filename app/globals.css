@@ -1,26 +1,286 @@
-@import "tailwindcss";
+/* Using next/font for Inter - see layout.tsx */
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* OpenAI-style Font Stack */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-openai: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* OpenAI Light Mode - Clean white design */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 0%;
+
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 40%;
+
+  --accent: 0 0% 96%;
+  --accent-foreground: 0 0% 0%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 0 0% 0%;
+
+  --radius: 6px;
+}
+
+.dark {
+  /* OpenAI-style dark mode (minimalist) */
+  --background: 0 0% 0%; /* #000000 */
+  --foreground: 0 0% 100%;
+
+  --card: 0 0% 0%;
+  --card-foreground: 0 0% 100%;
+
+  --popover: 0 0% 0%;
+  --popover-foreground: 0 0% 100%;
+
+  --primary: 0 0% 100%;
+  --primary-foreground: 0 0% 0%;
+
+  --secondary: 0 0% 9%;
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 0 0% 9%;
+  --muted-foreground: 0 0% 60%;
+
+  --accent: 0 0% 9%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 0 0% 100%;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-openai);
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* OpenAI Typography Scale */
+.text-display-lg {
+  font-size: 45.6px;
+  line-height: 52.8px;
+  letter-spacing: -1.32px;
+  font-weight: 500;
+}
+
+.text-display-md {
+  font-size: 32px;
+  line-height: 36.5px;
+  letter-spacing: -0.64px;
+  font-weight: 500;
+}
+
+.text-display-sm {
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.48px;
+  font-weight: 500;
+}
+
+.text-body-lg {
+  font-size: 17px;
+  line-height: 28px;
+  letter-spacing: -0.17px;
+  font-weight: 400;
+}
+
+.text-body-md {
+  font-size: 14.3px;
+  line-height: 22.5px;
+  font-weight: 400;
+}
+
+.text-body-sm {
+  font-size: 14px;
+  line-height: 19.6px;
+  font-weight: 500;
+}
+
+.text-nav {
+  font-size: 14.3px;
+  line-height: 22.5px;
+  font-weight: 500;
+}
+
+/* OpenAI Button Styles */
+.btn-openai {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  height: 2.5rem;
+  min-height: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 14px;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 9999px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: opacity 0.15s ease;
+}
+
+.btn-openai:hover {
+  opacity: 0.7;
+}
+
+.btn-openai-primary {
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+.btn-openai-secondary {
+  background-color: transparent;
+  color: hsl(0 0% 0% / 0.4);
+}
+
+/* OpenAI Container */
+.container-openai {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-openai {
+    max-width: 1440px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* OpenAI Grid */
+.grid-openai {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .grid-openai {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Fade in animation */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* OpenAI link styles */
+.link-openai {
+  transition: opacity 0.15s ease;
+}
+
+.link-openai:hover {
+  opacity: 0.7;
+}
+
+/* Category pill */
+.category-pill {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: 19.6px;
+}
+
+/* Prose styles for MDX content */
+.prose-serif {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Apply to all horizontal scroll containers */
+nav[class*="overflow-x-auto"] {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+nav[class*="overflow-x-auto"]::-webkit-scrollbar {
+  display: none;
 }

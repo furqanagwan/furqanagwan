@@ -1,0 +1,1 @@
+../../.agent/rules/00-quick-reference.md
