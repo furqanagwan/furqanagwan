@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
-import { formatDate, getSortedPosts, getRelatedPosts } from "./utils";
+import { formatDate } from "./utils";
+import { getSortedPosts, getRelatedPosts } from "./queries";
 
 // Mock the content-collections module
 vi.mock("content-collections", () => ({

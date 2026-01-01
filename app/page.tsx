@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { allProjects } from "content-collections";
 import ArticleCard from "@/components/ui/ArticleCard";
 import { Button } from "@/components/ui/Button";
-import { getFeaturedPost, getRecentPosts } from "@/src/features/blog/utils";
+import { getFeaturedPost, getRecentPosts } from "@/src/features/blog/queries";
 
 export const metadata = {
   title: "Furqan Agwan - Cloud & Software Engineer",

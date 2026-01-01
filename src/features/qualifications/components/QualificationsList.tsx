@@ -2,11 +2,8 @@
 
 import { useState, useMemo } from "react";
 import { GraduationCap, Award, BadgeCheck, Briefcase } from "lucide-react";
-import {
-  getQualificationTypes,
-  getFilteredQualifications,
-  groupQualificationsByType,
-} from "../utils";
+import { getQualificationTypes, getFilteredQualifications } from "../queries";
+import { groupQualificationsByType } from "../utils";
 import { QualificationItem } from "./QualificationItem";
 import PostListItem from "@/components/ui/PostListItem";
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { getGroupedExperiences } from "./utils";
+import { getGroupedExperiences } from "./queries";
 
 // Mock the content-collections module
 vi.mock("content-collections", () => ({

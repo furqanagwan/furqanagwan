@@ -1,9 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
-import {
-  getQualificationTypes,
-  getFilteredQualifications,
-  groupQualificationsByType,
-} from "./utils";
+import { getQualificationTypes, getFilteredQualifications } from "./queries";
+import { groupQualificationsByType } from "./utils";
 
 // Mock the content-collections module
 vi.mock("content-collections", () => ({

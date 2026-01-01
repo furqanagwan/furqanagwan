@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { allPosts } from "content-collections";
-import { getPostBySlug, getRelatedPosts } from "@/src/features/blog/utils";
+import { getPostBySlug, getRelatedPosts } from "@/src/features/blog/queries";
 import {
   PostHeader,
   PostBody,

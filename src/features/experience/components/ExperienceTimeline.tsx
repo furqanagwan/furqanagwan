@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { getGroupedExperiences } from "../utils";
+import { getGroupedExperiences } from "../queries";
 import { ExperienceItem } from "./ExperienceItem";
 
 export function ExperienceTimeline() {

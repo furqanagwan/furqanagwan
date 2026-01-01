@@ -4,10 +4,18 @@ import { FEATURED_STARS_THRESHOLD } from "./constants";
 /**
  * Formats repo name to title case
  */
+export function formatRepoName(name: string): string {
+  if (!name) return "";
+  return name
+    .split(/[-_]/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 export function reposToProjects(repos: GitHubRepo[]): Project[] {
   return repos.map((repo) => ({
-    title: repo.name,
-    description: repo.description || "",
+    title: formatRepoName(repo.name),
+    description: repo.description || "No description available",
     category: repo.language || "Other",
     date: repo.pushed_at.split("T")[0], // YYYY-MM-DD
     liveUrl: repo.homepage || undefined,
