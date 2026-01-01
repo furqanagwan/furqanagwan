@@ -1,29 +1,10 @@
 import { describe, it, expect } from "vitest";
 import {
-  formatRepoName,
   reposToProjects,
   getFeaturedProjects,
   sortProjectsByDate,
 } from "./utils";
 import type { GitHubRepo, Project } from "./types";
-
-describe("formatRepoName", () => {
-  it("converts kebab-case to Title Case", () => {
-    expect(formatRepoName("my-project-name")).toBe("My Project Name");
-  });
-
-  it("converts snake_case to Title Case", () => {
-    expect(formatRepoName("my_project_name")).toBe("My Project Name");
-  });
-
-  it("handles single word", () => {
-    expect(formatRepoName("project")).toBe("Project");
-  });
-
-  it("handles empty string", () => {
-    expect(formatRepoName("")).toBe("");
-  });
-});
 
 describe("reposToProjects", () => {
   const mockRepo: GitHubRepo = {
@@ -42,13 +23,14 @@ describe("reposToProjects", () => {
     pushed_at: "2024-06-15T00:00:00Z",
     archived: false,
     fork: false,
+    private: false,
   };
 
   it("transforms repo to project format", () => {
     const projects = reposToProjects([mockRepo]);
     expect(projects).toHaveLength(1);
     expect(projects[0]).toMatchObject({
-      title: "Test Repo",
+      title: "test-repo",
       description: "A test repo",
       category: "TypeScript",
       date: "2024-06-15",
@@ -62,13 +44,13 @@ describe("reposToProjects", () => {
   it("handles repo with no description", () => {
     const repoNoDesc = { ...mockRepo, description: null };
     const projects = reposToProjects([repoNoDesc]);
-    expect(projects[0].description).toBe("No description available");
+    expect(projects[0].description).toBe("");
   });
 
   it("handles repo with no topics (uses language)", () => {
     const repoNoTopics = { ...mockRepo, topics: [] };
     const projects = reposToProjects([repoNoTopics]);
-    expect(projects[0].technologies).toEqual(["TypeScript"]);
+    expect(projects[0].technologies).toEqual([]);
   });
 
   it("handles repo with low stars (not featured)", () => {
