@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         hostname: "loremflickr.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.brandfetch.io",
+        pathname: "/**",
+      },
     ],
   },
   async headers() {

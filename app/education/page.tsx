@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GraduationCap } from "lucide-react";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { allQualifications } from "content-collections";
 
 export default function EducationPage() {
@@ -56,21 +57,31 @@ export default function EducationPage() {
                 <div className="grid md:grid-cols-4 gap-6 md:gap-10">
                   {/* Left - Icon & Date */}
                   <div className="md:col-span-1 flex flex-col gap-2">
-                    {edu.image ? (
-                      <div className="mb-3 rounded-lg overflow-hidden border border-border bg-white w-16 h-16 flex items-center justify-center p-1">
-                        <Image
-                          src={edu.image}
-                          alt={`${edu.institution} logo`}
-                          width={64}
-                          height={64}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                        <GraduationCap size={18} />
-                      </div>
-                    )}
+                    <div className="mb-3 rounded-lg overflow-hidden border border-border bg-white w-16 h-16 flex items-center justify-center p-1">
+                      <BrandLogo
+                        name={edu.institution}
+                        productLink={edu.useLocalLogo ? undefined : edu.link}
+                        brandDomain={
+                          edu.useLocalLogo ? undefined : edu.brandDomain
+                        }
+                        className="w-full h-full"
+                        fallback={
+                          edu.image ? (
+                            <Image
+                              src={edu.image}
+                              alt={`${edu.institution} logo`}
+                              width={64}
+                              height={64}
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <div className="flex items-center justify-center w-full h-full text-muted-foreground">
+                              <GraduationCap size={24} />
+                            </div>
+                          )
+                        }
+                      />
+                    </div>
                     <div
                       className={`flex items-center gap-2 text-muted-foreground mb-1 ${edu.image ? "" : "-mt-1"}`}
                     >

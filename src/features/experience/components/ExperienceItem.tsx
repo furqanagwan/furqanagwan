@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import type { GroupedExperience } from "../utils";
 
 interface ExperienceItemProps {
@@ -15,17 +16,29 @@ export function ExperienceItem({ group, index }: ExperienceItemProps) {
       <div className="grid md:grid-cols-4 gap-6 md:gap-10">
         {/* Left column - Company info */}
         <div className="md:col-span-1">
-          {group.image && (
-            <div className="mb-4 relative w-16 h-16 rounded-md overflow-hidden bg-white border border-border flex items-center justify-center p-1">
-              <Image
-                src={group.image}
-                alt={group.company}
-                width={64}
-                height={64}
-                className="object-contain w-full h-full"
-              />
-            </div>
-          )}
+          <div className="mb-4 relative w-16 h-16 rounded-md overflow-hidden bg-white border border-border flex items-center justify-center p-1">
+            <BrandLogo
+              name={group.company}
+              productLink={group.website}
+              brandDomain={group.website ? undefined : undefined} // brandDomain is inferred from productLink if not provided, or undefined
+              className="w-full h-full"
+              fallback={
+                group.image ? (
+                  <Image
+                    src={group.image}
+                    alt={group.company}
+                    width={64}
+                    height={64}
+                    className="object-contain w-full h-full"
+                  />
+                ) : (
+                  <span className="text-xs font-bold text-center">
+                    {group.company.substring(0, 2)}
+                  </span>
+                )
+              }
+            />
+          </div>
           <div className="sticky top-24">
             <p className="text-[13px] text-muted-foreground mb-1 font-medium tracking-wide uppercase">
               {group.startDate} – {group.endDate || "Present"}
@@ -57,9 +70,35 @@ export function ExperienceItem({ group, index }: ExperienceItemProps) {
                 )}
               </div>
 
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                {role.description}
-              </p>
+              {/* Clients - displayed as detailed block under the title */}
+              {role.clients && role.clients.length > 0 && (
+                <div className="flex flex-col gap-3 mb-6">
+                  {role.clients.map((client) => (
+                    <div key={client.name} className="flex items-start gap-3">
+                      <div className="w-12 h-12 shrink-0 rounded-md overflow-hidden bg-white border border-border flex items-center justify-center p-1 shadow-sm">
+                        <BrandLogo
+                          name={client.name}
+                          brandDomain={client.domain}
+                          className="w-full h-full"
+                          fallback={
+                            <span className="text-xs font-bold text-center">
+                              {client.name.substring(0, 2)}
+                            </span>
+                          }
+                        />
+                      </div>
+                      <div className="mt-0.5">
+                        <h4 className="font-bold text-base leading-tight">
+                          {client.name}
+                        </h4>
+                        <p className="text-muted-foreground text-sm mt-0.5">
+                          {client.location}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Achievements */}
               {role.achievements && role.achievements.length > 0 && (

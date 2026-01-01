@@ -19,4 +19,9 @@ export interface ExperienceRole {
   endDate?: string | null;
   description: string;
   image?: string;
+  clients?: {
+    name: string;
+    domain: string;
+    location: string;
+  }[];
 }

@@ -80,6 +80,16 @@ const experiences = defineCollection({
     achievements: z.array(z.string()),
     technologies: z.array(z.string()),
     image: z.string().optional(),
+    clients: z
+      .array(
+        z.object({
+          name: z.string(),
+          domain: z.string(),
+          location: z.string(),
+        }),
+      )
+      .optional(),
+    website: z.string().optional(),
     current: z.boolean().default(false),
     content: z.string().optional(),
   }),
@@ -112,6 +122,8 @@ const qualifications = defineCollection({
     description: z.string().optional(),
     image: z.string().optional(),
     link: z.string().optional(),
+    brandDomain: z.string().optional(),
+    useLocalLogo: z.boolean().default(false),
     content: z.string().optional(),
   }),
   transform: async (document, context) => {

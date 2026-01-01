@@ -6,6 +6,7 @@ export interface GroupedExperience {
   company: string;
   location: string;
   image?: string;
+  website?: string;
   startDate: string;
   endDate?: string | null;
   roles: Experience[];
@@ -46,9 +47,13 @@ export const getGroupedExperiences = (): GroupedExperience[] => {
         company: firstRole.company,
         location: firstRole.location,
         image: firstRole.image,
+        website: firstRole.website,
         startDate,
         endDate,
-        roles,
+        roles: roles.map((r) => ({
+          ...r,
+          clients: r.clients,
+        })),
       };
     })
     .sort((a, b) => {
