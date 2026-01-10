@@ -18,6 +18,6 @@ test.describe("Projects Page", () => {
   test("projects have links", async ({ page }) => {
     const firstProject = page.locator("article").first();
     // Verify there is a link (either to live site or repo)
-    await expect(firstProject.getByRole("link")).toBeVisible();
+    await expect(firstProject.getByRole("link").first()).toBeVisible();
   });
 });
