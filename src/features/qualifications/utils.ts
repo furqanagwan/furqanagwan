@@ -1,5 +1,4 @@
 import { allQualifications } from "content-collections";
-import { QUALIFICATION_CONSTANTS } from "./constants";
 
 export type Qualification = (typeof allQualifications)[number];
 

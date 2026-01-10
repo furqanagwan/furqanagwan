@@ -1,4 +1,4 @@
-import { allPosts, type Post } from "content-collections";
+
 import { BLOG_CATEGORIES, type BlogCategory } from "./constants";
 
 // Date formatting - long format

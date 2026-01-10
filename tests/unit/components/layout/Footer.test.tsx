@@ -8,6 +8,6 @@ describe("Footer", () => {
     expect(screen.getByText("Home")).toBeInTheDocument();
     expect(screen.getByText("Experience")).toBeInTheDocument();
     expect(screen.getByLabelText("GitHub")).toBeInTheDocument();
-    expect(screen.getByText(/All rights reserved/)).toBeInTheDocument();
+    expect(screen.getByText(/Furqan Agwan © 2015/)).toBeInTheDocument();
   });
 });

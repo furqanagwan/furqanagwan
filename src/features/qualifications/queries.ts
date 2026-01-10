@@ -1,6 +1,5 @@
 import { allQualifications } from "content-collections";
 import { QUALIFICATION_CONSTANTS } from "./constants";
-import { type Qualification } from "./utils";
 
 export const getQualificationTypes = () => {
   const uniqueTypes = new Set(allQualifications.map((q) => q.type));

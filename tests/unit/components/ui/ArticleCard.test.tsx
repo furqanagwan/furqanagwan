@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import ArticleCard from "@/components/ui/ArticleCard";
+import ArticleCard from "@/features/blog/components/ArticleCard";
 
 describe("ArticleCard", () => {
   const defaultProps = {

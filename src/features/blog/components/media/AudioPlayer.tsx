@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Play, Pause } from "lucide-react";
-import { cn } from "@/lib/utils"; // Assuming you have a cn utility, if not I'll just use template literals/clsx logic or local helper
 
 export function AudioPlayer({ src }: { src: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);

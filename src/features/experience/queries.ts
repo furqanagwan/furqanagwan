@@ -1,5 +1,4 @@
 import { allExperiences } from "content-collections";
-import { EXPERIENCE_CONSTANTS } from "./constants";
 import { type Experience, type GroupedExperience } from "./utils";
 
 export const getGroupedExperiences = (): GroupedExperience[] => {

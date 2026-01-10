@@ -77,11 +77,10 @@ export function QualificationsList() {
           <button
             key={type}
             onClick={() => setActiveType(type)}
-            className={`relative pb-2 text-[15px] transition-colors ${
-              activeType === type
+            className={`relative pb-2 text-[15px] transition-colors ${activeType === type
                 ? "text-foreground font-medium"
                 : "text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             {type}
             {activeType === type && (
@@ -102,7 +101,7 @@ export function QualificationsList() {
           </div>
 
           <div className="space-y-0">
-            {professionalCertifications.map((cert, index) => (
+            {professionalCertifications.map((cert) => (
               <PostListItem
                 key={cert.code}
                 title={cert.name}

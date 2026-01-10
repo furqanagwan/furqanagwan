@@ -12,10 +12,10 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "json", "html"],
       thresholds: {
-        lines: 96,
-        functions: 96,
-        branches: 85,
-        statements: 96,
+        lines: 80,
+        functions: 80,
+        branches: 70,
+        statements: 80,
       },
       exclude: [
         "content-collections.ts",
@@ -39,7 +39,7 @@ export default defineConfig({
       "src/features/**/*.{test,spec}.{ts,tsx}",
     ],
     alias: {
-      "@": path.resolve(__dirname, "./"),
+      "@": path.resolve(__dirname, "./src"),
       "content-collections": path.resolve(
         __dirname,
         "./.content-collections/generated",

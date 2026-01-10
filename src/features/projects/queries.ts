@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import type { GitHubRepo, Project } from "./types";
+import type { GitHubRepo } from "./types";
 
 /**
  * Internal function to fetch repos from GitHub API
