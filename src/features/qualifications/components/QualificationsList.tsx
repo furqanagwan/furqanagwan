@@ -77,10 +77,11 @@ export function QualificationsList() {
           <button
             key={type}
             onClick={() => setActiveType(type)}
-            className={`relative pb-2 text-[15px] transition-colors ${activeType === type
+            className={`relative pb-2 text-[15px] transition-colors ${
+              activeType === type
                 ? "text-foreground font-medium"
                 : "text-muted-foreground hover:text-foreground"
-              }`}
+            }`}
           >
             {type}
             {activeType === type && (

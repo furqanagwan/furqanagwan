@@ -1,4 +1,3 @@
-
 import { BLOG_CATEGORIES, type BlogCategory } from "./constants";
 
 // Date formatting - long format

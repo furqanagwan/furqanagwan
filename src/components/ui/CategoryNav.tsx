@@ -89,10 +89,11 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
               >
                 <Link
                   href={cat.href}
-                  className={`text-base tracking-[-0.16px] leading-5 text-nowrap rounded-bl rounded-br rounded-tl rounded-tr md:text-[17.6995px] md:tracking-[-0.176995px] md:leading-[23.1951px] ${cat.label === "All"
+                  className={`text-base tracking-[-0.16px] leading-5 text-nowrap rounded-bl rounded-br rounded-tl rounded-tr md:text-[17.6995px] md:tracking-[-0.176995px] md:leading-[23.1951px] ${
+                    cat.label === "All"
                       ? "text-foreground"
                       : "text-black/40 dark:text-white/40"
-                    }`}
+                  }`}
                 >
                   {cat.label}
                 </Link>

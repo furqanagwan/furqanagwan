@@ -70,6 +70,10 @@ export function ListIcon({ className }: { className?: string }) {
   );
 }
 
+import { cn } from "@/lib/utils";
+
+// ... existing code ...
+
 interface FilterSortBarProps {
   categories: {
     label: string;
@@ -85,6 +89,7 @@ interface FilterSortBarProps {
   basePath?: string;
   activeSort?: string;
   onSortChange?: (sort: string) => void;
+  className?: string;
 }
 
 export default function FilterSortBar({
@@ -95,6 +100,7 @@ export default function FilterSortBar({
   onSortChange,
   viewMode,
   onViewModeChange,
+  className,
 }: FilterSortBarProps) {
   const [isSortOpen, setIsSortOpen] = useState(false);
   const sortMenuRef = useRef<HTMLDivElement>(null);
@@ -112,7 +118,12 @@ export default function FilterSortBar({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-y-8 lg:gap-x-8 mb-12">
+    <div
+      className={cn(
+        "flex flex-col lg:flex-row lg:items-center justify-between gap-y-8 lg:gap-x-8 mb-12",
+        className,
+      )}
+    >
       {/* Category Navigation */}
       <nav className="[mask-image:linear-gradient(to_right,black_0%,black_calc(100%-32px),transparent_100%)] flex-1 overflow-x-auto overflow-y-hidden overscroll-x-contain py-1">
         <div className="relative min-w-fit pr-8">

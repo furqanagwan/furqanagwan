@@ -36,7 +36,7 @@ function BlogContent() {
 
   const [activeSort, setActiveSort] = useState("newest");
   const [viewMode, setViewMode] = useState<"grid" | "list">(
-    viewParam === "list" ? "list" : viewParam === "grid" ? "grid" : "grid"
+    viewParam === "list" ? "list" : viewParam === "grid" ? "grid" : "grid",
   );
   const [visibleCount, setVisibleCount] = useState(INITIAL_LIST_COUNT);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -112,8 +112,8 @@ function BlogContent() {
 
   const recentPosts = featuredPost
     ? filteredAndSortedPosts
-      .filter((p) => p.slug !== featuredPost.slug)
-      .slice(0, 3)
+        .filter((p) => p.slug !== featuredPost.slug)
+        .slice(0, 3)
     : filteredAndSortedPosts.slice(0, 3);
 
   const otherPosts = filteredAndSortedPosts.slice(
@@ -131,7 +131,7 @@ function BlogContent() {
   };
 
   const categoriesWithPosts = CATEGORY_ORDER.filter(
-    (cat) => postsByCategory[cat] && postsByCategory[cat].length > 0
+    (cat) => postsByCategory[cat] && postsByCategory[cat].length > 0,
   );
 
   return (
@@ -157,14 +157,15 @@ function BlogContent() {
         onViewModeChange={setViewMode}
         activeSort={activeSort}
         onSortChange={setActiveSort}
+        className="mb-0 md:mb-2"
       />
 
       {/* Grid View - Featured + Cards */}
       {viewMode === "grid" && featuredPost && (
         <div className="relative gap-x-6 flex flex-col min-h-[600px] gap-y-6">
-          <div className="mb-20 -mx-6 md:-mx-8">
+          <div className="mb-20">
             <div className="w-full">
-              <div className="gap-x-6 grid grid-cols-[repeat(1,minmax(0px,1fr))] max-w-none gap-y-6 w-full mx-0 px-0 md:grid-cols-[repeat(4,minmax(0px,1fr))] md:max-w-[1440px] md:mx-auto md:px-8">
+              <div className="gap-x-6 grid grid-cols-[repeat(1,minmax(0px,1fr))] max-w-none gap-y-6 w-full mx-0 px-0 md:grid-cols-[repeat(4,minmax(0px,1fr))] md:max-w-[1440px] md:mx-auto">
                 <div
                   className="static self-start col-end-auto col-start-auto grid-cols-[repeat(1,minmax(0px,1fr))] mb-6 top-auto md:sticky md:col-end-[span_3] md:col-start-[span_3] md:mb-0 md:top-16 animate-fade-in"
                   style={{ animationDelay: "0s", opacity: 0 }}
@@ -179,7 +180,7 @@ function BlogContent() {
                   />
                 </div>
 
-                <div className="gap-x-4 grid col-end-[span_1] col-start-[span_1] grid-cols-[repeat(1,minmax(0px,1fr))] gap-y-16 px-6 md:px-0">
+                <div className="gap-x-4 grid col-end-[span_1] col-start-[span_1] grid-cols-[repeat(1,minmax(0px,1fr))] gap-y-16 px-0">
                   {recentPosts.map((post, index) => (
                     <div
                       key={post.slug}
@@ -307,7 +308,10 @@ function BlogContent() {
                       <div
                         key={post.slug}
                         className="animate-fade-in"
-                        style={{ animationDelay: `${index * 0.1}s`, opacity: 0 }}
+                        style={{
+                          animationDelay: `${index * 0.1}s`,
+                          opacity: 0,
+                        }}
                       >
                         <ArticleCard
                           title={post.title}
