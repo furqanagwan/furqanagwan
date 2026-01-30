@@ -46,15 +46,9 @@ const professionalCertifications = [
 export function QualificationsList() {
   const [activeType, setActiveType] = useState("All");
 
-  // Add "Professional" to the types list
+  // Define the exact order of filter tabs: All, Education, Professional
   const types = useMemo(() => {
-    const baseTypes = getQualificationTypes();
-    if (!baseTypes.includes("Professional")) {
-      // Insert Professional after All
-      const allIndex = baseTypes.indexOf("All");
-      baseTypes.splice(allIndex + 1, 0, "Professional");
-    }
-    return baseTypes;
+    return ["All", "Education", "Professional"];
   }, []);
 
   const grouped = useMemo(() => {
@@ -93,8 +87,8 @@ export function QualificationsList() {
             key={type}
             onClick={() => setActiveType(type)}
             className={`relative pb-2 text-[15px] transition-colors ${activeType === type
-                ? "text-foreground font-medium"
-                : "text-muted-foreground hover:text-foreground"
+              ? "text-foreground font-medium"
+              : "text-muted-foreground hover:text-foreground"
               }`}
           >
             {type}
@@ -134,7 +128,7 @@ export function QualificationsList() {
           <div className="flex items-center gap-2 mb-6">
             <Briefcase size={18} className="text-muted-foreground" />
             <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-              Professional Certifications
+              Professional
             </h2>
           </div>
 
