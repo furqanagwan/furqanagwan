@@ -1,0 +1,1 @@
+../../.agent/rules/01-architecture-core.md

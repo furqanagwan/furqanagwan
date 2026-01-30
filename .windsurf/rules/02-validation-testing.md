@@ -1,0 +1,1 @@
+../../.agent/rules/02-validation-testing.md

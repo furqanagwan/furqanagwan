@@ -1,0 +1,104 @@
+name: Generate AI Blog Post
+
+on:
+    # Schedule: Run weekly on Sunday at 10:00 UTC
+    schedule:
+        - cron: "0 10 * * 0"
+
+    # Manual trigger with topic selection
+    workflow_dispatch:
+        inputs:
+            topic:
+                description: "Topic to generate post for"
+                required: false
+                default: "random"
+                type: choice
+                options:
+                    - random
+                    - technology
+                    - web-development
+                    - ai-ml
+                    - cybersecurity
+                    - career
+                    - productivity
+                    - leadership
+                    - health
+                    - fitness
+                    - mental-health
+                    - university
+                    - learning
+                    - personal-finance
+                    - crypto-web3
+                    - travel
+                    - food
+                    - startups
+                    - big-tech
+            dry_run:
+                description: "Dry run (preview only)"
+                required: false
+                default: false
+                type: boolean
+
+permissions:
+    contents: write
+    pull-requests: write
+
+jobs:
+    generate:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - name: Install dependencies
+              run: bun install --frozen-lockfile
+
+            - name: Generate blog post
+              id: generate
+              run: |
+                  ARGS=""
+                  if [ "${{ github.event.inputs.topic }}" != "" ]; then
+                    ARGS="$ARGS --topic=${{ github.event.inputs.topic }}"
+                  fi
+                  if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+                    ARGS="$ARGS --dry-run"
+                  fi
+                  bun run scripts/generate-post.ts $ARGS
+              env:
+                  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+                  NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+                  AI_PROVIDER: openai
+                  AI_MODEL: gpt-4o
+
+            - name: Create Pull Request
+              if: github.event.inputs.dry_run != 'true'
+              uses: peter-evans/create-pull-request@v6
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  commit-message: "📝 Add AI-generated blog post"
+                  title: "📝 New AI-generated blog post"
+                  body: |
+                      This PR contains an auto-generated blog post created by the AI Blog Post Generator.
+
+                      **Topic:** ${{ github.event.inputs.topic || 'random' }}
+                      **Generated:** ${{ github.run_number }}
+
+                      ## Review Checklist
+                      - [ ] Title is appropriate and engaging
+                      - [ ] Content is accurate and well-written
+                      - [ ] Tags and category are correct
+                      - [ ] Sources are properly attributed
+                      - [ ] No sensitive or inappropriate content
+
+                      > ⚠️ **Remember:** All AI-generated content should be reviewed before merging.
+                  branch: ai-post/run-${{ github.run_number }}
+                  labels: |
+                      ai-generated
+                      blog-post
+                      needs-review
