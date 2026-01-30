@@ -6,7 +6,7 @@ export function reposToProjects(repos: GitHubRepo[]): Project[] {
     title: repo.name,
     description: repo.description || "",
     category: repo.language || "Other",
-    date: repo.pushed_at.split("T")[0], // YYYY-MM-DD
+    date: repo.pushed_at.split("T")[0]!, // YYYY-MM-DD
     liveUrl: repo.homepage || undefined,
     githubUrl: repo.private ? "" : repo.html_url,
     technologies: repo.topics.length > 0 ? repo.topics : [],

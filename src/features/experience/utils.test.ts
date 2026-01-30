@@ -43,13 +43,13 @@ describe("getGroupedExperiences", () => {
   it("sorts roles within company by date (newest first)", () => {
     const grouped = getGroupedExperiences();
     const techCorp = grouped.find((g) => g.company === "TechCorp");
-    expect(techCorp?.roles[0].role).toBe("Senior Software Engineer");
-    expect(techCorp?.roles[1].role).toBe("Software Engineer");
+    expect(techCorp?.roles[0]!.role).toBe("Senior Software Engineer");
+    expect(techCorp?.roles[1]!.role).toBe("Software Engineer");
   });
 
   it("puts current roles (no endDate) first", () => {
     const grouped = getGroupedExperiences();
-    expect(grouped[0].endDate).toBeNull();
+    expect(grouped[0]!.endDate).toBeNull();
   });
 
   it("uses earliest startDate for group", () => {

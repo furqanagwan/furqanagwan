@@ -47,9 +47,9 @@ describe("formatDate", () => {
 describe("getSortedPosts", () => {
   it("returns posts sorted by date (newest first)", () => {
     const sorted = getSortedPosts();
-    expect(sorted[0].slug).toBe("post-2"); // June 2024
-    expect(sorted[1].slug).toBe("post-1"); // Jan 2024
-    expect(sorted[2].slug).toBe("post-3"); // Dec 2023
+    expect(sorted[0]!.slug).toBe("post-2"); // June 2024
+    expect(sorted[1]!.slug).toBe("post-1"); // Jan 2024
+    expect(sorted[2]!.slug).toBe("post-3"); // Dec 2023
   });
 });
 
@@ -57,7 +57,7 @@ describe("getRelatedPosts", () => {
   it("returns posts in same category excluding current", () => {
     const related = getRelatedPosts("post-1", "Tech");
     expect(related).toHaveLength(1);
-    expect(related[0].slug).toBe("post-2");
+    expect(related[0]!.slug).toBe("post-2");
   });
 
   it("handles array of slugs to exclude", () => {

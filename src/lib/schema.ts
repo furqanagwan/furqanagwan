@@ -6,24 +6,6 @@ interface WithContext {
   [key: string]: unknown;
 }
 
-interface Person {
-  name: string;
-  url: string;
-  jobTitle: string;
-  sameAs: string[];
-  knowsAbout: string[];
-}
-
-interface WebSite {
-  name: string;
-  url: string;
-  description: string;
-  author: {
-    "@type": string;
-    name: string;
-  };
-}
-
 export function generatePersonSchema(): WithContext {
   return {
     "@context": "https://schema.org",

@@ -15,7 +15,8 @@ export function EducationPageContent() {
       // Extract the last year in the string for sorting
       const getYear = (dateStr: string) => {
         const matches = dateStr.match(/(\d{4})/g);
-        return matches ? parseInt(matches[matches.length - 1]) : 0;
+        if (!matches || matches.length === 0) return 0;
+        return parseInt(matches[matches.length - 1]!, 10);
       };
       return getYear(b.date) - getYear(a.date);
     });

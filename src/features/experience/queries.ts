@@ -8,7 +8,7 @@ export const getGroupedExperiences = (): GroupedExperience[] => {
       if (!acc[exp.company]) {
         acc[exp.company] = [];
       }
-      acc[exp.company].push(exp);
+      acc[exp.company]!.push(exp);
       return acc;
     },
     {} as Record<string, Experience[]>,
@@ -24,13 +24,13 @@ export const getGroupedExperiences = (): GroupedExperience[] => {
       );
 
       // Earliest start date is from the last role (chronologically first)
-      const startDate = roles[roles.length - 1].startDate;
+      const startDate = roles[roles.length - 1]!.startDate;
 
       // Latest end date is from the first role (chronologically last)
       const isCurrent = roles.some((r) => !r.endDate);
-      const endDate = isCurrent ? null : roles[0].endDate;
+      const endDate = isCurrent ? null : roles[0]!.endDate;
 
-      const firstRole = roles[0];
+      const firstRole = roles[0]!;
 
       return {
         company: firstRole.company,

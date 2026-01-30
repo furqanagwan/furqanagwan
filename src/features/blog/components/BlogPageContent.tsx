@@ -77,7 +77,7 @@ function BlogContent() {
 
     // Sort within each category by date
     for (const cat of Object.keys(grouped)) {
-      grouped[cat].sort((a, b) => {
+      grouped[cat]!.sort((a, b) => {
         const dateA = new Date(a.date).getTime();
         const dateB = new Date(b.date).getTime();
         return activeSort === "newest" ? dateB - dateA : dateA - dateB;
@@ -112,8 +112,8 @@ function BlogContent() {
 
   const recentPosts = featuredPost
     ? filteredAndSortedPosts
-        .filter((p) => p.slug !== featuredPost.slug)
-        .slice(0, 3)
+      .filter((p) => p.slug !== featuredPost.slug)
+      .slice(0, 3)
     : filteredAndSortedPosts.slice(0, 3);
 
   const otherPosts = filteredAndSortedPosts.slice(

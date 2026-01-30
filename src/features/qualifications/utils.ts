@@ -6,7 +6,7 @@ export const groupQualificationsByType = (qualifications: Qualification[]) => {
   const groups: { [key: string]: Qualification[] } = {};
   qualifications.forEach((q) => {
     if (!groups[q.type]) groups[q.type] = [];
-    groups[q.type].push(q);
+    groups[q.type]!.push(q);
   });
   return groups;
 };

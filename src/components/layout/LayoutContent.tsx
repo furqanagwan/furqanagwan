@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSidebar } from "./SidebarContext";
 import Sidebar from "./Sidebar";
 import Header, { SidebarToggleIcon } from "./Header";
@@ -14,15 +15,14 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
     <>
       {/* Sticky Mobile Logo - Fixed outside the sliding content */}
       <div className="fixed top-0 left-0 h-[54px] flex items-center px-6 z-[60] md:hidden pointer-events-none">
-        <a
+        <Link
           href="/"
-          className={`text-[20px] font-bold tracking-tight pointer-events-auto transition-colors duration-300 ${
-            isMobileMenuOpen ? "text-white" : "text-black dark:text-white"
-          }`}
+          className={`text-[20px] font-bold tracking-tight pointer-events-auto transition-colors duration-300 ${isMobileMenuOpen ? "text-white" : "text-black dark:text-white"
+            }`}
           onClick={closeMobileMenu}
         >
           furqanagwan
-        </a>
+        </Link>
       </div>
 
       {/* Sticky Mobile Menu Toggle - Fixed outside the sliding content */}
@@ -31,9 +31,8 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
           type="button"
           aria-label="Toggle mobile menu"
           onClick={toggleMobileMenu}
-          className={`pointer-events-auto bg-transparent p-2 transition-colors duration-300 ${
-            isMobileMenuOpen ? "text-white" : "text-black dark:text-white"
-          }`}
+          className={`pointer-events-auto bg-transparent p-2 transition-colors duration-300 ${isMobileMenuOpen ? "text-white" : "text-black dark:text-white"
+            }`}
         >
           <SidebarToggleIcon
             className="w-[18px] h-[18px]"
@@ -49,10 +48,9 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
       <div
         className={`
           relative min-h-screen bg-background transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-50
-          ${
-            isMobileMenuOpen
-              ? "translate-x-[85%] md:translate-x-0 overflow-hidden h-screen"
-              : "translate-x-0"
+          ${isMobileMenuOpen
+            ? "translate-x-[85%] md:translate-x-0 overflow-hidden h-screen"
+            : "translate-x-0"
           }
         `}
       >
@@ -73,11 +71,10 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <div
           className={`
           grid grid-cols-[1fr] min-h-screen
-          ${
-            isOpen
+          ${isOpen
               ? "md:grid-cols-[0px_200px_1fr]"
               : "md:grid-cols-[0px_0px_1fr]"
-          }
+            }
         `}
         >
           {/* Column 1: Mobile Sidebar spacer (0px on desktop) */}

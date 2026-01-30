@@ -11,7 +11,7 @@ export const getSortedPosts = (): Post[] => {
 // Get the latest featured post (first post in sorted list)
 export const getFeaturedPost = (): Post | null => {
   const sorted = getSortedPosts();
-  return sorted.length > 0 ? sorted[0] : null;
+  return sorted.length > 0 ? sorted[0]! : null;
 };
 
 // Get recent posts (excluding the first/featured one)

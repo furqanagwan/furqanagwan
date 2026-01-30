@@ -44,19 +44,19 @@ describe("reposToProjects", () => {
   it("handles repo with no description", () => {
     const repoNoDesc = { ...mockRepo, description: null };
     const projects = reposToProjects([repoNoDesc]);
-    expect(projects[0].description).toBe("");
+    expect(projects[0]!.description).toBe("");
   });
 
   it("handles repo with no topics (uses language)", () => {
     const repoNoTopics = { ...mockRepo, topics: [] };
     const projects = reposToProjects([repoNoTopics]);
-    expect(projects[0].technologies).toEqual([]);
+    expect(projects[0]!.technologies).toEqual([]);
   });
 
   it("handles repo with low stars (not featured)", () => {
     const lowStarsRepo = { ...mockRepo, stargazers_count: 2, topics: [] };
     const projects = reposToProjects([lowStarsRepo]);
-    expect(projects[0].featured).toBe(false);
+    expect(projects[0]!.featured).toBe(false);
   });
 
   it("marks repo as featured if it has 'featured' topic", () => {
@@ -66,7 +66,7 @@ describe("reposToProjects", () => {
       topics: ["featured"],
     };
     const projects = reposToProjects([featuredTopicRepo]);
-    expect(projects[0].featured).toBe(true);
+    expect(projects[0]!.featured).toBe(true);
   });
 });
 
@@ -104,14 +104,14 @@ describe("getFeaturedProjects", () => {
   it("returns only featured projects sorted by date (newest first)", () => {
     const featured = getFeaturedProjects(projects);
     expect(featured).toHaveLength(2);
-    expect(featured[0].title).toBe("New Featured");
-    expect(featured[1].title).toBe("Old Featured");
+    expect(featured[0]!.title).toBe("New Featured");
+    expect(featured[1]!.title).toBe("Old Featured");
   });
 
   it("respects the limit parameter", () => {
     const featured = getFeaturedProjects(projects, 1);
     expect(featured).toHaveLength(1);
-    expect(featured[0].title).toBe("New Featured");
+    expect(featured[0]!.title).toBe("New Featured");
   });
 
   it("returns empty array when no featured projects", () => {
@@ -153,9 +153,9 @@ describe("sortProjectsByDate", () => {
 
   it("sorts projects newest first", () => {
     const sorted = sortProjectsByDate(projects);
-    expect(sorted[0].title).toBe("Newest");
-    expect(sorted[1].title).toBe("Middle");
-    expect(sorted[2].title).toBe("Oldest");
+    expect(sorted[0]!.title).toBe("Newest");
+    expect(sorted[1]!.title).toBe("Middle");
+    expect(sorted[2]!.title).toBe("Oldest");
   });
 
   it("does not mutate original array", () => {

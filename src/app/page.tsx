@@ -20,8 +20,8 @@ export default function Home() {
     .filter((p) => p.featured)
     .sort(
       (a, b) =>
-        new Date(b.date.split(" - ")[0]).getTime() -
-        new Date(a.date.split(" - ")[0]).getTime(),
+        new Date(b.date.split(" - ")[0]!).getTime() -
+        new Date(a.date.split(" - ")[0]!).getTime(),
     )
     .slice(0, 2);
 
@@ -76,11 +76,11 @@ export default function Home() {
                 key={project._meta.path}
                 title={project.title}
                 category={project.category}
-                date={new Date(project.date.split(" - ")[0])
+                date={new Date(project.date.split(" - ")[0]!)
                   .getFullYear()
                   .toString()}
                 imageUrl={project.image}
-                href={`/projects/${project.id.split("/").pop()}`}
+                href={`/projects/${project.id.split("/").pop()!}`}
                 variant="featured"
               />
             ))}

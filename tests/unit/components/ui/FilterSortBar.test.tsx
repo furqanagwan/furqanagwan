@@ -43,7 +43,7 @@ describe("FilterSortBar", () => {
     );
 
     // Open menu
-    fireEvent.click(screen.getAllByText("Sort")[0]);
+    fireEvent.click(screen.getAllByText("Sort")[0]!);
 
     // Click newest
     const newestInput = container.querySelector('input[value="newest"]');

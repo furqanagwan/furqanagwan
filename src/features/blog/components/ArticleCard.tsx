@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface ArticleCardProps {
   title: string;
@@ -82,6 +83,3 @@ export default function ArticleCard({
     </article>
   );
 }
-
-// Helper for class merging if not already imported
-import { cn } from "@/lib/utils";

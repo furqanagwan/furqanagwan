@@ -1,0 +1,6 @@
+node_modules
+.next
+.content-collections
+coverage
+playwright-report
+bun.lock

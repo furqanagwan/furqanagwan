@@ -16,6 +16,8 @@ export default function FeaturedHero({ posts }: FeaturedHeroProps) {
   if (posts.length === 0) return null;
 
   const mainPost = posts[0];
+  if (!mainPost) return null;
+
   const secondaryPosts = posts.slice(1, 3);
 
   return (

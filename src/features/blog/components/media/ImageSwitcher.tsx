@@ -21,6 +21,7 @@ export function ImageSwitcher({ items, className }: ImageSwitcherProps) {
   if (!items || items.length === 0) return null;
 
   const activeItem = items[activeIndex];
+  if (!activeItem) return null;
 
   return (
     <div className={cn("my-12 scroll-mt-20", className)}>
