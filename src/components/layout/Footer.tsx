@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { allPosts } from "content-collections";
 import { Github, Linkedin, Youtube } from "lucide-react";
 import LanguageSelector from "./LanguageSelector";
 
@@ -38,6 +39,32 @@ function DiscordIcon({ className }: { className?: string }) {
   );
 }
 
+// Generate dynamic blog links from active categories
+const getBlogLinks = () => {
+  const CATEGORY_ORDER = ["Career", "Finance", "Travel", "Food", "Health", "Technology", "Lifestyle"];
+  const categorySet = new Set<string>();
+
+  for (const post of allPosts) {
+    if (post.category) categorySet.add(post.category);
+  }
+
+  // Sort categories
+  const sortedCategories = Array.from(categorySet).sort((a, b) => {
+    const indexA = CATEGORY_ORDER.indexOf(a);
+    const indexB = CATEGORY_ORDER.indexOf(b);
+
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+    return a.localeCompare(b);
+  });
+
+  return sortedCategories.slice(0, 4).map(cat => ({
+    text: cat,
+    href: `/blog?category=${cat.toLowerCase()}`
+  }));
+};
+
 const footerColumns = [
   {
     heading: "Navigate",
@@ -57,12 +84,7 @@ const footerColumns = [
   },
   {
     heading: "Blog",
-    links: [
-      { text: "Career", href: "/blog?category=career" },
-      { text: "Travel", href: "/blog?category=travel" },
-      { text: "Food", href: "/blog?category=food" },
-      { text: "Health", href: "/blog?category=health" },
-    ],
+    links: getBlogLinks(),
   },
 ];
 

@@ -8,23 +8,52 @@ import FilterSortBar from "@/components/ui/FilterSortBar";
 import PostListItem from "@/components/ui/PostListItem";
 import ArticleCard from "./ArticleCard";
 
-const categories = [
-  { label: "All", href: "/blog" },
-  { label: "Career", href: "/blog?category=career" },
-  { label: "Finance", href: "/blog?category=finance" },
-  { label: "Food", href: "/blog?category=food" },
-  { label: "Travel", href: "/blog?category=travel" },
-  { label: "Health", href: "/blog?category=health" },
-];
-
-const CATEGORY_ORDER = ["Career", "Finance", "Travel", "Food", "Health"];
+// Priority order for category display (categories not in this list appear after)
+const CATEGORY_ORDER = ["Career", "Finance", "Travel", "Food", "Health", "Technology", "Lifestyle"];
 const INITIAL_LIST_COUNT = 6;
 const CARDS_PER_SECTION = 3;
+
+// Generate categories dynamically from actual posts
+function getCategoriesFromPosts() {
+  const categorySet = new Set<string>();
+
+  for (const post of allPosts) {
+    if (post.category) {
+      categorySet.add(post.category);
+    }
+  }
+
+  // Sort categories: first by CATEGORY_ORDER, then alphabetically for others
+  const sortedCategories = Array.from(categorySet).sort((a, b) => {
+    const indexA = CATEGORY_ORDER.indexOf(a);
+    const indexB = CATEGORY_ORDER.indexOf(b);
+
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+    return a.localeCompare(b);
+  });
+
+  // Build categories array with "All" first
+  const categories = [{ label: "All", href: "/blog" }];
+
+  for (const cat of sortedCategories) {
+    categories.push({
+      label: cat,
+      href: `/blog?category=${cat.toLowerCase()}`,
+    });
+  }
+
+  return categories;
+}
+
 
 function BlogContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
   const viewParam = searchParams.get("view");
+
+  const categories = useMemo(() => getCategoriesFromPosts(), []);
 
   const activeCategory = useMemo(() => {
     if (!categoryParam) return "All";
@@ -32,7 +61,7 @@ function BlogContent() {
       (c) => c.label.toLowerCase() === categoryParam.toLowerCase(),
     );
     return found ? found.label : "All";
-  }, [categoryParam]);
+  }, [categoryParam, categories]);
 
   const [activeSort, setActiveSort] = useState("newest");
   const [viewMode, setViewMode] = useState<"grid" | "list">(
