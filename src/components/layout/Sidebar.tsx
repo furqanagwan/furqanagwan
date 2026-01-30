@@ -28,10 +28,7 @@ const navSections: NavSection[] = [
   },
   {
     label: "About",
-    items: [
-      { label: "Qualifications", href: "/qualifications" },
-      { label: "Education", href: "/education" },
-    ],
+    items: [{ label: "Qualifications", href: "/qualifications" }],
   },
   { label: "Blog", href: "/blog" },
 ];
@@ -104,10 +101,9 @@ export default function Sidebar() {
                         relative text-base font-bold items-center justify-between leading-5 w-full rounded-[6.08px] 
                         md:text-sm md:font-medium md:leading-[22.96px]
                         before:block before:h-full before:pointer-events-none before:absolute before:w-full before:z-[-1] before:rounded-[6.08px] before:left-0 before:top-0
-                        ${
-                          sectionActive && !hasSubitems
-                            ? "before:bg-black/5 dark:before:bg-white/5"
-                            : "before:bg-transparent hover:before:bg-black/5 dark:hover:before:bg-white/5"
+                        ${sectionActive && !hasSubitems
+                          ? "before:bg-black/5 dark:before:bg-white/5"
+                          : "before:bg-transparent hover:before:bg-black/5 dark:hover:before:bg-white/5"
                         }
                         group
                       `}
@@ -137,11 +133,10 @@ export default function Sidebar() {
                     {/* Expandable Sub-items */}
                     {hasSubitems && (
                       <div
-                        className={`overflow-hidden transition-all duration-200 ease-in-out ${
-                          expanded
+                        className={`overflow-hidden transition-all duration-200 ease-in-out ${expanded
                             ? "max-h-40 opacity-100"
                             : "max-h-0 opacity-0"
-                        }`}
+                          }`}
                       >
                         <ul className="list-none pl-3 pt-1">
                           {section.items!.map((item) => {
@@ -152,10 +147,9 @@ export default function Sidebar() {
                                   className={`
                                     relative rounded-[6.08px]
                                     before:block before:h-full before:pointer-events-none before:absolute before:w-full before:z-[-1] before:rounded-[6.08px] before:left-0 before:top-0
-                                    ${
-                                      itemActive
-                                        ? "before:bg-black/5 dark:before:bg-white/5"
-                                        : "before:bg-transparent hover:before:bg-black/5 dark:hover:before:bg-white/5"
+                                    ${itemActive
+                                      ? "before:bg-black/5 dark:before:bg-white/5"
+                                      : "before:bg-transparent hover:before:bg-black/5 dark:hover:before:bg-white/5"
                                     }
                                   `}
                                 >

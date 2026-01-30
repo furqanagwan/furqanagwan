@@ -5,7 +5,8 @@ import { GraduationCap, Award, BadgeCheck, Briefcase } from "lucide-react";
 import { getQualificationTypes, getFilteredQualifications } from "../queries";
 import { groupQualificationsByType } from "../utils";
 import { QualificationItem } from "./QualificationItem";
-import PostListItem from "@/components/ui/PostListItem";
+import { EducationItem } from "./EducationItem";
+import { CertificationItem } from "./CertificationItem";
 
 const typeIcons = {
   Education: GraduationCap,
@@ -62,6 +63,20 @@ export function QualificationsList() {
     return groupQualificationsByType(filtered);
   }, [activeType]);
 
+  // Get sorted education items (newest first)
+  const educationItems = useMemo(() => {
+    if (activeType !== "All" && activeType !== "Education") return [];
+    const items = getFilteredQualifications("Education");
+    return items.sort((a, b) => {
+      const getYear = (dateStr: string) => {
+        const matches = dateStr.match(/(\d{4})/g);
+        if (!matches || matches.length === 0) return 0;
+        return parseInt(matches[matches.length - 1]!, 10);
+      };
+      return getYear(b.date) - getYear(a.date);
+    });
+  }, [activeType]);
+
   return (
     <div className="px-6 lg:px-10 py-8 max-w-4xl mx-auto">
       {/* Page Title */}
@@ -77,11 +92,10 @@ export function QualificationsList() {
           <button
             key={type}
             onClick={() => setActiveType(type)}
-            className={`relative pb-2 text-[15px] transition-colors ${
-              activeType === type
+            className={`relative pb-2 text-[15px] transition-colors ${activeType === type
                 ? "text-foreground font-medium"
                 : "text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             {type}
             {activeType === type && (
@@ -91,7 +105,30 @@ export function QualificationsList() {
         ))}
       </div>
 
-      {/* Professional Certifications */}
+      {/* Education Section - FIRST */}
+      {(activeType === "All" || activeType === "Education") &&
+        educationItems.length > 0 && (
+          <section className={activeType === "All" ? "mb-12" : ""}>
+            <div className="flex items-center gap-2 mb-6">
+              <GraduationCap size={18} className="text-muted-foreground" />
+              <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                Education
+              </h2>
+            </div>
+
+            <div className="space-y-0">
+              {educationItems.map((qual, index) => (
+                <EducationItem
+                  key={`${qual.title}-${index}`}
+                  qual={qual}
+                  index={index}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
+      {/* Professional Certifications - SECOND */}
       {(activeType === "All" || activeType === "Professional") && (
         <section className={activeType === "All" ? "mb-12" : ""}>
           <div className="flex items-center gap-2 mb-6">
@@ -102,48 +139,42 @@ export function QualificationsList() {
           </div>
 
           <div className="space-y-0">
-            {professionalCertifications.map((cert) => (
-              <PostListItem
-                key={cert.code}
-                title={cert.name}
-                description={cert.description}
-                category={cert.issuer}
-                code={cert.code}
-                date={cert.date}
-                className="animate-fade-in"
-              />
+            {professionalCertifications.map((cert, index) => (
+              <CertificationItem key={cert.code} cert={cert} index={index} />
             ))}
           </div>
         </section>
       )}
 
-      {/* Qualifications by type (not showing when Professional is selected) */}
+      {/* Other Qualifications by type (excluding Education which is handled above) */}
       {activeType !== "Professional" && (
         <div className="space-y-12">
-          {Object.entries(grouped).map(([type, items]) => {
-            const Icon = typeIcons[type as keyof typeof typeIcons] || Award;
+          {Object.entries(grouped)
+            .filter(([type]) => type !== "Education")
+            .map(([type, items]) => {
+              const Icon = typeIcons[type as keyof typeof typeIcons] || Award;
 
-            return (
-              <section key={type}>
-                <div className="flex items-center gap-2 mb-6">
-                  <Icon size={18} className="text-muted-foreground" />
-                  <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                    {type}
-                  </h2>
-                </div>
+              return (
+                <section key={type}>
+                  <div className="flex items-center gap-2 mb-6">
+                    <Icon size={18} className="text-muted-foreground" />
+                    <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                      {type}
+                    </h2>
+                  </div>
 
-                <div className="space-y-0">
-                  {items.map((qual, index) => (
-                    <QualificationItem
-                      key={`${qual.title}-${index}`}
-                      qual={qual}
-                      index={index}
-                    />
-                  ))}
-                </div>
-              </section>
-            );
-          })}
+                  <div className="space-y-0">
+                    {items.map((qual, index) => (
+                      <QualificationItem
+                        key={`${qual.title}-${index}`}
+                        qual={qual}
+                        index={index}
+                      />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
         </div>
       )}
     </div>

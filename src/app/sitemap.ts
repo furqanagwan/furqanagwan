@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     "",
     "/experiences",
-    "/education",
     "/qualifications",
     "/projects",
     "/blog",

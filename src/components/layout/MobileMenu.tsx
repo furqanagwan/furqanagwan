@@ -28,10 +28,7 @@ const navSections: NavSection[] = [
   },
   {
     label: "About",
-    items: [
-      { label: "Qualifications", href: "/qualifications" },
-      { label: "Education", href: "/education" },
-    ],
+    items: [{ label: "Qualifications", href: "/qualifications" }],
   },
   { label: "Blog", href: "/blog" },
 ];
@@ -104,11 +101,10 @@ export default function MobileMenu() {
                         />
                       </button>
                       <div
-                        className={`overflow-hidden transition-all duration-200 ease-in-out ${
-                          expanded
+                        className={`overflow-hidden transition-all duration-200 ease-in-out ${expanded
                             ? "max-h-40 opacity-100"
                             : "max-h-0 opacity-0"
-                        }`}
+                          }`}
                       >
                         <ul className="list-none pl-4 pt-2 space-y-3">
                           {section.items!.map((item) => (

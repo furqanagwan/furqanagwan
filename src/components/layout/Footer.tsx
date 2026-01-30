@@ -52,7 +52,6 @@ const footerColumns = [
     heading: "About",
     links: [
       { text: "Experience", href: "/experiences" },
-      { text: "Education", href: "/education" },
       { text: "Qualifications", href: "/qualifications" },
     ],
   },
