@@ -16,7 +16,7 @@ test("hero section is visible", async ({ page }) => {
   ).toBeVisible();
 
   // Check for the CTA button
-  await expect(page.getByRole("link", { name: "View Projects" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "View projects" })).toBeVisible();
 });
 
 test("navigation works", async ({ page }) => {

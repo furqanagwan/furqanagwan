@@ -31,10 +31,12 @@ const posts = defineCollection({
   }),
   transform: async (document, context) => {
     const mdx = await compileMDX(context, document);
+    const words = (document.content ?? "").trim().split(/\s+/).filter(Boolean).length;
+    const minutes = Math.max(1, Math.round(words / 220));
     return {
       ...document,
       slug: document._meta.path.split("/").pop(),
-      readTime: "5 min read",
+      readTime: `${minutes} min read`,
       mdx,
     };
   },

@@ -2,35 +2,39 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import Header from "@/components/layout/Header";
 
-// Mock dependencies
-const mockToggle = vi.fn();
 const mockToggleMobileMenu = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/",
+}));
 
 vi.mock("@/components/layout/SidebarContext", () => ({
   useSidebar: () => ({
-    toggle: mockToggle,
     toggleMobileMenu: mockToggleMobileMenu,
+    isMobileMenuOpen: false,
   }),
 }));
 
 describe("Header", () => {
-  it("renders logo and links", () => {
+  it("renders the wordmark and primary nav", () => {
     render(<Header />);
     expect(screen.getByText("furqanagwan")).toBeInTheDocument();
-    expect(screen.getByText("Contact")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Blog" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Projects" }),
+    ).toBeInTheDocument();
   });
 
-  it("handles sidebar toggle click", () => {
+  it("renders the primary CTA", () => {
     render(<Header />);
-    const toggleBtn = screen.getByLabelText("Toggle navigation sidebar");
-    fireEvent.click(toggleBtn);
-    expect(mockToggle).toHaveBeenCalled();
+    expect(
+      screen.getByRole("link", { name: /get in touch/i }),
+    ).toBeInTheDocument();
   });
 
-  it("handles mobile menu toggle click", () => {
+  it("toggles the mobile menu when the hamburger is clicked", () => {
     render(<Header />);
-    const mobileToggle = screen.getByLabelText("Toggle mobile menu");
-    fireEvent.click(mobileToggle);
+    fireEvent.click(screen.getByLabelText("Open menu"));
     expect(mockToggleMobileMenu).toHaveBeenCalled();
   });
 });

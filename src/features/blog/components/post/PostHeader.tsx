@@ -1,10 +1,11 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { formatDate } from "../../utils";
 import { ShareButton } from "../header/ShareButton";
 import { AudioPlayer } from "../media/AudioPlayer";
 import { CTAButtons } from "../header/CTAButtons";
 import { HeaderCodeSnippet } from "../header/HeaderCodeSnippet";
+import { getCategoryGradient } from "@/lib/categories";
 
 interface CTAButton {
   label: string;
@@ -17,6 +18,8 @@ interface PostHeaderProps {
   description: string;
   date: string;
   category: string;
+  readTime?: string;
+  slug?: string;
   audio?: string;
   image?: string;
   heroVideo?: string;
@@ -29,135 +32,126 @@ export function PostHeader({
   description,
   date,
   category,
+  readTime,
+  slug,
   audio,
   image,
   heroVideo,
   ctaButtons,
   headerCodeSnippet,
 }: PostHeaderProps) {
+  const hasHero = Boolean(image || heroVideo);
+  const gradient = getCategoryGradient(category, slug ?? title);
+
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 md:px-8">
-      <div className="grid grid-cols-12 w-full">
-        <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3 text-center">
-          {/* Main Content Container */}
-          <div className="relative flex flex-col items-center text-center w-full">
-            {/* Date and Category */}
-            <div className="mb-8 gap-2 flex flex-wrap justify-center items-center">
-              <span className="text-[13px] font-medium leading-[20px] text-black dark:text-white">
-                {formatDate(date)}
-              </span>
-              <Link
-                href={`/blog?category=${category.toLowerCase()}`}
-                className="transition ease-out duration-250 text-[13px] font-medium leading-[20px] text-black/50 hover:text-black dark:text-white/50 dark:hover:text-white"
-                aria-label={`View all posts in ${category}`}
-              >
-                {category}
-              </Link>
-            </div>
+      {/* Centered meta + title + subtitle */}
+      <div className="max-w-[56rem] mx-auto text-center pt-8 md:pt-16">
+        <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm font-medium mb-8">
+          <span className="text-foreground">{formatDate(date)}</span>
+          <span aria-hidden="true" className="text-muted-foreground">·</span>
+          <Link
+            href={`/blog?category=${category.toLowerCase()}`}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            aria-label={`View all posts in ${category}`}
+          >
+            {category}
+          </Link>
+          {readTime && (
+            <>
+              <span aria-hidden="true" className="text-muted-foreground">·</span>
+              <span className="text-muted-foreground">{readTime}</span>
+            </>
+          )}
+        </div>
 
-            {/* Title - Using OpenAI's exact fluid typography */}
-            <h1
-              className="max-w-[62.5rem] text-balance scroll-mt-[calc(var(--header-h)+var(--toc-button-h))] text-black dark:text-white"
-              style={{
-                fontSize:
-                  "clamp(2rem, calc(2rem + 2 * ((100vw - 23.4375rem) / 66.5625)), 4rem)",
-                lineHeight:
-                  "clamp(2.28rem, calc(2.28rem + 1.72 * ((100vw - 23.4375rem) / 66.5625)), 4rem)",
-                letterSpacing: "-0.03em",
-                fontWeight: 500,
-              }}
-            >
+        <h1
+          className="text-balance text-foreground font-medium tracking-[-0.03em] leading-[1.02]"
+          style={{
+            fontSize: "clamp(2.5rem, 1.6rem + 4vw, 5rem)",
+          }}
+        >
+          {title}
+        </h1>
+
+        {description && (
+          <p className="mt-6 text-balance text-[17px] md:text-[19px] leading-[1.55] text-muted-foreground max-w-2xl mx-auto">
+            {description}
+          </p>
+        )}
+
+        {(ctaButtons?.length || headerCodeSnippet) && (
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+            {ctaButtons && ctaButtons.length > 0 && (
+              <CTAButtons buttons={ctaButtons} />
+            )}
+            {headerCodeSnippet && (
+              <HeaderCodeSnippet code={headerCodeSnippet} />
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Hero: image, video, or category gradient */}
+      <div className="mt-12 md:mt-16 w-full">
+        {heroVideo ? (
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-muted">
+            <iframe
+              src={heroVideo}
+              title={title}
+              className="absolute inset-0 w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        ) : image ? (
+          <div className="relative w-full aspect-[16/9] md:aspect-[2.4/1] rounded-2xl overflow-hidden bg-muted">
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
+        ) : (
+          <div
+            className="gradient-card w-full aspect-[16/9] md:aspect-[2.4/1] flex items-center justify-center p-6"
+            style={{ background: gradient }}
+            aria-hidden="true"
+          >
+            <span className="gradient-hero-pill text-[20px] md:text-[28px] max-w-[80%] text-center">
               {title}
-            </h1>
-
-            {/* Description/Subtitle - Using OpenAI's exact typography */}
-            {description && (
-              <div className="mt-3 w-full">
-                <p
-                  className="text-balance text-black dark:text-white text-center"
-                  style={{
-                    fontSize: "1.0625rem",
-                    lineHeight: "1.75rem",
-                    letterSpacing: "-0.01em",
-                    fontWeight: 400,
-                  }}
-                >
-                  {description}
-                </p>
-              </div>
-            )}
-
-            {/* CTA Buttons & Code Snippet */}
-            {(ctaButtons?.length || headerCodeSnippet) && (
-              <div className="mt-8 min-h-[40px] flex justify-center w-full">
-                <div className="gap-2 flex flex-row flex-wrap items-center justify-center">
-                  {ctaButtons && ctaButtons.length > 0 && (
-                    <CTAButtons buttons={ctaButtons} />
-                  )}
-                  {headerCodeSnippet && (
-                    <HeaderCodeSnippet code={headerCodeSnippet} />
-                  )}
-                </div>
-              </div>
-            )}
+            </span>
           </div>
+        )}
+      </div>
+
+      {/* Listen / Share bar */}
+      <div className="pt-10 md:pt-12 max-w-3xl mx-auto">
+        <div className="pt-4 border-t border-border flex items-center justify-between gap-4">
+          {audio ? (
+            <div className="flex-1 min-w-0">
+              <AudioPlayer src={audio} />
+            </div>
+          ) : (
+            <span className="text-sm text-muted-foreground">
+              {readTime ?? ""}
+            </span>
+          )}
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 text-sm font-medium hover:text-muted-foreground transition-colors"
+          >
+            <ShareButton className="w-4 h-4" />
+            <span>Share</span>
+          </button>
         </div>
       </div>
 
-      {/* Hero Media (Image or Video) */}
-      {(image || heroVideo) && (
-        <div className="mt-8 md:mt-12 w-full">
-          {heroVideo ? (
-            <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black/5 dark:bg-white/5">
-              <iframe
-                src={heroVideo}
-                title="Video"
-                className="absolute inset-0 w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          ) : image ? (
-            <div className="relative w-full aspect-[16/9] md:aspect-[2.4/1] overflow-hidden bg-black/5 dark:bg-white/5">
-              <Image
-                src={image}
-                alt={title}
-                fill
-                className="object-cover"
-                priority
-                sizes="100vw"
-              />
-            </div>
-          ) : null}
-        </div>
-      )}
-
-      {/* Share Bar & Meta - Divider */}
-      <div className="pt-12 md:pt-16 w-full grid grid-cols-12">
-        <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-6 lg:col-start-4">
-          <div className="pt-3 border-t border-black/10 dark:border-white/10">
-            <div className="flex justify-between items-center">
-              {/* Audio Player if present */}
-              {audio && (
-                <div className="flex-1 mr-4">
-                  <AudioPlayer src={audio} />
-                </div>
-              )}
-
-              {/* Share Button matched to OpenAI style - Left aligned */}
-              <div className={audio ? "" : "mr-auto"}>
-                <button
-                  type="button"
-                  className="flex items-center gap-2 text-[14px] font-medium hover:text-black/60 dark:hover:text-white/60 transition-colors"
-                >
-                  <ShareButton className="w-4 h-4" />
-                  <span>Share</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Spacer when no hero to keep rhythm tight */}
+      {!hasHero && <div className="h-2" aria-hidden="true" />}
     </div>
   );
 }
