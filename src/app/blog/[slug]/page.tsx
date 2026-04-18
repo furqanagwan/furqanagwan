@@ -60,6 +60,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           description={post.description}
           date={post.date}
           category={post.category}
+          readTime={post.readTime}
+          slug={post.slug}
           audio={post.audio}
           image={post.image}
           heroVideo={post.heroVideo}

@@ -7,9 +7,8 @@ test.describe("Blog Page", () => {
 
   test("loads successfully", async ({ page }) => {
     await expect(page).toHaveTitle(/Furqan Agwan/);
-    // Be specific about the heading level (h2 is used for page title in BlogPage)
     await expect(
-      page.getByRole("heading", { name: "Blog", level: 2 }),
+      page.getByRole("heading", { name: "Blog", level: 1 }),
     ).toBeVisible();
   });
 

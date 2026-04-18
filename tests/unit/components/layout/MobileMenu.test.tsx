@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import MobileMenu from "@/components/layout/MobileMenu";
 
-// Mock dependencies
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/"),
 }));
@@ -16,20 +15,23 @@ vi.mock("@/components/layout/SidebarContext", () => ({
 
 describe("MobileMenu", () => {
   beforeEach(() => {
+    mockCloseMobileMenu.mockReset();
     mockUseSidebar.mockReturnValue({
       isMobileMenuOpen: true,
       closeMobileMenu: mockCloseMobileMenu,
     });
   });
 
-  it("renders when open", () => {
+  it("renders the top-level routes when open", () => {
     render(<MobileMenu />);
-    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(screen.getByText("Projects")).toBeInTheDocument();
+    expect(screen.getByText("Blog")).toBeInTheDocument();
+    expect(screen.getByText("Contact")).toBeInTheDocument();
   });
 
-  it("calls closeMobileMenu on link click", () => {
+  it("closes when a link is clicked", () => {
     render(<MobileMenu />);
-    fireEvent.click(screen.getByText("Home"));
+    fireEvent.click(screen.getByText("Blog"));
     expect(mockCloseMobileMenu).toHaveBeenCalled();
   });
 
@@ -38,11 +40,8 @@ describe("MobileMenu", () => {
       isMobileMenuOpen: false,
       closeMobileMenu: mockCloseMobileMenu,
     });
-    render(<MobileMenu />);
-    // The menu uses aria-hidden to indicate visibility state
-    const link = screen.queryByText("Home");
-    // It renders in DOM but hidden via aria-hidden
-    const container = link?.closest("div.fixed");
-    expect(container).toHaveAttribute("aria-hidden", "true");
+    const { container } = render(<MobileMenu />);
+    const root = container.querySelector("div.fixed");
+    expect(root).toHaveAttribute("aria-hidden", "true");
   });
 });
