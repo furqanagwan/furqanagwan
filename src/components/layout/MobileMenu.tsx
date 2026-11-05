@@ -63,11 +63,11 @@ export default function MobileMenu() {
     <>
       {/* Mobile Menu Drawer - Fixed at bottom z-index, revealed by content sliding */}
       <div
-        className="fixed inset-y-0 left-0 w-[85%] z-0 bg-black text-white md:hidden overflow-y-auto"
+        className="fixed inset-y-0 left-0 w-[min(85vw,360px)] z-0 bg-black text-white md:hidden overflow-y-auto pl-[var(--safe-left)]"
         aria-hidden={!isMobileMenuOpen}
       >
         {/* Header area in mobile menu */}
-        <div className="flex items-center justify-between h-[54px] px-6">
+        <div className="flex items-center justify-between h-[calc(54px+var(--safe-top))] pt-[var(--safe-top)] px-6">
           {/* Logo is now handled by the fixed sticky title in LayoutContent */}
           <div aria-hidden="true" className="w-1" />{" "}
           {/* Spacer to keep layout properties if needed, or just leave empty */}
@@ -143,7 +143,7 @@ export default function MobileMenu() {
         </nav>
 
         {/* Bottom section */}
-        <div className="absolute bottom-6 left-6 right-6 flex items-center justify-end">
+        <div className="absolute bottom-[max(1.5rem,var(--safe-bottom))] left-6 right-6 flex items-center justify-end">
           <Link
             href="/login" // Matches OpenAI "Log In" button roughly
             onClick={(e) => {

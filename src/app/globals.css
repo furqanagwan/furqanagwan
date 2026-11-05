@@ -284,3 +284,31 @@ nav[class*="overflow-x-auto"] {
 nav[class*="overflow-x-auto"]::-webkit-scrollbar {
   display: none;
 }
+
+/* ------------------------------------------------------------------ */
+/* iPhone Duo / foldables                                              */
+/* ------------------------------------------------------------------ */
+
+/* Safe-area insets (needed because the viewport uses viewport-fit=cover). */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+/*
+ * Book posture (inner display half-folded, two side-by-side segments):
+ * keep long-form reading content on one side of the crease instead of
+ * running every line across it. Safari 27.1 ships the viewport segment
+ * features behind feature flags, so this is progressive enhancement and
+ * does nothing on other devices.
+ */
+@media (horizontal-viewport-segments: 2) {
+  .fold-avoid {
+    box-sizing: border-box;
+    max-width: env(viewport-segment-width 0 0);
+    margin-left: 0;
+    margin-right: auto;
+  }
+}

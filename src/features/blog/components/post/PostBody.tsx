@@ -74,7 +74,7 @@ function MDXParagraph({ children }: { children?: React.ReactNode }) {
 
 export function PostBody({ code }: PostBodyProps) {
   return (
-    <div className="grid grid-cols-12 max-w-[1440px] w-full mx-auto px-6 md:px-8">
+    <div className="fold-avoid grid grid-cols-12 max-w-[1440px] w-full mx-auto px-6 md:px-8">
       {/* Content Column: Narrower than header (6 cols on large, like OpenAI's body text) */}
       <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-6 lg:col-start-4">
         {/* MDX Content with OpenAI prose styling */}

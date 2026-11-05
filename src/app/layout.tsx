@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -55,9 +55,19 @@ export const metadata: Metadata = {
       "application/rss+xml": "/feed.xml",
     },
   },
-  other: {
-    "theme-color": "#000000",
-  },
+};
+
+// viewport-fit=cover lets the page use the full screen on iPhone Duo (and
+// notched iPhones); the layout pads itself with the safe-area insets defined
+// in globals.css so nothing ends up under system UI.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 export default function RootLayout({

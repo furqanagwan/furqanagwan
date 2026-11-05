@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <>
       {/* Fixed header bar - solid background like openai-clone TopBar */}
-      <div className="fixed box-border flex h-[54px] justify-end z-[51] px-6 top-0 inset-x-0 md:h-16 md:px-8 bg-[#ffffff] dark:bg-[#000000]">
+      <div className="fixed box-border flex h-[calc(54px+var(--safe-top))] pt-[var(--safe-top)] justify-end z-[51] pl-[max(1.5rem,var(--safe-left))] pr-[max(1.5rem,var(--safe-right))] top-0 inset-x-0 md:h-[calc(4rem+var(--safe-top))] md:pl-[max(2rem,var(--safe-left))] md:pr-[max(2rem,var(--safe-right))] bg-[#ffffff] dark:bg-[#000000]">
         <div className="w-full flex justify-between items-center">
           {/* Left: Logo Group */}
           <div className="flex items-center gap-x-3 -ml-1">

@@ -14,7 +14,7 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* Sticky Mobile Logo - Fixed outside the sliding content */}
-      <div className="fixed top-0 left-0 h-[54px] flex items-center px-6 z-[60] md:hidden pointer-events-none">
+      <div className="fixed top-[var(--safe-top)] left-0 h-[54px] flex items-center pl-[max(1.5rem,var(--safe-left))] pr-6 z-[60] md:hidden pointer-events-none">
         <Link
           href="/"
           className={`text-[20px] font-bold tracking-tight pointer-events-auto transition-colors duration-300 ${isMobileMenuOpen ? "text-white" : "text-black dark:text-white"
@@ -26,7 +26,7 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Sticky Mobile Menu Toggle - Fixed outside the sliding content */}
-      <div className="fixed top-0 right-0 h-[54px] flex items-center px-6 z-[100] md:hidden pointer-events-none">
+      <div className="fixed top-[var(--safe-top)] right-0 h-[54px] flex items-center pl-6 pr-[max(1.5rem,var(--safe-right))] z-[100] md:hidden pointer-events-none">
         <button
           type="button"
           aria-label="Toggle mobile menu"
@@ -49,7 +49,7 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         className={`
           relative min-h-screen bg-background transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-50
           ${isMobileMenuOpen
-            ? "translate-x-[85%] md:translate-x-0 overflow-hidden h-screen"
+            ? "translate-x-[min(85vw,360px)] md:translate-x-0 overflow-hidden h-screen"
             : "translate-x-0"
           }
         `}
@@ -92,8 +92,8 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Column 3: Main Content */}
-          <div className="relative min-w-0">
-            <main className="relative pt-[54px] md:pt-16">
+          <div className="relative min-w-0 pl-[var(--safe-left)] pr-[var(--safe-right)] pb-[var(--safe-bottom)]">
+            <main className="relative pt-[calc(54px+var(--safe-top))] md:pt-[calc(4rem+var(--safe-top))]">
               {children}
               <Footer />
             </main>

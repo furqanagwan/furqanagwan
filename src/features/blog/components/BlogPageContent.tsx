@@ -196,7 +196,7 @@ function BlogContent() {
             <div className="w-full">
               <div className="gap-x-6 grid grid-cols-[repeat(1,minmax(0px,1fr))] max-w-none gap-y-6 w-full mx-0 px-0 md:grid-cols-[repeat(4,minmax(0px,1fr))] md:max-w-[1440px] md:mx-auto">
                 <div
-                  className="static self-start col-end-auto col-start-auto grid-cols-[repeat(1,minmax(0px,1fr))] mb-6 top-auto md:sticky md:col-end-[span_3] md:col-start-[span_3] md:mb-0 md:top-16 animate-fade-in"
+                  className="static self-start col-end-auto col-start-auto grid-cols-[repeat(1,minmax(0px,1fr))] mb-6 top-auto md:sticky md:col-end-[span_3] md:col-start-[span_3] md:mb-0 md:top-[calc(4rem+var(--safe-top))] animate-fade-in"
                   style={{ animationDelay: "0s", opacity: 0 }}
                 >
                   <ArticleCard
