@@ -13,11 +13,11 @@ test.describe("Qualifications Page", () => {
     });
 
     test("displays certification items", async ({ page }) => {
-        // Check for generic certificate validation or specific text
-        // Usually these are lists.
-        // Check for generic certificate validation or specific text
-        // Usually these are lists, but might be divs.
-        // await expect(page.locator("ul").first()).toBeVisible();
         await expect(page.getByText(/Microsoft/i).or(page.getByText(/Azure/i)).first()).toBeVisible();
+    });
+
+    // Education lives on this page (there is no separate /education page).
+    test("displays education entries", async ({ page }) => {
+        await expect(page.getByText(/University/i).first()).toBeVisible();
     });
 });

@@ -36,8 +36,12 @@ for (const pose of DUO_POSES) {
         expect(overflow).toBeLessThanOrEqual(0);
 
         // The site name is always reachable at the top of the screen.
+        // (The mobile and desktop headers each have one; only one is shown.)
         await expect(
-          page.getByRole("link", { name: /furqanagwan|home/i }).first(),
+          page
+            .getByRole("link", { name: /furqanagwan|home/i })
+            .filter({ visible: true })
+            .first(),
         ).toBeVisible();
       });
     }

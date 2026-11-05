@@ -2,18 +2,23 @@ name: CI/CD
 
 on:
   push:
-    branches: [main]
+    # Every branch runs CI, so changes can be checked before they reach main.
+    branches: ["**"]
   pull_request:
     branches: [main]
 
 env:
   BUN_VERSION: latest
 
+# Jobs use ubuntu-24.04 rather than ubuntu-latest: ubuntu-latest moved to
+# Ubuntu 26.04 in October 2026, which Playwright 1.57 can't install browsers
+# on. Move to a newer image together with a Playwright upgrade.
+
 jobs:
   # Lint and type check
   lint:
     name: Lint & Type Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -39,7 +44,7 @@ jobs:
   # Build
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: lint
     steps:
       - uses: actions/checkout@v4
@@ -73,7 +78,7 @@ jobs:
   # Unit tests
   unit-tests:
     name: Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: lint
     steps:
       - uses: actions/checkout@v4
@@ -111,7 +116,7 @@ jobs:
   # E2E tests (consolidated from playwright.yml)
   e2e-tests:
     name: E2E Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
     timeout-minutes: 60
     steps:

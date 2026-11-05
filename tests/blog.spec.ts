@@ -13,23 +13,25 @@ test.describe("Blog Page", () => {
     ).toBeVisible();
   });
 
-  test("displays filter buttons", async ({ page }) => {
-    // Scope to the navigation bar to avoid footer links
+  test("displays the All filter", async ({ page }) => {
+    // Category filters are generated from the posts that exist, so only
+    // "All" is guaranteed. Scope to navigation to avoid footer links.
     const nav = page.getByRole("navigation");
     await expect(
       nav.getByRole("link", { name: "All", exact: true }),
     ).toBeVisible();
-    await expect(
-      nav.getByRole("link", { name: "Career", exact: true }),
-    ).toBeVisible();
-    await expect(
-      nav.getByRole("link", { name: "Travel", exact: true }),
-    ).toBeVisible();
   });
 
   test("navigates to a post", async ({ page }) => {
+    // Wait for the page to render before counting posts.
+    await expect(
+      page.getByRole("heading", { name: "Blog", level: 2 }),
+    ).toBeVisible();
+    const articles = page.locator("article");
+    test.skip((await articles.count()) === 0, "No blog posts published yet");
+
     // Click the first article card
-    const firstArticle = page.locator("article").first();
+    const firstArticle = articles.first();
     const title = await firstArticle.getByRole("heading").textContent();
 
     // Ensure we have a title to check against
