@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, Suspense } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { allPosts } from "content-collections";
@@ -118,15 +118,20 @@ function BlogContent() {
     }, 300);
   };
 
-  React.useEffect(() => {
+  const [viewParamAppliedToViewMode, setViewParamAppliedToViewMode] = useState(viewParam);
+  if (viewParam !== viewParamAppliedToViewMode) {
+    setViewParamAppliedToViewMode(viewParam);
     if (viewParam === "grid" || viewParam === "list") {
       setViewMode(viewParam);
     }
-  }, [viewParam]);
+  }
 
-  React.useEffect(() => {
+  const listSettings = `${activeCategory}|${activeSort}|${viewMode}`;
+  const [listSettingsForVisibleCount, setListSettingsForVisibleCount] = useState(listSettings);
+  if (listSettings !== listSettingsForVisibleCount) {
+    setListSettingsForVisibleCount(listSettings);
     setVisibleCount(INITIAL_LIST_COUNT);
-  }, [activeCategory, activeSort, viewMode]);
+  }
 
   const featuredPost =
     filteredAndSortedPosts.find((p) => p.featured) || filteredAndSortedPosts[0];
