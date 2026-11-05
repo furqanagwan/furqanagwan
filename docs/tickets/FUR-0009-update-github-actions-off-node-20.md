@@ -2,7 +2,7 @@
 id: FUR-0009
 title: Update GitHub Actions off Node 20
 type: ci
-status: backlog
+status: done
 priority: P3
 created: 2026-11-05
 ---
@@ -17,8 +17,8 @@ being forced onto Node 24.
 
 ## Acceptance criteria
 
-- [ ] Actions bumped to releases that run on Node 24 (check each action's releases)
-- [ ] No Node 20 deprecation warnings in CI
-- [ ] CI/CD green
+- [x] Actions bumped to releases that run on Node 24 (done in FUR-0022)
+- [x] No Node 20 deprecation warnings in CI
+- [x] CI/CD green
 
 ## Notes
