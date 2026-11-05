@@ -23,3 +23,5 @@ them less clearly (FUR-0011 hit exactly this).
 - [ ] CI/CD green
 
 ## Notes
+
+- Folded into FUR-0029 (strict TypeScript conventions), which adds the CI typecheck.
