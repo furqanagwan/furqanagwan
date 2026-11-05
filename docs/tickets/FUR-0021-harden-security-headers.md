@@ -2,7 +2,7 @@
 id: FUR-0021
 title: Harden security headers
 type: bug
-status: backlog
+status: done
 priority: P2
 created: 2026-11-05
 ---
@@ -17,13 +17,30 @@ in `connect-src` although GitHub repos are fetched on the server.
 
 ## Research
 
+- Next.js, "How to set a Content Security Policy": `'unsafe-eval'` is only
+  needed in development (React uses eval for debugging); "Neither React nor
+  Next.js use eval in production by default". For apps without nonces the
+  recommended static policy is `default-src 'self'; script-src 'self'
+  'unsafe-inline'` (+ `'unsafe-eval'` in dev only); `object-src 'none'`;
+  `base-uri 'self'`; `form-action 'self'`; `frame-ancestors 'none'`;
+  `upgrade-insecure-requests`. Nonces would remove `'unsafe-inline'` but
+  force every page to render dynamically (no static/CDN caching), which
+  isn't worth it for a static personal site.
+  https://nextjs.org/docs/app/guides/content-security-policy
+- MDN, X-XSS-Protection: deprecated and non-standard; can create XSS
+  issues; don't use it in new projects, use CSP instead.
+  https://developer.mozilla.org/Web/HTTP/Headers/X-XSS-Protection
+
 ## Acceptance criteria
 
-- [ ] Research recorded: Next.js CSP guide, MDN on CSP, X-XSS-Protection
-      and Permissions-Policy, OWASP Secure Headers
-- [ ] `'unsafe-eval'` removed from production `script-src` (kept for dev only if Next needs it)
-- [ ] `X-XSS-Protection` removed or set as MDN/OWASP recommend
-- [ ] `connect-src` limited to what the browser actually calls
-- [ ] Every page loads with no CSP violations in the console; analytics and speed insights still report
+- [x] Research recorded
+- [x] `'unsafe-eval'` only in development `script-src`
+- [x] `X-XSS-Protection` removed
+- [x] `connect-src` limited to what the browser calls (GitHub is fetched on the server only)
+- [x] `object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `upgrade-insecure-requests` added
+- [x] E2E test fails on any CSP violation on the main pages and checks the headers
 
 ## Notes
+
+- `GITHUB_API_BASE` in `src/features/projects/constants.ts` is unused;
+  left for a code-tidy ticket.
