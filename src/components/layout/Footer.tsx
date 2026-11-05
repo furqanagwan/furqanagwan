@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { allPosts } from "content-collections";
-import { Github, Linkedin, Youtube } from "lucide-react";
+import { GitHubIcon, LinkedInIcon, YouTubeIcon } from "@/components/ui/BrandIcons";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -82,14 +82,14 @@ const footerColumns = [
 ];
 
 const socialLinks = [
-  { icon: XIcon, href: "https://twitter.com/furqanagwan", label: "X" },
-  { icon: Youtube, href: "https://youtube.com/@furqanagwan", label: "YouTube" },
+  { icon: XIcon, href: "https://x.com/furqanagwan", label: "X" },
+  { icon: YouTubeIcon, href: "https://youtube.com/@furqanagwan", label: "YouTube" },
   {
-    icon: Linkedin,
+    icon: LinkedInIcon,
     href: "https://linkedin.com/in/furqanagwan",
     label: "LinkedIn",
   },
-  { icon: Github, href: "https://github.com/furqanagwan", label: "GitHub" },
+  { icon: GitHubIcon, href: "https://github.com/furqanagwan", label: "GitHub" },
   {
     icon: InstagramIcon,
     href: "https://instagram.com/furqanagwan",

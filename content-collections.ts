@@ -145,5 +145,5 @@ const qualifications = defineCollection({
 });
 
 export default defineConfig({
-  collections: [posts, projects, experiences, qualifications],
+  content: [posts, projects, experiences, qualifications],
 });

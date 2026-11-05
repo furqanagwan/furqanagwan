@@ -281,7 +281,7 @@ After changes:
 If using `content-collections` or similar content management:
 
 ```typescript
-// vitest.config.ts - Add alias for module resolution
+// vitest.config.mts - Add alias for module resolution
 alias: {
   "content-collections": path.resolve(__dirname, "./.content-collections/generated"),
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/metadata";
-import { ArrowRight, Mail, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
@@ -51,7 +52,7 @@ export default function ContactPage() {
         >
           <div className="flex items-center gap-4 mb-4">
             <div className="p-3 rounded-full bg-secondary">
-              <Linkedin size={24} />
+              <LinkedInIcon size={24} />
             </div>
             <h2 className="text-xl font-semibold">LinkedIn</h2>
           </div>
@@ -72,7 +73,7 @@ export default function ContactPage() {
         >
           <div className="flex items-center gap-4 mb-4">
             <div className="p-3 rounded-full bg-secondary">
-              <Github size={24} />
+              <GitHubIcon size={24} />
             </div>
             <h2 className="text-xl font-semibold">GitHub</h2>
           </div>

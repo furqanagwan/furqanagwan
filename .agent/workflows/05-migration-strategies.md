@@ -127,7 +127,7 @@ export async function getUserWithOrders(userId: string) {
 **Problem:** Tests can't find moved modules
 
 **Solution:**
-Update `tsconfig.json` and `vitest.config.ts` paths:
+Update `tsconfig.json` and `vitest.config.mts` paths:
 
 ```json
 {

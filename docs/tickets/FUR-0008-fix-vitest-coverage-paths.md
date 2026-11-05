@@ -9,7 +9,7 @@ created: 2026-11-05
 
 ## Problem
 
-`vitest.config.ts` includes coverage from `components/**`, but the code
+`vitest.config.mts` includes coverage from `components/**`, but the code
 lives in `src/components/**` (and `src/features/**`), so the coverage
 report and its thresholds don't measure the real code.
 

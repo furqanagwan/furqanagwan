@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { GitHubIcon } from "@/components/ui/BrandIcons";
 import FilterSortBar from "@/components/ui/FilterSortBar";
 import PostListItem from "@/components/ui/PostListItem";
 import type { Project } from "../types";
@@ -126,7 +127,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                               className="p-2 text-muted-foreground hover:text-foreground transition-colors"
                               aria-label="View on GitHub"
                             >
-                              <Github size={18} />
+                              <GitHubIcon size={18} />
                             </a>
                           )}
                           {project.liveUrl && (
