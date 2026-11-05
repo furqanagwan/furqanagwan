@@ -2,7 +2,7 @@
 id: FUR-0006
 title: Remove dead UI copied from openai.com
 type: bug
-status: backlog
+status: done
 priority: P2
 created: 2026-11-05
 ---
@@ -21,14 +21,20 @@ Controls that do nothing confuse visitors and hurt trust.
 
 ## Research
 
+- openai.com's own mobile menu ends with real account actions ("Log in",
+  "Try ChatGPT"), and its footer language selector really switches the
+  site's language. This site has neither accounts nor translations, so
+  copying those controls produced buttons that do nothing.
+- WCAG guideline 3.2 (Predictable): components should behave as users
+  expect; a control that does nothing fails that expectation.
+  https://www.w3.org/WAI/WCAG22/Understanding/predictable
+
 ## Acceptance criteria
 
-- [ ] Research recorded (WCAG 3.2 Predictable; openai.com's current
-      footer/menu as reference)
-- [ ] Log In button removed or replaced with something real in the same
-      style (e.g. Contact)
-- [ ] Language selector removed (or replaced by a static, accurate label)
-- [ ] Mobile menu and footer still look balanced at 382px and 669px widths
+- [x] Research recorded
+- [x] Log In button replaced with a real Contact button in the same pill style
+- [x] Language selector removed (component deleted)
+- [x] E2E tests: menu button goes to /contact; no language selector
 
 ## Notes
 

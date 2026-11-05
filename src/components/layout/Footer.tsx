@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { allPosts } from "content-collections";
 import { Github, Linkedin, Youtube } from "lucide-react";
-import LanguageSelector from "./LanguageSelector";
 
 function XIcon({ className }: { className?: string }) {
   return (
@@ -160,10 +159,6 @@ export default function Footer() {
               <span className="text-sm text-muted-foreground">
                 Furqan Agwan © 2015–{new Date().getFullYear()}
               </span>
-            </div>
-
-            <div className="order-3 flex justify-center md:justify-end">
-              <LanguageSelector />
             </div>
           </div>
         </div>

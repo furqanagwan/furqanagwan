@@ -110,14 +110,11 @@ export default function MobileMenu() {
 
         <div className="absolute bottom-[max(1.5rem,var(--safe-bottom))] left-6 right-6 flex items-center justify-end">
           <Link
-            href="/login"
-            onClick={(e) => {
-              e.preventDefault();
-              closeMobileMenu();
-            }}
+            href="/contact"
+            onClick={closeMobileMenu}
             className="text-sm font-medium bg-[#333] text-white px-5 py-2.5 rounded-full hover:bg-[#444] transition-colors"
           >
-            Log In
+            Contact
           </Link>
         </div>
       </div>
