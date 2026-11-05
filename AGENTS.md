@@ -114,7 +114,10 @@ All work is tracked as a ticket in `docs/tickets/` (see its README):
   co-author trailers or tool signatures.
 - Each ticket is squash-merged into `main` as one commit carrying the
   detailed PR description (before/after screenshots for UI changes).
-- Mark the ticket `done` in the same branch as the fix.
+- A ticket closes on merge: the squashed commit landing on `main` sets it to
+  `done` and ends with `Closes FUR-####`.
+- Check open PRs regularly; rebase them onto `main`, merge them as soon as
+  they're green and verified, and keep stale PRs to a minimum.
 
 ## After Every Change
 

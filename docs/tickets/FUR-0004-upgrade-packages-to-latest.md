@@ -25,3 +25,6 @@ CI is pinned to `ubuntu-24.04` (FUR-0003).
 ## Notes
 
 - Blocked until the automation environment is allowed to install packages.
+- Includes Snyk PRs #6 and #7 (react, react-dom 19.2.4) and #8
+  (lucide-react 0.563.0); close them once this lands. Next.js itself is
+  FUR-0018 (security, P1).

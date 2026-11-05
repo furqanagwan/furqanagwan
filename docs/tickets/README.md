@@ -55,11 +55,26 @@ decisions, and links to commits, PRs and CI runs).
 4. Commits start with the ticket ID: `FUR-0006: remove the dead Log In button`.
    The author and committer is `furqanagwan <furqanagwan@outlook.com>` only:
    no co-author trailers or tool signatures in commits, PRs or files.
-5. Before merging, tick the acceptance criteria, set `status: done` and add
-   verification notes, in the same branch, so the ticket and code land
-   together.
-6. Merge by squashing: each ticket lands on `main` as exactly one commit,
-   titled `FUR-0006: <title>`, whose message is the PR description.
+5. Merge by squashing: each ticket lands on `main` as exactly one commit,
+   titled `FUR-0006: <title>`, whose message is the PR description and ends
+   with `Closes FUR-0006`.
+6. The ticket closes on merge, never before: the squashed commit that lands
+   on `main` is the one that ticks the acceptance criteria, sets
+   `status: done` and adds the verification notes. If production
+   verification then fails, the revert reopens it.
+
+## Pull requests
+
+- Check open PRs regularly; keep the number of open and stale PRs low.
+- Keep each PR current with `main` by rebasing it, so conflicts surface
+  early and the final merge is a fast-forward.
+- Merge a PR as soon as it is green, verified and in scope; don't let
+  finished work wait.
+- Every PR maps to a ticket. A PR that is superseded, out of date beyond
+  saving, or can't pass CI as written is folded into a ticket and closed
+  with a note pointing at it.
+- PRs that change the design or add content need Furqan's decision; give
+  them a ticket owned by him rather than merging or closing them.
 
 ## PR description (and squashed commit message)
 
