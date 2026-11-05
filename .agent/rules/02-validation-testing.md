@@ -267,10 +267,10 @@ Before any code modification, AI agents MUST run this checklist:
 
 After changes:
 
-1. Run `npm run build`
-2. Run `npm run lint`
-3. Run `npm run type-check`
-4. Run `npm test`
+1. Run `bun run build`
+2. Run `bun run lint`
+3. Run `bun run typecheck`
+4. Run `bun run test:unit`
 5. Manual browser smoke test
 6. Check for console errors/warnings
 

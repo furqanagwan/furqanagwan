@@ -11,7 +11,7 @@ series: 0/5
 | What                       | Where                          | Why                 |
 | -------------------------- | ------------------------------ | ------------------- |
 | Feature-specific component | `features/[name]/components/`  | Colocation          |
-| Used by 3+ features        | `shared/components/`           | Genuine reuse       |
+| Used by 3+ features        | `components/`                  | Genuine reuse       |
 | Data transformation        | `features/[name]/utils.ts`     | Testability         |
 | API call (server)          | `features/[name]/queries.ts`   | Server-side caching |
 | Mutation                   | `features/[name]/actions.ts`   | Server actions      |
@@ -113,7 +113,7 @@ touch src/features/[name]/{types.ts,utils.ts,utils.test.ts,queries.ts,constants.
 grep -r "from '@/components/X'" src/
 
 # Run feature tests
-npm test src/features/[name]
+bun run test:unit src/features/[name]
 ```
 
 ---

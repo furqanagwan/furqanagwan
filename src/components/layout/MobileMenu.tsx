@@ -5,48 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
 import { ChevronDown } from "lucide-react";
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface NavSection {
-  label: string;
-  href?: string;
-  items?: NavItem[];
-}
-
-const navSections: NavSection[] = [
-  { label: "Home", href: "/" },
-  {
-    label: "Work",
-    items: [
-      { label: "Projects", href: "/projects" },
-      { label: "Experiences", href: "/experiences" },
-    ],
-  },
-  {
-    label: "About",
-    items: [{ label: "Qualifications", href: "/qualifications" }],
-  },
-  { label: "Blog", href: "/blog" },
-];
+import {
+  NAV_SECTIONS,
+  isActivePath,
+  isSectionActive,
+  type NavSection,
+} from "./navigation";
 
 export default function MobileMenu() {
   const pathname = usePathname();
   const { isMobileMenuOpen, closeMobileMenu } = useSidebar();
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
-
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
-
-  const isSectionActive = (section: NavSection) => {
-    if (section.href) return isActive(section.href);
-    return section.items?.some((item) => isActive(item.href)) ?? false;
-  };
 
   const toggleSection = (label: string) => {
     setExpandedSections((prev) =>
@@ -55,7 +24,7 @@ export default function MobileMenu() {
   };
 
   const isExpanded = (section: NavSection) => {
-    if (isSectionActive(section) && section.items) return true;
+    if (isSectionActive(pathname, section) && section.items) return true;
     return expandedSections.includes(section.label);
   };
 
@@ -77,9 +46,9 @@ export default function MobileMenu() {
         {/* Navigation Links */}
         <nav className="px-6 pt-8">
           <ul className="list-none pl-0 space-y-4">
-            {navSections.map((section) => {
+            {NAV_SECTIONS.map((section) => {
               const hasSubitems = section.items && section.items.length > 0;
-              const sectionActive = isSectionActive(section);
+              const sectionActive = isSectionActive(pathname, section);
               const expanded = hasSubitems && isExpanded(section);
 
               return (
@@ -114,7 +83,7 @@ export default function MobileMenu() {
                                 onClick={closeMobileMenu}
                                 className={`
                                   block text-sm font-medium transition-colors
-                                  ${isActive(item.href) ? "text-white" : "text-white/60 hover:text-white"}
+                                  ${isActivePath(pathname, item.href) ? "text-white" : "text-white/60 hover:text-white"}
                                 `}
                               >
                                 {item.label}

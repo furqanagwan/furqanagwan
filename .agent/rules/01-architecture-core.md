@@ -304,7 +304,7 @@ Brief description of what this feature does.
 
 ## Testing
 
-Run: `npm test features/feature-name`
+Run: `bun run test:unit src/features/feature-name`
 ```
 
 ---

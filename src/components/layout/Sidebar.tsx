@@ -5,50 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
 import { ChevronDown } from "lucide-react";
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface NavSection {
-  label: string;
-  href?: string;
-  items?: NavItem[];
-}
-
-const navSections: NavSection[] = [
-  { label: "Home", href: "/" },
-  {
-    label: "Work",
-    items: [
-      { label: "Projects", href: "/projects" },
-      { label: "Experiences", href: "/experiences" },
-    ],
-  },
-  {
-    label: "About",
-    items: [{ label: "Qualifications", href: "/qualifications" }],
-  },
-  { label: "Blog", href: "/blog" },
-];
+import {
+  NAV_SECTIONS,
+  isActivePath,
+  isSectionActive,
+  type NavSection,
+} from "./navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { isOpen } = useSidebar();
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
-
-  // Check if a path is active
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
-
-  // Check if any item in a section is active
-  const isSectionActive = (section: NavSection) => {
-    if (section.href) return isActive(section.href);
-    return section.items?.some((item) => isActive(item.href)) ?? false;
-  };
 
   // Toggle section expansion
   const toggleSection = (label: string) => {
@@ -59,7 +26,7 @@ export default function Sidebar() {
 
   // Auto-expand sections with active items
   const isExpanded = (section: NavSection) => {
-    if (isSectionActive(section) && section.items) return true;
+    if (isSectionActive(pathname, section) && section.items) return true;
     return expandedSections.includes(section.label);
   };
 
@@ -85,9 +52,9 @@ export default function Sidebar() {
         >
           <div className="w-40">
             <ul className="text-base font-bold tracking-[normal] leading-5 list-none pl-0 md:text-sm md:font-medium md:leading-[22.96px]">
-              {navSections.map((section, index) => {
+              {NAV_SECTIONS.map((section, index) => {
                 const hasSubitems = section.items && section.items.length > 0;
-                const sectionActive = isSectionActive(section);
+                const sectionActive = isSectionActive(pathname, section);
                 const expanded = hasSubitems && isExpanded(section);
 
                 return (
@@ -140,7 +107,7 @@ export default function Sidebar() {
                       >
                         <ul className="list-none pl-3 pt-1">
                           {section.items!.map((item) => {
-                            const itemActive = isActive(item.href);
+                            const itemActive = isActivePath(pathname, item.href);
                             return (
                               <li key={item.label} className="mt-0.5">
                                 <div
