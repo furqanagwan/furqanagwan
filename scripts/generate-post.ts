@@ -1,35 +1,6 @@
 #!/usr/bin/env bun
-/**
- * Generate AI Blog Post
- *
- * CLI script to generate blog posts using AI based on current news.
- *
- * Usage:
- *   bun run scripts/generate-post.ts [options]
- *
- * Options:
- *   --topic=<topic>   Specific topic (or "random")
- *   --dry-run         Preview without writing file
- *   --verbose         Enable verbose logging
- *   --help            Show this help message
- *
- * Environment Variables:
- *   OPENAI_API_KEY    Required for OpenAI provider
- *   NEWS_API_KEY      Optional (falls back to Google News RSS)
- *   AI_PROVIDER       openai | anthropic | gemini (default: openai)
- *   AI_MODEL          Model name (default: gpt-4o)
- *
- * Examples:
- *   bun run scripts/generate-post.ts --topic=technology
- *   bun run scripts/generate-post.ts --topic=random --dry-run
- *   bun run scripts/generate-post.ts --topic=health --verbose
- */
 
 import { runFromCLI, TOPICS } from "../src/features/ai-generator";
-
-// ============================================================================
-// CLI Argument Parser
-// ============================================================================
 
 interface ParsedArgs {
     topic?: string;
@@ -97,10 +68,6 @@ EXAMPLES:
 `);
 }
 
-// ============================================================================
-// Main Entry Point
-// ============================================================================
-
 async function main(): Promise<void> {
     const args = parseArgs(process.argv.slice(2));
 
@@ -109,7 +76,6 @@ async function main(): Promise<void> {
         process.exit(0);
     }
 
-    // Validate environment
     const apiKey = process.env.OPENAI_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.GEMINI_API_KEY;
     if (!apiKey) {
         console.error("Error: No AI API key found.");

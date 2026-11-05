@@ -4,7 +4,6 @@ import { allPosts } from "content-collections";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://furqanagwan.com";
 
-  // Static pages
   const staticPages = [
     "",
     "/experiences",
@@ -19,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1 : 0.8,
   }));
 
-  // Blog posts
   const blogPosts = allPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),

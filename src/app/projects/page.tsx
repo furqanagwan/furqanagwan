@@ -4,7 +4,7 @@ import type { Project } from "@/features/projects/types";
 import { allProjects as mdxProjects } from "content-collections";
 import ProjectsList from "@/features/projects/components/ProjectsList";
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 60;
 
 export const metadata = {
   title: "Furqan Agwan Projects",
@@ -12,17 +12,14 @@ export const metadata = {
 };
 
 export default async function ProjectsPage() {
-  // Fetch GitHub repos
   const repos = await fetchGitHubRepos();
   const githubProjects = reposToProjects(repos);
 
-  // Merge with MDX projects (MDX takes priority for duplicates)
   const mdxTitles = new Set(mdxProjects.map((p) => p.title.toLowerCase()));
   const uniqueGithubProjects = githubProjects.filter(
     (p) => !mdxTitles.has(p.title.toLowerCase()),
   );
 
-  // Combine: MDX projects first (curated), then GitHub projects
   const allProjects: Project[] = [
     ...mdxProjects.map((p) => ({
       title: p.title,

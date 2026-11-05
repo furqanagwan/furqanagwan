@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-// Exact Filter Icon from openai-clone (icon-11.svg) - Horizontal sliders
 function FilterIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -17,7 +16,6 @@ function FilterIcon({ className }: { className?: string }) {
   );
 }
 
-// Exact Sort Icon from openai-clone (icon-12.svg) - Chevron down
 function SortIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -32,7 +30,6 @@ function SortIcon({ className }: { className?: string }) {
   );
 }
 
-// Exact Grid Icon from openai-clone (icon-13.svg) - 4 filled rounded squares
 function GridIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -50,7 +47,6 @@ function GridIcon({ className }: { className?: string }) {
   );
 }
 
-// Exact List Icon from openai-clone (icon-14.svg) - 3 rows with dots and lines
 function ListIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -104,9 +100,7 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
         </div>
       </nav>
 
-      {/* Tools / Actions - exact styling from openai-clone */}
       <div className="col-end-[-1] col-start-1 hidden items-center justify-start gap-x-6 md:col-end-[-1] md:col-start-4 md:flex">
-        {/* Filter Button - exact from openai-clone */}
         <button
           type="button"
           className="text-sm font-medium items-center bg-transparent gap-x-[4.2px] flex h-10 justify-center tracking-[normal] leading-[14px] min-h-8 outline-offset-2 text-center text-nowrap overflow-hidden p-0"
@@ -115,7 +109,6 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
           Filter
         </button>
 
-        {/* Sort Button - exact from openai-clone */}
         <button
           type="button"
           className="text-sm font-medium items-center bg-transparent gap-x-[4.2px] flex h-10 justify-center tracking-[normal] leading-[14px] min-h-8 outline-offset-2 text-center text-nowrap p-0"
@@ -124,7 +117,6 @@ export default function CategoryNav({ categories }: CategoryNavProps) {
           Sort
         </button>
 
-        {/* View Toggle - exact structure from openai-clone */}
         <div className="gap-x-2 flex gap-y-2 ml-auto">
           <label className="block p-2 rounded-full cursor-pointer">
             <input

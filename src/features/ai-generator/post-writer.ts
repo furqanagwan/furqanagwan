@@ -1,38 +1,21 @@
-/**
- * Post Writer
- *
- * Writes generated blog posts as MDX files to the content directory.
- */
 
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import type { GeneratedPost } from "./types";
 
-// ============================================================================
-// MDX Generation
-// ============================================================================
-
 interface WriteOptions {
-    /** Output directory (relative to project root) */
     directory?: string;
-    /** Add AI attribution notice */
     includeAttribution?: boolean;
-    /** Mark as draft (featured: false) */
     asDraft?: boolean;
-    /** Add specific tag */
     additionalTags?: string[];
 }
 
-/**
- * Generate MDX frontmatter
- */
 function generateFrontmatter(
     post: GeneratedPost,
     options: WriteOptions,
 ): string {
-    const date = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+    const date = new Date().toISOString().split("T")[0];
 
-    // Combine tags, add AI-Generated tag
     const tags = [...new Set([...post.tags, ...(options.additionalTags || []), "AI-Generated"])];
 
     const frontmatter: Record<string, unknown> = {
@@ -41,14 +24,12 @@ function generateFrontmatter(
         date,
         tags,
         category: post.category,
-        featured: options.asDraft === false, // Default to draft (featured: false)
+        featured: options.asDraft === false,
     };
 
-    // Convert to YAML-like format
     const lines = Object.entries(frontmatter)
         .map(([key, value]) => {
             if (typeof value === "string") {
-                // Escape quotes in strings
                 return `${key}: "${value.replace(/"/g, '\\"')}"`;
             }
             if (Array.isArray(value)) {
@@ -64,9 +45,6 @@ function generateFrontmatter(
     return `---\n${lines}\n---`;
 }
 
-/**
- * Generate attribution section
- */
 function generateAttribution(sources: Array<{ title: string; url: string }>): string {
     if (sources.length === 0) return "";
 
@@ -85,9 +63,6 @@ ${sourcesList}
 `;
 }
 
-/**
- * Generate the full MDX content
- */
 function generateMDX(post: GeneratedPost, options: WriteOptions): string {
     const frontmatter = generateFrontmatter(post, options);
     const attribution = options.includeAttribution !== false
@@ -101,14 +76,6 @@ ${attribution}
 `;
 }
 
-// ============================================================================
-// File Writing
-// ============================================================================
-
-/**
- * Write a generated post to the content directory
- * Returns the path to the created file
- */
 export function writePost(
     post: GeneratedPost,
     projectRoot: string,
@@ -117,18 +84,14 @@ export function writePost(
     const directory = options.directory || "content/posts";
     const fullDir = join(projectRoot, directory);
 
-    // Ensure directory exists
     if (!existsSync(fullDir)) {
         mkdirSync(fullDir, { recursive: true });
     }
 
-    // Generate filename
     const filename = `${post.slug}.mdx`;
     const filepath = join(fullDir, filename);
 
-    // Check for existing file
     if (existsSync(filepath)) {
-        // Add timestamp to avoid collision
         const timestamp = Date.now();
         const newFilename = `${post.slug}-${timestamp}.mdx`;
         const newFilepath = join(fullDir, newFilename);
@@ -140,7 +103,6 @@ export function writePost(
         return newFilepath;
     }
 
-    // Write the file
     const content = generateMDX(post, options);
     writeFileSync(filepath, content, "utf-8");
 
@@ -148,10 +110,6 @@ export function writePost(
     return filepath;
 }
 
-/**
- * Preview the generated MDX without writing to disk
- * Returns the content that would be written
- */
 export function previewPost(
     post: GeneratedPost,
     options: WriteOptions = {},

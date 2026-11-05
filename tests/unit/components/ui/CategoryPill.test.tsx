@@ -29,7 +29,6 @@ describe("CategoryPill", () => {
 
   it("handles click without handler safely", () => {
     render(<CategoryPill label="No Handler" />);
-    // Should not throw
     fireEvent.click(screen.getByText("No Handler"));
     expect(screen.getByText("No Handler")).toBeInTheDocument();
   });

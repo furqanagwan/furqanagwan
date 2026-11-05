@@ -26,9 +26,7 @@ function Lead({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Custom Image component for MDX to optimize <img> tags
 function MDXImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
-  // If no src, return null (shouldn't happen for valid markdown images)
   if (!props.src) return null;
 
   return (
@@ -46,24 +44,17 @@ function MDXImage(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   );
 }
 
-// Custom paragraph component that unwraps paragraphs containing only images
-// This prevents invalid HTML nesting (p > div) when MDX wraps images in <p> tags
 function MDXParagraph({ children }: { children?: React.ReactNode }) {
-  // Check if the only child is an image (MDXImage renders a span)
   const childArray = React.Children.toArray(children);
 
-  // If there's only one child and it's a React element with type that indicates an image
   if (childArray.length === 1) {
     const child = childArray[0];
     if (React.isValidElement(child)) {
-      // Check if it's our MDXImage component (renders as span with block class)
-      // or if the child has props indicating it's an image
       const childType = child.type;
       if (
         childType === MDXImage ||
         (typeof childType === "function" && childType.name === "MDXImage")
       ) {
-        // Return without wrapping in <p>
         return <>{children}</>;
       }
     }
@@ -75,9 +66,7 @@ function MDXParagraph({ children }: { children?: React.ReactNode }) {
 export function PostBody({ code }: PostBodyProps) {
   return (
     <div className="fold-avoid grid grid-cols-12 max-w-[1440px] w-full mx-auto px-6 md:px-8">
-      {/* Content Column: Narrower than header (6 cols on large, like OpenAI's body text) */}
       <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-6 lg:col-start-4">
-        {/* MDX Content with OpenAI prose styling */}
         <div
           className="
           text-[16px] leading-[26px] md:text-[18px] md:leading-[28px] text-black dark:text-white font-normal

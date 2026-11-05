@@ -1,4 +1,3 @@
-// JSON-LD structured data schemas for SEO
 
 interface WithContext {
   "@context": string;

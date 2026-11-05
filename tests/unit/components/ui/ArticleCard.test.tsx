@@ -23,19 +23,12 @@ describe("ArticleCard", () => {
 
   it("renders with image", () => {
     render(<ArticleCard {...defaultProps} imageUrl="/test.png" />);
-    const img = screen.getByRole("img", { name: "Test Article" }); // alt defaults to title
+    const img = screen.getByRole("img", { name: "Test Article" });
     expect(img).toBeInTheDocument();
   });
 
   it("renders as featured variant", () => {
     render(<ArticleCard {...defaultProps} variant="featured" />);
-    // Check for specific class that indicates featured styling (e.g., larger text or aspect ratio)
-    // We can check aspect ratio class on a container or just text size class
-    // Looking at source: aspect-[4/5] is for featured
-    // But finding that specific element is tricky without testid.
-    // Let's check title class: "md:text-[45.5962px]"
-    // But testing specific css classes is brittle.
-    // Instead, verify it renders without crashing and contains content.
     expect(screen.getByText("Test Article")).toBeInTheDocument();
   });
 });

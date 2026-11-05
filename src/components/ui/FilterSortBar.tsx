@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
-// Exact Filter Icon from openai-clone (icon-11.svg) - Horizontal sliders
 export function FilterIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -18,7 +17,6 @@ export function FilterIcon({ className }: { className?: string }) {
   );
 }
 
-// Exact Sort Icon from openai-clone (icon-12.svg) - Chevron down
 export function SortIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -33,7 +31,6 @@ export function SortIcon({ className }: { className?: string }) {
   );
 }
 
-// Exact Grid Icon from openai-clone (icon-13.svg) - 4 filled rounded squares
 export function GridIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -51,7 +48,6 @@ export function GridIcon({ className }: { className?: string }) {
   );
 }
 
-// Exact List Icon from openai-clone (icon-14.svg) - 3 rows with dots and lines
 export function ListIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -71,8 +67,6 @@ export function ListIcon({ className }: { className?: string }) {
 }
 
 import { cn } from "@/lib/utils";
-
-// ... existing code ...
 
 interface FilterSortBarProps {
   categories: {
@@ -96,7 +90,7 @@ export default function FilterSortBar({
   categories,
   onFilterClick,
 
-  activeSort = "newest", // Default
+  activeSort = "newest",
   onSortChange,
   viewMode,
   onViewModeChange,
@@ -124,7 +118,6 @@ export default function FilterSortBar({
         className,
       )}
     >
-      {/* Category Navigation */}
       <nav className="[mask-image:linear-gradient(to_right,black_0%,black_calc(100%-32px),transparent_100%)] flex-1 overflow-x-auto overflow-y-hidden overscroll-x-contain py-1">
         <div className="relative min-w-fit pr-8">
           <ul className="items-center gap-x-6 flex list-none gap-y-6 pl-0">
@@ -162,11 +155,8 @@ export default function FilterSortBar({
         </div>
       </nav>
 
-      {/* Filter & Sort & View Mode */}
       <div className="flex items-center justify-between lg:justify-end gap-4 lg:gap-6 shrink-0 border-t border-black/5 dark:border-white/5 pt-4 mt-2 lg:border-none lg:pt-0 lg:mt-0">
-        {/* Left: Filter & Sort */}
         <div className="flex items-center gap-x-6">
-          {/* Filter Button */}
           <button
             type="button"
             onClick={onFilterClick}
@@ -176,7 +166,6 @@ export default function FilterSortBar({
             <FilterIcon className="shrink-0 h-4 w-4" />
           </button>
 
-          {/* Sort Menu */}
           <div className="relative" ref={sortMenuRef}>
             <button
               type="button"
@@ -187,11 +176,9 @@ export default function FilterSortBar({
               <SortIcon className="shrink-0 h-4 w-2.5" />
             </button>
 
-            {/* Dropdown Menu */}
             {isSortOpen && (
               <div className="absolute top-full text-left left-0 mt-2 min-w-[200px] w-auto bg-white dark:bg-[#1e1e1e] rounded-xl border border-black/10 dark:border-white/10 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] p-1 z-50 animate-in fade-in zoom-in-95 duration-100 origin-top-left">
                 <div className="flex flex-col">
-                  {/* Newest -> Oldest */}
                   <label className="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-[13px] font-medium transition-colors">
                     <input
                       type="radio"
@@ -208,7 +195,6 @@ export default function FilterSortBar({
                     Newest → Oldest
                   </label>
 
-                  {/* Oldest -> Newest */}
                   <label className="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-[13px] font-medium transition-colors">
                     <input
                       type="radio"
@@ -230,7 +216,6 @@ export default function FilterSortBar({
           </div>
         </div>
 
-        {/* Right: View Toggle */}
         <div className="gap-x-2 flex gap-y-2 border-none">
           <label className="block p-2 rounded-full cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
             <input

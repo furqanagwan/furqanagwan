@@ -15,7 +15,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
   const [activeSort, setActiveSort] = useState("newest");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  // Format date to match blog style (e.g., "Dec 31, 2024")
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("en-US", {
@@ -37,9 +36,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
       filtered = filtered.filter((p) => p.category === activeCategory);
     }
 
-    // Sort logic
     filtered.sort((a, b) => {
-      // Simple string comparison for dates
       if (a.date > b.date) return activeSort === "newest" ? -1 : 1;
       if (a.date < b.date) return activeSort === "newest" ? 1 : -1;
       return 0;
@@ -48,18 +45,14 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
     return filtered;
   }, [projects, activeCategory, activeSort]);
 
-  // Pagination state
   const [visibleCount, setVisibleCount] = useState(9);
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 9);
   };
 
-  // Pagination persists across filter changes for simplicity
-
   return (
     <div className="px-6 lg:px-10 py-8 max-w-5xl mx-auto">
-      {/* Page Title */}
       <div className="text-center mb-10">
         <h1 className="text-5xl md:text-6xl font-semibold tracking-tight heading-display">
           Projects
@@ -69,7 +62,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
         </p>
       </div>
 
-      {/* Filter Bar */}
       <FilterSortBar
         categories={categories.map((cat) => ({
           label: cat,
@@ -78,16 +70,14 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
         }))}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
-        onFilterClick={() => {}} // Placeholder
+        onFilterClick={() => {}}
         activeSort={activeSort}
         onSortChange={setActiveSort}
       />
 
-      {/* Projects Grid */}
       <div className="py-10">
         {filteredProjects.length > 0 ? (
           <>
-            {/* Grid View */}
             {viewMode === "grid" && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {filteredProjects
@@ -98,7 +88,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                       className="group animate-fade-in"
                       style={{ animationDelay: `${index * 0.05}s`, opacity: 0 }}
                     >
-                      {/* Image */}
                       <div
                         className={`aspect-video rounded-xl mb-4 overflow-hidden gradient-${(index % 6) + 1} flex items-center justify-center`}
                       >
@@ -107,7 +96,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                         </span>
                       </div>
 
-                      {/* Content */}
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
                           <h3 className="text-lg font-semibold group-hover:opacity-70 transition-opacity">
@@ -129,7 +117,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                           </div>
                         </div>
 
-                        {/* Links */}
                         <div className="flex items-center gap-2">
                           {project.githubUrl && (
                             <a
@@ -156,7 +143,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                         </div>
                       </div>
 
-                      {/* Technologies */}
                       <div className="flex flex-wrap gap-2 mt-3">
                         {project.technologies.slice(0, 4).map((tech) => (
                           <span
@@ -172,7 +158,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
               </div>
             )}
 
-            {/* List View */}
             {viewMode === "list" && (
               <div className="flex flex-col mb-20 animate-fade-in">
                 {filteredProjects.slice(0, visibleCount).map((project) => (
@@ -189,7 +174,6 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
               </div>
             )}
 
-            {/* Load More Button */}
             {filteredProjects.length > visibleCount && (
               <div className="flex justify-center pt-12">
                 <button

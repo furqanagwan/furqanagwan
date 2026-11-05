@@ -46,7 +46,7 @@ describe("Button", () => {
     );
     const link = screen.getByRole("link", { name: "Link Button" });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveClass("bg-primary"); // Inherits button styles
+    expect(link).toHaveClass("bg-primary");
     expect(link).toHaveAttribute("href", "/test");
   });
 

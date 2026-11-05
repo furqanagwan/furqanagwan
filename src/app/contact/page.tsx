@@ -10,7 +10,6 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <div className="px-6 lg:px-10 py-8 max-w-4xl mx-auto">
-      {/* Page Title */}
       <div className="text-center mb-16">
         <h1 className="text-5xl md:text-6xl font-semibold tracking-tight heading-display mb-4">
           Get in Touch
@@ -21,9 +20,7 @@ export default function ContactPage() {
         </p>
       </div>
 
-      {/* Contact Options */}
       <div className="grid md:grid-cols-2 gap-8 mb-16">
-        {/* Email */}
         <a
           href="mailto:hello@furqanagwan.com"
           className="group p-8 border border-border rounded-xl hover:border-foreground/20 transition-colors"
@@ -43,7 +40,6 @@ export default function ContactPage() {
           </span>
         </a>
 
-        {/* LinkedIn */}
         <a
           href="https://linkedin.com/in/furqanagwan"
           target="_blank"
@@ -65,7 +61,6 @@ export default function ContactPage() {
           </span>
         </a>
 
-        {/* GitHub */}
         <a
           href="https://github.com/furqanagwan"
           target="_blank"
@@ -87,7 +82,6 @@ export default function ContactPage() {
           </span>
         </a>
 
-        {/* Location */}
         <div className="p-8 border border-border rounded-xl bg-secondary/10">
           <div className="flex items-center gap-4 mb-4">
             <div className="p-3 rounded-full bg-secondary">
@@ -104,7 +98,6 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* CTA */}
       <div className="text-center border-t border-border pt-16">
         <p className="text-muted-foreground mb-6">
           Prefer to explore my work first?

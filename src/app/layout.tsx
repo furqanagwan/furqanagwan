@@ -57,9 +57,6 @@ export const metadata: Metadata = {
   },
 };
 
-// viewport-fit=cover lets the page use the full screen on iPhone Duo (and
-// notched iPhones); the layout pads itself with the safe-area insets defined
-// in globals.css so nothing ends up under system UI.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,

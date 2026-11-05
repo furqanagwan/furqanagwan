@@ -33,15 +33,6 @@ describe("Card", () => {
 
   it("applies custom utility classes", () => {
     render(<Card className="bg-red-500">Test</Card>);
-    // We check usage of data-slot or just class presence on container
-    // The component uses data-slot="card"
-    // However, finding by text "Test" gets the container if text is direct child?
-    // Let's use a standard getByText for simplicity as the text is inside
-    // OR we can rely on DOM node checks.
-    // Usually easier to check if the element wrapping 'Test' has the class
-    // But Card wraps children in a div with the class.
-    // screen.getByText("Test") returns the text node? No, the element containing it.
-    // If <div ...>Test</div>, getByText("Test") returns the div.
     expect(screen.getByText("Test")).toHaveClass("bg-red-500");
   });
 });

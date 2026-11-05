@@ -5,7 +5,6 @@ import {
   useSidebar,
 } from "@/components/layout/SidebarContext";
 
-// Test component to consume context
 function TestComponent() {
   const { isOpen, toggle, isMobileMenuOpen, toggleMobileMenu } = useSidebar();
   return (

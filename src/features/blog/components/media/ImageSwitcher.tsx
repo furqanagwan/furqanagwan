@@ -25,7 +25,6 @@ export function ImageSwitcher({ items, className }: ImageSwitcherProps) {
 
   return (
     <div className={cn("my-12 scroll-mt-20", className)}>
-      {/* Scrollable Pills Navigation */}
       <div className="flex overflow-x-auto pb-4 -mx-6 px-6 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
         <div className="flex gap-2">
           {items.map((item, index) => (
@@ -45,7 +44,6 @@ export function ImageSwitcher({ items, className }: ImageSwitcherProps) {
         </div>
       </div>
 
-      {/* Active Image Display */}
       <div className="relative mt-6 rounded-xl overflow-hidden bg-muted aspect-[16/10] animate-in fade-in duration-300">
         <Image
           src={activeItem.src}
@@ -53,11 +51,10 @@ export function ImageSwitcher({ items, className }: ImageSwitcherProps) {
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 800px"
-          key={activeItem.src} // Force re-render for animation
+          key={activeItem.src}
         />
       </div>
 
-      {/* Caption if provided */}
       {activeItem.alt && (
         <p className="mt-3 text-center text-sm text-muted-foreground">
           {activeItem.alt}

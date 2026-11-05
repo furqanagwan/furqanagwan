@@ -17,7 +17,6 @@ interface CertificationItemProps {
     index: number;
 }
 
-// Map issuer to brand domain for logo fetching
 const issuerDomains: Record<string, string> = {
     Microsoft: "microsoft.com",
     Google: "google.com",
@@ -29,15 +28,10 @@ const issuerDomains: Record<string, string> = {
     Salesforce: "salesforce.com",
 };
 
-// Map issuer to local logo image path (fallback when Brandfetch fails)
 const issuerLocalLogos: Record<string, string> = {
     Microsoft: "/images/certifications/microsoft.svg",
 };
 
-/**
- * Professional certification item component that displays issuer logo,
- * certification name, code, description, and date.
- */
 export function CertificationItem({ cert, index }: CertificationItemProps) {
     const className =
         "group block relative py-6 border-b border-black/15 dark:border-white/15 last:border-b-0 hover:border-black dark:hover:border-white transition-colors animate-fade-in text-left";
@@ -52,7 +46,6 @@ export function CertificationItem({ cert, index }: CertificationItemProps) {
     return (
         <div className={className} style={style}>
             <div className="flex gap-4">
-                {/* Left - Logo */}
                 <div className="flex-shrink-0">
                     <div className="rounded-lg overflow-hidden border border-border bg-white w-14 h-14 flex items-center justify-center p-1">
                         <BrandLogo
@@ -78,7 +71,6 @@ export function CertificationItem({ cert, index }: CertificationItemProps) {
                     </div>
                 </div>
 
-                {/* Right - Content */}
                 <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-4">
                         <div className="flex-1 min-w-0">

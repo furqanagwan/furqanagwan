@@ -1,8 +1,3 @@
-/**
- * OpenAI Provider
- *
- * Implementation of the AI provider interface for OpenAI's GPT models.
- */
 
 import OpenAI from "openai";
 import type {

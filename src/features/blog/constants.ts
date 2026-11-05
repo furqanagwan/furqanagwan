@@ -1,5 +1,3 @@
-// Blog feature constants
-// Extracted from app/blog/page.tsx per architecture rules
 
 export const BLOG_CATEGORIES = [
   { label: "All", href: "/blog" },

@@ -14,13 +14,12 @@ export function ExperienceItem({ group, index }: ExperienceItemProps) {
       style={{ animationDelay: `${index * 0.1}s`, opacity: 0 }}
     >
       <div className="grid md:grid-cols-4 gap-6 md:gap-10">
-        {/* Left column - Company info */}
         <div className="md:col-span-1">
           <div className="mb-4 relative w-16 h-16 rounded-md overflow-hidden bg-white border border-border flex items-center justify-center p-1">
             <BrandLogo
               name={group.company}
               productLink={group.website}
-              brandDomain={group.website ? undefined : undefined} // brandDomain is inferred from productLink if not provided, or undefined
+              brandDomain={group.website ? undefined : undefined}
               className="w-full h-full"
               fallback={
                 group.image ? (
@@ -50,11 +49,9 @@ export function ExperienceItem({ group, index }: ExperienceItemProps) {
           </div>
         </div>
 
-        {/* Right column - Roles */}
         <div className="md:col-span-3 space-y-12">
           {group.roles.map((role, roleIndex) => (
             <div key={`${role.role}-${roleIndex}`} className="relative">
-              {/* Role connector line if multiple roles */}
               {roleIndex !== group.roles.length - 1 && (
                 <div className="absolute left-[-24px] top-2 bottom-[-48px] w-px bg-border md:hidden" />
               )}
@@ -70,7 +67,6 @@ export function ExperienceItem({ group, index }: ExperienceItemProps) {
                 )}
               </div>
 
-              {/* Clients - displayed as detailed block under the title */}
               {role.clients && role.clients.length > 0 && (
                 <div className="flex flex-col gap-3 mb-6">
                   {role.clients.map((client) => (
@@ -100,7 +96,6 @@ export function ExperienceItem({ group, index }: ExperienceItemProps) {
                 </div>
               )}
 
-              {/* Achievements */}
               {role.achievements && role.achievements.length > 0 && (
                 <ul className="space-y-2 mb-6">
                   {role.achievements.slice(0, 3).map((achievement, i) => (
@@ -116,7 +111,6 @@ export function ExperienceItem({ group, index }: ExperienceItemProps) {
                 </ul>
               )}
 
-              {/* Technologies */}
               <div className="flex flex-wrap gap-2">
                 {role.technologies.slice(0, 6).map((tech) => (
                   <span

@@ -17,14 +17,12 @@ export default function Sidebar() {
   const { isOpen } = useSidebar();
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
-  // Toggle section expansion
   const toggleSection = (label: string) => {
     setExpandedSections((prev) =>
       prev.includes(label) ? prev.filter((l) => l !== label) : [...prev, label],
     );
   };
 
-  // Auto-expand sections with active items
   const isExpanded = (section: NavSection) => {
     if (isSectionActive(pathname, section) && section.items) return true;
     return expandedSections.includes(section.label);
@@ -32,10 +30,8 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile Menu Placeholder */}
       <div className="md:hidden"></div>
 
-      {/* Desktop Left Sidebar - with slide animation */}
       <nav
         className={`
           hidden md:block w-[200px] mt-[187px] px-5 absolute right-0 top-0
@@ -62,7 +58,6 @@ export default function Sidebar() {
                     key={section.label}
                     className={`relative text-base font-bold leading-5 md:text-sm md:font-medium md:leading-[22.96px] ${index > 0 ? "mt-0.5" : ""}`}
                   >
-                    {/* Section Header */}
                     <div
                       className={`
                         relative text-base font-bold items-center justify-between leading-5 w-full rounded-[6.08px] 
@@ -97,7 +92,6 @@ export default function Sidebar() {
                       )}
                     </div>
 
-                    {/* Expandable Sub-items */}
                     {hasSubitems && (
                       <div
                         className={`overflow-hidden transition-all duration-200 ease-in-out ${expanded

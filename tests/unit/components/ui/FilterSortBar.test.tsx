@@ -30,7 +30,6 @@ describe("FilterSortBar", () => {
     fireEvent.click(screen.getByText("Sort"));
     expect(screen.getByText("Newest → Oldest")).toBeInTheDocument();
 
-    // Test sort change
     const oldestInput = container.querySelector('input[value="oldest"]');
     if (!oldestInput) throw new Error("Oldest input not found");
     fireEvent.click(oldestInput);
@@ -42,10 +41,8 @@ describe("FilterSortBar", () => {
       <FilterSortBar {...props} activeSort="oldest" />,
     );
 
-    // Open menu
     fireEvent.click(screen.getAllByText("Sort")[0]!);
 
-    // Click newest
     const newestInput = container.querySelector('input[value="newest"]');
     if (!newestInput) throw new Error("Newest input not found");
     fireEvent.click(newestInput);
@@ -55,11 +52,9 @@ describe("FilterSortBar", () => {
   it("closes sort menu when clicking outside", () => {
     render(<FilterSortBar {...props} />);
 
-    // Open menu
     fireEvent.click(screen.getByText("Sort"));
     expect(screen.getByText("Newest → Oldest")).toBeInTheDocument();
 
-    // Click outside
     fireEvent.mouseDown(document.body);
     expect(screen.queryByText("Newest → Oldest")).not.toBeInTheDocument();
   });
@@ -88,10 +83,10 @@ describe("FilterSortBar", () => {
     render(<FilterSortBar {...props} categories={categoriesMixed} />);
 
     const activeLink = screen.getByRole("link", { name: "Active Link" });
-    expect(activeLink).toHaveClass("text-foreground"); // Active style
+    expect(activeLink).toHaveClass("text-foreground");
 
     const inactiveLink = screen.getByRole("link", { name: "Inactive Link" });
-    expect(inactiveLink).toHaveClass("text-black/40"); // Inactive style part (or dark mode equivalent)
+    expect(inactiveLink).toHaveClass("text-black/40");
 
     const activeBtn = screen.getByRole("button", { name: "Active Btn" });
     expect(activeBtn).toHaveClass("text-foreground");

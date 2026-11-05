@@ -48,12 +48,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  // Get related posts (same category, excluding current)
   const relatedPosts = getRelatedPosts(slug, post.category);
 
   return (
     <div className="relative">
-      {/* Main Article */}
       <article className="flex flex-col gap-y-8 md:gap-y-12 mt-6 md:mt-10">
         <PostHeader
           title={post.title}

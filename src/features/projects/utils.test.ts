@@ -37,7 +37,7 @@ describe("reposToProjects", () => {
       githubUrl: "https://github.com/user/test-repo",
       liveUrl: "https://example.com",
       technologies: ["typescript", "react"],
-      featured: true, // 10 stars >= 5
+      featured: true,
     });
   });
 

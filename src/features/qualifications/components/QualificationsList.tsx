@@ -15,7 +15,6 @@ const typeIcons = {
   Award: Award,
 };
 
-// Professional certifications data
 const professionalCertifications = [
   {
     name: "Microsoft Azure DevOps Engineer Expert",
@@ -46,7 +45,6 @@ const professionalCertifications = [
 export function QualificationsList() {
   const [activeType, setActiveType] = useState("All");
 
-  // Define the exact order of filter tabs: All, Education, Professional
   const types = useMemo(() => {
     return ["All", "Education", "Professional"];
   }, []);
@@ -57,7 +55,6 @@ export function QualificationsList() {
     return groupQualificationsByType(filtered);
   }, [activeType]);
 
-  // Get sorted education items (newest first)
   const educationItems = useMemo(() => {
     if (activeType !== "All" && activeType !== "Education") return [];
     const items = getFilteredQualifications("Education");
@@ -73,14 +70,12 @@ export function QualificationsList() {
 
   return (
     <div className="px-6 lg:px-10 py-8 max-w-4xl mx-auto">
-      {/* Page Title */}
       <div className="text-center mb-10">
         <h1 className="text-5xl md:text-6xl font-semibold tracking-tight heading-display">
           Qualifications
         </h1>
       </div>
 
-      {/* Type Filters */}
       <div className="flex items-center justify-center gap-6 py-4 border-b border-border mb-10">
         {types.map((type) => (
           <button
@@ -99,7 +94,6 @@ export function QualificationsList() {
         ))}
       </div>
 
-      {/* Education Section - FIRST */}
       {(activeType === "All" || activeType === "Education") &&
         educationItems.length > 0 && (
           <section className={activeType === "All" ? "mb-12" : ""}>
@@ -122,7 +116,6 @@ export function QualificationsList() {
           </section>
         )}
 
-      {/* Professional Certifications - SECOND */}
       {(activeType === "All" || activeType === "Professional") && (
         <section className={activeType === "All" ? "mb-12" : ""}>
           <div className="flex items-center gap-2 mb-6">
@@ -140,7 +133,6 @@ export function QualificationsList() {
         </section>
       )}
 
-      {/* Other Qualifications by type (excluding Education which is handled above) */}
       {activeType !== "Professional" && (
         <div className="space-y-12">
           {Object.entries(grouped)

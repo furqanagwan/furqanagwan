@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useSidebar } from "./SidebarContext";
 
-// Exact Sidebar Toggle Icon from openai-clone (icon-1.svg)
 export function SidebarToggleIcon({
   className,
   isOpen,
@@ -44,10 +43,8 @@ export default function Header() {
 
   return (
     <>
-      {/* Fixed header bar - solid background like openai-clone TopBar */}
       <div className="fixed box-border flex h-[calc(54px+var(--safe-top))] pt-[var(--safe-top)] justify-end z-[51] pl-[max(1.5rem,var(--safe-left))] pr-[max(1.5rem,var(--safe-right))] top-0 inset-x-0 md:h-[calc(4rem+var(--safe-top))] md:pl-[max(2rem,var(--safe-left))] md:pr-[max(2rem,var(--safe-right))] bg-[#ffffff] dark:bg-[#000000]">
         <div className="w-full flex justify-between items-center">
-          {/* Left: Logo Group */}
           <div className="flex items-center gap-x-3 -ml-1">
             <Link
               aria-label="Home"
@@ -63,7 +60,6 @@ export default function Header() {
               </span>
             </Link>
 
-            {/* Sidebar Toggle - Desktop only */}
             <button
               type="button"
               aria-label="Toggle navigation sidebar"
@@ -77,9 +73,7 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Right: Menu Toggle (mobile) / Contact (desktop) */}
           <div className="flex items-center gap-2">
-            {/* Mobile Menu Toggle */}
             <button
               type="button"
               aria-label="Toggle mobile menu"
@@ -92,7 +86,6 @@ export default function Header() {
               />
             </button>
 
-            {/* Contact - Desktop only */}
             <Link
               href="/contact"
               className="hidden md:block text-sm font-medium bg-transparent px-3 py-2 rounded-md hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-black dark:text-white"

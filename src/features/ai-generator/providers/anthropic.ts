@@ -1,9 +1,3 @@
-/**
- * Anthropic (Claude) Provider
- *
- * Placeholder implementation for future Claude API support.
- * Structure is in place for easy implementation.
- */
 
 import type {
     AIProviderType,
@@ -26,18 +20,6 @@ export class AnthropicProvider extends BaseAIProvider {
         topic: TopicConfig,
         options?: GenerationOptions,
     ): Promise<GeneratedPost> {
-        // TODO: Implement Anthropic API integration
-        // Install: bun add @anthropic-ai/sdk
-        //
-        // Example implementation:
-        // import Anthropic from "@anthropic-ai/sdk";
-        // const client = new Anthropic({ apiKey: this.config.apiKey });
-        // const response = await client.messages.create({
-        //   model: this.config.model,
-        //   max_tokens: this.config.maxTokens ?? 4000,
-        //   system: this.buildSystemPrompt(topic),
-        //   messages: [{ role: "user", content: this.buildUserPrompt(newsArticles, topic, options) }],
-        // });
 
         throw new Error(
             "Anthropic provider not yet implemented. " +

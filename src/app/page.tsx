@@ -15,7 +15,6 @@ export default function Home() {
   const featuredPost = getFeaturedPost();
   const recentPosts = getRecentPosts(3);
 
-  // Get featured MDX projects sorted by date (newest first)
   const sortedFeaturedMdx = allProjects
     .filter((p) => p.featured)
     .sort(
@@ -27,7 +26,6 @@ export default function Home() {
 
   return (
     <div className="max-w-full mx-auto px-6 md:max-w-[1440px] md:px-8 py-12 md:py-20 space-y-24">
-      {/* Hero Section */}
       <section className="max-w-4xl">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 heading-display">
           Documenting my journey in engineering & life.
@@ -52,7 +50,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Projects */}
       {sortedFeaturedMdx.length > 0 && (
         <section>
           <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
@@ -88,7 +85,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* Latest Writing */}
       <section>
         <div className="flex items-end justify-between mb-12 border-b border-border pb-6">
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
@@ -107,7 +103,6 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
-          {/* Featured Post (Latest) */}
           {featuredPost && (
             <div className="md:col-span-2">
               <ArticleCard
@@ -121,7 +116,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Recent Posts List */}
           {recentPosts.map((post) => (
             <ArticleCard
               key={post._meta.path}

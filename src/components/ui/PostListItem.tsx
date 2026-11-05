@@ -23,7 +23,6 @@ export default function PostListItem({
 
   const content = (
     <article className="py-5 grid grid-cols-1 md:grid-cols-[180px_1fr] gap-2 md:gap-8">
-      {/* Meta Column (Category & Date) - stacked on desktop */}
       <div className="flex flex-row md:flex-col gap-2 md:gap-0.5">
         {category && (
           <span className="text-[13px] font-medium text-black dark:text-white">
@@ -44,7 +43,6 @@ export default function PostListItem({
         )}
       </div>
 
-      {/* Title & Description Column */}
       <div className="flex flex-col gap-2">
         <h3 className="text-base md:text-[17px] font-medium leading-tight tracking-[-0.2px] text-black dark:text-white">
           {title}

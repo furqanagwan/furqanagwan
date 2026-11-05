@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
-// Mock next-themes
 vi.mock("next-themes", async () => {
   const actual = await vi.importActual("next-themes");
   return {

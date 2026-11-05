@@ -4,7 +4,6 @@ import FeaturedHero from "@/components/ui/FeaturedHero";
 import type { Post } from "content-collections";
 
 describe("FeaturedHero", () => {
-  // Create mock posts with proper typing
   const posts: Partial<Post>[] = [
     {
       title: "Main Post",
@@ -47,14 +46,12 @@ describe("FeaturedHero", () => {
   it("renders main post and secondary posts", () => {
     render(<FeaturedHero posts={posts as Post[]} />);
 
-    // Main post check
     expect(screen.getByText("Main Post")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Main Post/ })).toHaveAttribute(
       "href",
       "/blog/main-post",
     );
 
-    // Secondary post check
     expect(screen.getByText("Secondary Post 1")).toBeInTheDocument();
   });
 });

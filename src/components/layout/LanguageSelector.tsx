@@ -72,8 +72,6 @@ export default function LanguageSelector() {
   const handleSelect = (code: string) => {
     setSelectedLanguage(code);
     setOpen(false);
-    // In a real app, you would handle language change here
-    // e.g., router.push with locale, or update i18n context
   };
 
   return (
@@ -99,14 +97,11 @@ export default function LanguageSelector() {
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-            // Desktop: positioned bottom-right corner
             "bottom-4 right-4 w-[320px] max-h-[480px] rounded-xl border",
-            // Mobile: full width sheet from bottom
             "max-sm:inset-x-0 max-sm:bottom-0 max-sm:right-0 max-sm:w-full max-sm:max-h-[70vh] max-sm:rounded-t-xl max-sm:rounded-b-none",
             "data-[state=closed]:max-sm:slide-out-to-bottom data-[state=open]:max-sm:slide-in-from-bottom",
           )}
         >
-          {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
             <DialogPrimitive.Title className="text-base font-medium">
               Select language
@@ -117,7 +112,6 @@ export default function LanguageSelector() {
             </DialogPrimitive.Close>
           </div>
 
-          {/* Language List */}
           <div className="overflow-y-auto flex-1 max-h-[320px] max-sm:max-h-[calc(70vh-120px)]">
             {filteredLanguages.map((lang) => (
               <button
@@ -145,7 +139,6 @@ export default function LanguageSelector() {
             ))}
           </div>
 
-          {/* Search */}
           <div className="p-3 border-t">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

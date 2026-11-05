@@ -6,7 +6,7 @@ export function reposToProjects(repos: GitHubRepo[]): Project[] {
     title: repo.name,
     description: repo.description || "",
     category: repo.language || "Other",
-    date: repo.pushed_at.split("T")[0]!, // YYYY-MM-DD
+    date: repo.pushed_at.split("T")[0]!,
     liveUrl: repo.homepage || undefined,
     githubUrl: repo.private ? "" : repo.html_url,
     technologies: repo.topics.length > 0 ? repo.topics : [],
@@ -16,9 +16,6 @@ export function reposToProjects(repos: GitHubRepo[]): Project[] {
   }));
 }
 
-/**
- * Get featured projects sorted by date (newest first)
- */
 export function getFeaturedProjects(
   projects: Project[],
   limit: number = 2,
@@ -29,9 +26,6 @@ export function getFeaturedProjects(
     .slice(0, limit);
 }
 
-/**
- * Sort projects by date (newest first)
- */
 export function sortProjectsByDate(projects: Project[]): Project[] {
   return [...projects].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),

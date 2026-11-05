@@ -12,9 +12,9 @@ const posts = defineCollection({
     date: z.string(),
     category: z.string(),
     image: z.string().optional(),
-    heroVideo: z.string().optional(), // YouTube/Vimeo embed URL for hero section
-    audio: z.string().optional(), // Audio URL for "Listen to article"
-    video: z.string().optional(), // Video URL for featured video
+    heroVideo: z.string().optional(),
+    audio: z.string().optional(),
+    video: z.string().optional(),
     ctaButtons: z
       .array(
         z.object({
@@ -23,8 +23,8 @@ const posts = defineCollection({
           variant: z.enum(["primary", "secondary"]).optional(),
         }),
       )
-      .optional(), // CTA buttons below title
-    headerCodeSnippet: z.string().optional(), // Code snippet to display in header (e.g. npm install command)
+      .optional(),
+    headerCodeSnippet: z.string().optional(),
     tags: z.array(z.string()),
     featured: z.boolean().default(false),
     content: z.string().optional(),
@@ -128,7 +128,6 @@ const qualifications = defineCollection({
   }),
   transform: async (document, context) => {
     const mdx = await compileMDX(context, document);
-    // Normalize type to capitalized
     const typeMap: Record<string, string> = {
       education: "Education",
       certification: "Certification",

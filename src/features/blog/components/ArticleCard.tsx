@@ -34,14 +34,12 @@ export default function ArticleCard({
         )}
         aria-label={`${title} - ${category} - ${date}`}
       >
-        {/* Image Container */}
         <div
           className={cn(
             "relative w-full overflow-hidden bg-black/10 dark:bg-white/10 mb-4 rounded-[6.08px]",
             isFeatured
-              ? "aspect-[4/5] md:aspect-video" // Featured: Portrait mobile, Video desktop
-              : "aspect-square", // Default/Grid: Square (1:1)
-            // Compact gets handled by parent grid usually, or we can force aspect
+              ? "aspect-[4/5] md:aspect-video"
+              : "aspect-square",
             isCompact && "aspect-[4/5] mb-4",
           )}
         >
@@ -62,7 +60,6 @@ export default function ArticleCard({
           )}
         </div>
 
-        {/* Title */}
         <h3
           className={cn(
             "font-medium mb-2 transition-opacity group-hover:opacity-70 text-foreground",
@@ -74,7 +71,6 @@ export default function ArticleCard({
           {title}
         </h3>
 
-        {/* Meta */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium tracking-[normal] leading-[19.6px]">
           <span className="text-foreground">{category}</span>
           <span className="text-black/40 dark:text-white/40">{date}</span>

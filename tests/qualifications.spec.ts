@@ -16,7 +16,6 @@ test.describe("Qualifications Page", () => {
         await expect(page.getByText(/Microsoft/i).or(page.getByText(/Azure/i)).first()).toBeVisible();
     });
 
-    // Education lives on this page (there is no separate /education page).
     test("displays education entries", async ({ page }) => {
         await expect(page.getByText(/University/i).first()).toBeVisible();
     });

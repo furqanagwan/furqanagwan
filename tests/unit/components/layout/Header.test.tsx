@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import Header from "@/components/layout/Header";
 
-// Mock dependencies
 const mockToggle = vi.fn();
 const mockToggleMobileMenu = vi.fn();
 

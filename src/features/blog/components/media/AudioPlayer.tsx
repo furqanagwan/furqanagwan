@@ -88,7 +88,6 @@ export function AudioPlayer({ src }: { src: string }) {
           </span>
         </div>
 
-        {/* Progress Bar */}
         <div className="relative h-1 w-full bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
           <div
             className="absolute top-0 left-0 h-full bg-black dark:bg-white transition-all duration-100 ease-linear rounded-full"

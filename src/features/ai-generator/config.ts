@@ -1,18 +1,7 @@
-/**
- * AI Generator Configuration
- *
- * Central configuration for the AI blog post generator.
- * Includes expanded topic list and provider settings.
- */
 
 import type { GeneratorConfig, TopicConfig } from "./types";
 
-// ============================================================================
-// Topics Configuration
-// ============================================================================
-
 export const TOPICS: TopicConfig[] = [
-    // Technology & Development
     {
         id: "technology",
         label: "Technology",
@@ -42,7 +31,6 @@ export const TOPICS: TopicConfig[] = [
         promptHints: "Focus on actionable security advice for individuals and developers",
     },
 
-    // Career & Professional
     {
         id: "career",
         label: "Career Development",
@@ -65,7 +53,6 @@ export const TOPICS: TopicConfig[] = [
         promptHints: "Focus on software engineering leadership specifically",
     },
 
-    // Health & Wellness
     {
         id: "health",
         label: "Health & Wellness",
@@ -88,7 +75,6 @@ export const TOPICS: TopicConfig[] = [
         promptHints: "Sensitive, supportive tone, focus on tech industry burnout",
     },
 
-    // Education & Learning
     {
         id: "university",
         label: "University & Education",
@@ -104,7 +90,6 @@ export const TOPICS: TopicConfig[] = [
         promptHints: "Focus on learning resources and strategies for developers",
     },
 
-    // Finance & Money
     {
         id: "personal-finance",
         label: "Personal Finance",
@@ -120,7 +105,6 @@ export const TOPICS: TopicConfig[] = [
         promptHints: "Balanced view, focus on technology aspects not just speculation",
     },
 
-    // Lifestyle
     {
         id: "travel",
         label: "Travel & Remote Work",
@@ -136,7 +120,6 @@ export const TOPICS: TopicConfig[] = [
         promptHints: "Quick, healthy meals for busy developers",
     },
 
-    // Industry News
     {
         id: "startups",
         label: "Startups & Entrepreneurship",
@@ -152,10 +135,6 @@ export const TOPICS: TopicConfig[] = [
         promptHints: "Analysis of big tech news and what it means for the industry",
     },
 ];
-
-// ============================================================================
-// Default Configuration
-// ============================================================================
 
 export const DEFAULT_CONFIG: GeneratorConfig = {
     ai: {
@@ -177,40 +156,24 @@ export const DEFAULT_CONFIG: GeneratorConfig = {
     },
     output: {
         directory: "content/posts",
-        asDraft: true, // Always create as draft for review
+        asDraft: true,
         includeAttribution: true,
     },
 };
 
-// ============================================================================
-// Helper Functions
-// ============================================================================
-
-/**
- * Get a topic by ID
- */
 export function getTopicById(id: string): TopicConfig | undefined {
     return TOPICS.find((t) => t.id === id);
 }
 
-/**
- * Get a random topic
- */
 export function getRandomTopic(): TopicConfig {
     const index = Math.floor(Math.random() * TOPICS.length);
     return TOPICS[index]!;
 }
 
-/**
- * Get topics by category
- */
 export function getTopicsByCategory(category: string): TopicConfig[] {
     return TOPICS.filter((t) => t.category === category);
 }
 
-/**
- * Get all unique categories
- */
 export function getCategories(): string[] {
     return [...new Set(TOPICS.map((t) => t.category))];
 }

@@ -48,7 +48,7 @@ export function BrandLogo({
   return (
     <div className={`relative overflow-hidden rounded-md ${className}`}>
       <Image
-        key={imgSrc} // Force re-mount when src changes
+        key={imgSrc}
         src={imgSrc}
         alt={`${name} logo`}
         width={64}

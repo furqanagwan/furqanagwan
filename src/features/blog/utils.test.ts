@@ -2,7 +2,6 @@ import { describe, it, expect, vi } from "vitest";
 import { formatDate } from "./utils";
 import { getSortedPosts, getRelatedPosts } from "./queries";
 
-// Mock the content-collections module
 vi.mock("content-collections", () => ({
   allPosts: [
     {
@@ -47,9 +46,9 @@ describe("formatDate", () => {
 describe("getSortedPosts", () => {
   it("returns posts sorted by date (newest first)", () => {
     const sorted = getSortedPosts();
-    expect(sorted[0]!.slug).toBe("post-2"); // June 2024
-    expect(sorted[1]!.slug).toBe("post-1"); // Jan 2024
-    expect(sorted[2]!.slug).toBe("post-3"); // Dec 2023
+    expect(sorted[0]!.slug).toBe("post-2");
+    expect(sorted[1]!.slug).toBe("post-1");
+    expect(sorted[2]!.slug).toBe("post-3");
   });
 });
 

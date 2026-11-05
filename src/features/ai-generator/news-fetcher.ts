@@ -1,15 +1,5 @@
-/**
- * News Fetcher
- *
- * Fetches current news articles from various sources.
- * Currently supports NewsAPI with plans for Google News RSS.
- */
 
 import type { NewsArticle, NewsProviderConfig, TopicConfig } from "./types";
-
-// ============================================================================
-// NewsAPI Implementation
-// ============================================================================
 
 interface NewsAPIResponse {
     status: string;
@@ -26,10 +16,6 @@ interface NewsAPIResponse {
     }>;
 }
 
-/**
- * Fetch news from NewsAPI.org
- * Free tier: 100 requests/day, last 24 hours only
- */
 async function fetchFromNewsAPI(
     topic: TopicConfig,
     apiKey: string,
@@ -39,7 +25,6 @@ async function fetchFromNewsAPI(
         throw new Error("NEWS_API_KEY environment variable is required for NewsAPI");
     }
 
-    // Build query from topic keywords
     const query = topic.newsKeywords.slice(0, 3).join(" OR ");
 
     const url = new URL("https://newsapi.org/v2/everything");
@@ -68,7 +53,7 @@ async function fetchFromNewsAPI(
     console.log(`[NewsFetcher] Found ${data.totalResults} total articles, returning ${data.articles.length}`);
 
     return data.articles
-        .filter((a) => a.title && a.description) // Filter out incomplete articles
+        .filter((a) => a.title && a.description)
         .map((article) => ({
             title: article.title,
             description: article.description || "",
@@ -80,19 +65,10 @@ async function fetchFromNewsAPI(
         }));
 }
 
-// ============================================================================
-// Google News RSS (Free Alternative)
-// ============================================================================
-
-/**
- * Fetch news from Google News RSS feed
- * Completely free, no API key required
- */
 async function fetchFromGoogleNewsRSS(
     topic: TopicConfig,
     limit: number = 5,
 ): Promise<NewsArticle[]> {
-    // Build query from topic keywords
     const query = encodeURIComponent(topic.newsKeywords.slice(0, 3).join(" "));
     const url = `https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`;
 
@@ -106,7 +82,6 @@ async function fetchFromGoogleNewsRSS(
 
     const xml = await response.text();
 
-    // Parse RSS XML
     const articles: NewsArticle[] = [];
     const itemRegex = /<item>([\s\S]*?)<\/item>/g;
     const titleRegex = /<title>([\s\S]*?)<\/title>/;
@@ -125,7 +100,7 @@ async function fetchFromGoogleNewsRSS(
         if (title && link) {
             articles.push({
                 title: title.trim(),
-                description: "", // Google News RSS doesn't include description
+                description: "",
                 source: source.trim(),
                 publishedAt: pubDate ? new Date(pubDate).toISOString() : new Date().toISOString(),
                 url: link.trim(),
@@ -138,13 +113,6 @@ async function fetchFromGoogleNewsRSS(
     return articles;
 }
 
-// ============================================================================
-// Main Export
-// ============================================================================
-
-/**
- * Fetch news articles for a given topic
- */
 export async function fetchNews(
     topic: TopicConfig,
     config: NewsProviderConfig,
@@ -164,10 +132,6 @@ export async function fetchNews(
     }
 }
 
-/**
- * Fetch news with automatic fallback
- * Try NewsAPI first, fall back to Google News RSS if no API key
- */
 export async function fetchNewsWithFallback(
     topic: TopicConfig,
     newsApiKey?: string,
@@ -181,6 +145,5 @@ export async function fetchNewsWithFallback(
         }
     }
 
-    // Fallback to Google News RSS (free, no API key needed)
     return fetchFromGoogleNewsRSS(topic, limit);
 }

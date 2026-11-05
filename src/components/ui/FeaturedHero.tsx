@@ -22,7 +22,6 @@ export default function FeaturedHero({ posts }: FeaturedHeroProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-      {/* Main featured post */}
       <Link
         href={`/blog/${mainPost.slug}`}
         className="group relative aspect-square md:aspect-auto md:row-span-2 rounded-xl overflow-hidden"
@@ -39,7 +38,6 @@ export default function FeaturedHero({ posts }: FeaturedHeroProps) {
         </div>
       </Link>
 
-      {/* Secondary posts */}
       {secondaryPosts.map((post, index) => (
         <Link
           key={post.slug}

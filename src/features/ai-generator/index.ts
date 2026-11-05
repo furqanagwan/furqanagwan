@@ -1,11 +1,3 @@
-/**
- * AI Blog Post Generator
- *
- * Main orchestration module that ties together:
- * - News fetching
- * - AI content generation
- * - MDX post writing
- */
 
 import { DEFAULT_CONFIG, getRandomTopic, getTopicById } from "./config";
 import { fetchNewsWithFallback } from "./news-fetcher";
@@ -19,10 +11,6 @@ import type {
     TopicConfig,
 } from "./types";
 
-// ============================================================================
-// Main Generator Class
-// ============================================================================
-
 export class BlogPostGenerator {
     private config: GeneratorConfig;
     private projectRoot: string;
@@ -32,9 +20,6 @@ export class BlogPostGenerator {
         this.projectRoot = projectRoot || process.cwd();
     }
 
-    /**
-     * Generate a blog post for a specific topic
-     */
     async generate(
         topic: TopicConfig,
         options: GenerationOptions & { dryRun?: boolean } = {},
@@ -49,7 +34,6 @@ export class BlogPostGenerator {
             console.log(`Provider: ${this.config.ai.type} / ${this.config.ai.model}`);
             console.log(`Dry Run: ${options.dryRun ? "Yes" : "No"}\n`);
 
-            // Step 1: Fetch news
             console.log(`[1/3] Fetching news...`);
             const newsArticles = await fetchNewsWithFallback(
                 topic,
@@ -62,13 +46,11 @@ export class BlogPostGenerator {
             }
             console.log(`    Found ${newsArticles.length} articles\n`);
 
-            // Step 2: Generate content with AI
             console.log(`[2/3] Generating content with AI...`);
             const provider = await createAIProvider(this.config.ai);
             const post = await provider.generateContent(newsArticles, topic, options);
             console.log(`    Generated: "${post.title}"\n`);
 
-            // Step 3: Write or preview post
             console.log(`[3/3] ${options.dryRun ? "Previewing" : "Writing"} post...`);
 
             let filePath: string | undefined;
@@ -122,9 +104,6 @@ export class BlogPostGenerator {
         }
     }
 
-    /**
-     * Generate a post for a random topic
-     */
     async generateRandom(options: GenerationOptions & { dryRun?: boolean } = {}): Promise<GenerationResult> {
         const topic = getRandomTopic();
         console.log(`Selected random topic: ${topic.label}`);
@@ -132,15 +111,7 @@ export class BlogPostGenerator {
     }
 }
 
-// ============================================================================
-// CLI Entry Point
-// ============================================================================
-
-/**
- * Run the generator from CLI options
- */
 export async function runFromCLI(cliOptions: CLIOptions): Promise<GenerationResult> {
-    // Build config from environment
     const config: Partial<GeneratorConfig> = {
         ai: {
             type: (process.env.AI_PROVIDER as "openai" | "anthropic" | "gemini") || "openai",
@@ -158,7 +129,6 @@ export async function runFromCLI(cliOptions: CLIOptions): Promise<GenerationResu
 
     const generator = new BlogPostGenerator(config);
 
-    // Determine topic
     let topic: TopicConfig;
     if (!cliOptions.topic || cliOptions.topic === "random") {
         topic = getRandomTopic();
@@ -180,10 +150,6 @@ export async function runFromCLI(cliOptions: CLIOptions): Promise<GenerationResu
         style: "professional",
     });
 }
-
-// ============================================================================
-// Re-exports
-// ============================================================================
 
 export { DEFAULT_CONFIG, TOPICS, getTopicById, getRandomTopic, getCategories } from "./config";
 export { fetchNews, fetchNewsWithFallback } from "./news-fetcher";

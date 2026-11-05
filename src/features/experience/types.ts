@@ -1,7 +1,5 @@
-// Re-export types from content-collections for feature consistency
 export type { Experience as ContentExperience } from "content-collections";
 
-// Experience-specific types
 export interface GroupedExperience {
   company: string;
   location: string;

@@ -3,7 +3,6 @@ import { allPosts } from "content-collections";
 import { Github, Linkedin, Youtube } from "lucide-react";
 import LanguageSelector from "./LanguageSelector";
 
-// X (Twitter) icon
 function XIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -12,7 +11,6 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-// Instagram icon
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -21,7 +19,6 @@ function InstagramIcon({ className }: { className?: string }) {
   );
 }
 
-// TikTok icon
 function TikTokIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -30,7 +27,6 @@ function TikTokIcon({ className }: { className?: string }) {
   );
 }
 
-// Discord icon
 function DiscordIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -39,7 +35,6 @@ function DiscordIcon({ className }: { className?: string }) {
   );
 }
 
-// Generate dynamic blog links from active categories
 const getBlogLinks = () => {
   const CATEGORY_ORDER = ["Career", "Finance", "Travel", "Food", "Health", "Technology", "Lifestyle"];
   const categorySet = new Set<string>();
@@ -48,7 +43,6 @@ const getBlogLinks = () => {
     if (post.category) categorySet.add(post.category);
   }
 
-  // Sort categories
   const sortedCategories = Array.from(categorySet).sort((a, b) => {
     const indexA = CATEGORY_ORDER.indexOf(a);
     const indexB = CATEGORY_ORDER.indexOf(b);
@@ -117,12 +111,10 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="mt-[120px] border-t border-border/40">
-      {/* Footer Content - Link Columns */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 pt-12 pb-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
           {footerColumns.map((col) => (
             <div key={col.heading} className="col-span-1">
-              {/* Section headers - muted like OpenAI */}
               <h3 className="mb-4 text-sm font-medium text-muted-foreground">
                 {col.heading}
               </h3>
@@ -143,11 +135,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Footer Bottom Bar */}
       <div className="border-t border-border/40">
         <div className="max-w-[1440px] mx-auto px-6 md:px-8 py-6">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            {/* Social Links - Left */}
             <div className="flex gap-x-5 order-2 md:order-1 justify-center md:justify-start">
               {socialLinks.map((social) => {
                 const IconComponent = social.icon;
@@ -166,14 +156,12 @@ export default function Footer() {
               })}
             </div>
 
-            {/* Copyright - Center */}
             <div className="order-1 md:order-2 text-center">
               <span className="text-sm text-muted-foreground">
                 Furqan Agwan © 2015–{new Date().getFullYear()}
               </span>
             </div>
 
-            {/* Language Selector - Right */}
             <div className="order-3 flex justify-center md:justify-end">
               <LanguageSelector />
             </div>

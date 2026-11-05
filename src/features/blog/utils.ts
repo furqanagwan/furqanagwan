@@ -1,6 +1,5 @@
 import { BLOG_CATEGORIES, type BlogCategory } from "./constants";
 
-// Date formatting - long format
 export const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
   return date.toLocaleDateString("en-US", {
@@ -10,7 +9,6 @@ export const formatDate = (dateStr: string) => {
   });
 };
 
-// Date formatting - short format (for blog listing)
 export const formatDateShort = (dateStr: string) => {
   const date = new Date(dateStr);
   return date.toLocaleDateString("en-US", {
@@ -20,7 +18,6 @@ export const formatDateShort = (dateStr: string) => {
   });
 };
 
-// Get active category from URL param
 export const getActiveCategory = (
   categoryParam: string | null,
 ): BlogCategory => {

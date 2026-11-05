@@ -8,12 +8,10 @@ import FilterSortBar from "@/components/ui/FilterSortBar";
 import PostListItem from "@/components/ui/PostListItem";
 import ArticleCard from "./ArticleCard";
 
-// Priority order for category display (categories not in this list appear after)
 const CATEGORY_ORDER = ["Career", "Finance", "Travel", "Food", "Health", "Technology", "Lifestyle"];
 const INITIAL_LIST_COUNT = 6;
 const CARDS_PER_SECTION = 3;
 
-// Generate categories dynamically from actual posts
 function getCategoriesFromPosts() {
   const categorySet = new Set<string>();
 
@@ -23,7 +21,6 @@ function getCategoriesFromPosts() {
     }
   }
 
-  // Sort categories: first by CATEGORY_ORDER, then alphabetically for others
   const sortedCategories = Array.from(categorySet).sort((a, b) => {
     const indexA = CATEGORY_ORDER.indexOf(a);
     const indexB = CATEGORY_ORDER.indexOf(b);
@@ -34,7 +31,6 @@ function getCategoriesFromPosts() {
     return a.localeCompare(b);
   });
 
-  // Build categories array with "All" first
   const categories = [{ label: "All", href: "/blog" }];
 
   for (const cat of sortedCategories) {
@@ -46,7 +42,6 @@ function getCategoriesFromPosts() {
 
   return categories;
 }
-
 
 function BlogContent() {
   const searchParams = useSearchParams();
@@ -92,7 +87,6 @@ function BlogContent() {
     return posts;
   }, [activeCategory, activeSort]);
 
-  // Group posts by category for section display
   const postsByCategory = useMemo(() => {
     const grouped: Record<string, typeof allPosts> = {};
 
@@ -104,7 +98,6 @@ function BlogContent() {
       grouped[cat].push(post);
     }
 
-    // Sort within each category by date
     for (const cat of Object.keys(grouped)) {
       grouped[cat]!.sort((a, b) => {
         const dateA = new Date(a.date).getTime();
@@ -125,7 +118,6 @@ function BlogContent() {
     }, 300);
   };
 
-  // Sync viewMode with URL parameter
   React.useEffect(() => {
     if (viewParam === "grid" || viewParam === "list") {
       setViewMode(viewParam);
@@ -165,14 +157,12 @@ function BlogContent() {
 
   return (
     <div className="gap-x-5 flex flex-col max-w-full gap-y-5 mx-auto pt-20 px-6 md:max-w-[1440px] md:pt-10 md:px-8">
-      {/* Title - changes based on active category */}
       <div className="gap-x-3 flex flex-col gap-y-3">
         <h2 className="text-[32px] font-medium shrink-0 tracking-[-0.64px] leading-[36.48px] md:text-[45.5962px] md:tracking-[-1.31981px] md:leading-[52.7955px]">
           {activeCategory === "All" ? "Blog" : activeCategory}
         </h2>
       </div>
 
-      {/* Category Nav + Filter/Sort */}
       <FilterSortBar
         categories={categories.map((c) => ({
           label: c.label,
@@ -189,7 +179,6 @@ function BlogContent() {
         className="mb-0 md:mb-2"
       />
 
-      {/* Grid View - Featured + Cards */}
       {viewMode === "grid" && featuredPost && (
         <div className="relative gap-x-6 flex flex-col min-h-[600px] gap-y-6">
           <div className="mb-20">
@@ -268,10 +257,8 @@ function BlogContent() {
         </div>
       )}
 
-      {/* List View - All Posts (flat list with title only, then category sections after Load More) */}
       {viewMode === "list" && activeCategory === "All" && (
         <div className="flex flex-col mb-20">
-          {/* List view - title only, no description */}
           <div className="flex flex-col animate-fade-in">
             {filteredAndSortedPosts.slice(0, visibleCount).map((post) => (
               <Link
@@ -296,7 +283,6 @@ function BlogContent() {
             ))}
           </div>
 
-          {/* Load more button - shows when there are more list items to load */}
           {filteredAndSortedPosts.length > visibleCount && (
             <div className="flex justify-center pt-12">
               <button
@@ -310,7 +296,6 @@ function BlogContent() {
             </div>
           )}
 
-          {/* Category sections with cards (always shown below the list view) */}
           <div className="flex flex-col gap-20 mt-16">
             {categoriesWithPosts.map((category) => {
               const posts = postsByCategory[category] || [];
@@ -318,7 +303,6 @@ function BlogContent() {
 
               return (
                 <section key={category} className="animate-fade-in">
-                  {/* Category Header with View all - navigates to grid view */}
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-[22px] font-medium tracking-[-0.4px]">
                       {category}
@@ -331,7 +315,6 @@ function BlogContent() {
                     </Link>
                   </div>
 
-                  {/* Cards grid for this category */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {visiblePosts.map((post, index) => (
                       <div
@@ -360,7 +343,6 @@ function BlogContent() {
         </div>
       )}
 
-      {/* List View - Filtered by Category (shows title + description) */}
       {viewMode === "list" && activeCategory !== "All" && (
         <div className="flex flex-col mb-20 animate-fade-in">
           {filteredAndSortedPosts.slice(0, visibleCount).map((post) => (

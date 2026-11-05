@@ -12,10 +12,6 @@ interface EducationItemProps {
     index: number;
 }
 
-/**
- * Enhanced education item component that displays institution logos,
- * dates, titles, descriptions, and MDX content.
- */
 export function EducationItem({ qual, index }: EducationItemProps) {
     const className =
         "group block relative py-6 border-b border-black/15 dark:border-white/15 last:border-b-0 hover:border-black dark:hover:border-white transition-colors animate-fade-in text-left";
@@ -26,7 +22,6 @@ export function EducationItem({ qual, index }: EducationItemProps) {
 
     const content = (
         <div className="flex gap-4">
-            {/* Left - Logo */}
             <div className="flex-shrink-0">
                 <div className="rounded-lg overflow-hidden border border-border bg-white w-14 h-14 flex items-center justify-center p-1">
                     <BrandLogo
@@ -53,7 +48,6 @@ export function EducationItem({ qual, index }: EducationItemProps) {
                 </div>
             </div>
 
-            {/* Right - Content */}
             <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">

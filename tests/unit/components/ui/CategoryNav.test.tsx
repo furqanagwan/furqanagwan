@@ -20,7 +20,6 @@ describe("CategoryNav", () => {
 
   it("renders static tool buttons", () => {
     render(<CategoryNav categories={categories} />);
-    // Filter, Sort are hardcoded buttons in the component
     expect(screen.getByText("Filter")).toBeInTheDocument();
     expect(screen.getByText("Sort")).toBeInTheDocument();
   });

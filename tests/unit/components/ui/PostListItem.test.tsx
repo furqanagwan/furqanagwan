@@ -22,7 +22,6 @@ describe("PostListItem", () => {
     const { container } = render(
       <PostListItem {...defaultProps} className="custom-class" />,
     );
-    // Link is the root element
     expect(container.firstChild).toHaveClass("custom-class");
   });
 });

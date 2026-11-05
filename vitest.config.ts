@@ -27,9 +27,9 @@ export default defineConfig({
         "node_modules/**",
         "public/**",
         "tests/**",
-        "lib/utils.ts", // Utility files often excluded or tested separately
-        "app/**", // We are focusing on components unit tests as per plan
-        "components/ui/ArticleGrid.tsx", // Often just a grid wrapper, maybe low value? We will see.
+        "lib/utils.ts",
+        "app/**",
+        "components/ui/ArticleGrid.tsx",
         "eslint.config.mjs",
       ],
       include: ["components/**/*.tsx", "components/**/*.ts"],

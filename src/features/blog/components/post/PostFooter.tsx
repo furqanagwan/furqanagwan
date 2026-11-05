@@ -11,7 +11,6 @@ export function PostFooter({ tags }: PostFooterProps) {
         <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-6 lg:col-start-4">
           <div className="bg-black/[0.03] dark:bg-white/[0.05] rounded-lg p-6 md:p-8">
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-              {/* Tags - Pill style */}
               <div className="flex-1">
                 <h3 className="text-[13px] font-medium text-black/50 dark:text-white/50 mb-3">
                   Filed under
@@ -29,7 +28,6 @@ export function PostFooter({ tags }: PostFooterProps) {
                 </div>
               </div>
 
-              {/* Author - Simple text */}
               <div className="md:text-right">
                 <h3 className="text-[13px] font-medium text-black/50 dark:text-white/50 mb-1">
                   Author

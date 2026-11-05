@@ -1,9 +1,3 @@
-/**
- * AI Provider Base
- *
- * Abstract base class and factory for AI providers.
- * Designed for easy extension to support multiple AI providers.
- */
 
 import type {
     AIProvider,
@@ -15,13 +9,6 @@ import type {
     TopicConfig,
 } from "../types";
 
-// ============================================================================
-// Provider Factory
-// ============================================================================
-
-/**
- * Create an AI provider instance based on configuration
- */
 export async function createAIProvider(
     config: AIProviderConfig,
 ): Promise<AIProvider> {
@@ -42,10 +29,6 @@ export async function createAIProvider(
             throw new Error(`Unsupported AI provider: ${config.type}`);
     }
 }
-
-// ============================================================================
-// Base Provider Implementation
-// ============================================================================
 
 export abstract class BaseAIProvider implements AIProvider {
     abstract readonly name: AIProviderType;
@@ -74,9 +57,6 @@ export abstract class BaseAIProvider implements AIProvider {
         return envVars[this.config.type];
     }
 
-    /**
-     * Build the system prompt for blog generation
-     */
     protected buildSystemPrompt(topic: TopicConfig): string {
         return `You are an expert blog writer creating content for a personal portfolio/blog website.
 
@@ -116,9 +96,6 @@ IMPORTANT:
 - Do NOT use the exact headlines from the sources`;
     }
 
-    /**
-     * Build the user prompt with news context
-     */
     protected buildUserPrompt(
         newsArticles: NewsArticle[],
         topic: TopicConfig,
@@ -154,19 +131,14 @@ Synthesize these news items into an engaging, original blog post that provides v
 Remember to respond with valid JSON only.`;
     }
 
-    /**
-     * Parse the AI response into a GeneratedPost
-     */
     protected parseResponse(
         response: string,
         topic: TopicConfig,
         sources: NewsArticle[],
     ): GeneratedPost {
-        // Try to extract JSON from the response
         let parsed: { title: string; description: string; content: string; tags: string[] };
 
         try {
-            // Handle case where response might be wrapped in markdown code blocks
             const jsonMatch = response.match(/```json\s*([\s\S]*?)\s*```/) ||
                 response.match(/```\s*([\s\S]*?)\s*```/);
             const jsonStr = jsonMatch ? jsonMatch[1]! : response;
@@ -175,12 +147,10 @@ Remember to respond with valid JSON only.`;
             throw new Error(`Failed to parse AI response as JSON: ${response.substring(0, 200)}...`);
         }
 
-        // Validate required fields
         if (!parsed.title || !parsed.content) {
             throw new Error("AI response missing required fields (title, content)");
         }
 
-        // Generate a slug from the title
         const slug = this.generateSlug(parsed.title, topic.id);
 
         return {
@@ -194,11 +164,8 @@ Remember to respond with valid JSON only.`;
         };
     }
 
-    /**
-     * Generate a URL-safe slug
-     */
     protected generateSlug(title: string, topicId: string): string {
-        const date = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+        const date = new Date().toISOString().split("T")[0];
         const titleSlug = title
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, "-")
@@ -208,9 +175,6 @@ Remember to respond with valid JSON only.`;
         return `ai-${topicId}-${titleSlug}-${date}`;
     }
 
-    /**
-     * Main generation method - must be implemented by each provider
-     */
     abstract generateContent(
         newsArticles: NewsArticle[],
         topic: TopicConfig,

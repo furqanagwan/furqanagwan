@@ -13,7 +13,6 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* Sticky Mobile Logo - Fixed outside the sliding content */}
       <div className="fixed top-[var(--safe-top)] left-0 h-[54px] flex items-center pl-[max(1.5rem,var(--safe-left))] pr-6 z-[60] md:hidden pointer-events-none">
         <Link
           href="/"
@@ -25,7 +24,6 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         </Link>
       </div>
 
-      {/* Sticky Mobile Menu Toggle - Fixed outside the sliding content */}
       <div className="fixed top-[var(--safe-top)] right-0 h-[54px] flex items-center pl-6 pr-[max(1.5rem,var(--safe-right))] z-[100] md:hidden pointer-events-none">
         <button
           type="button"
@@ -41,10 +39,8 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         </button>
       </div>
 
-      {/* Mobile Menu Drawer (Fixed background layer) */}
       <MobileMenu />
 
-      {/* Main Content Wrapper - Slides to reveal menu */}
       <div
         className={`
           relative min-h-screen bg-background transition-transform duration-[640ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-50
@@ -54,7 +50,6 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
           }
         `}
       >
-        {/* Overlay to close menu when clicking content */}
         <div
           className={`
             absolute inset-0 z-50 bg-black/5 backdrop-blur-[8px] cursor-pointer md:hidden
@@ -65,7 +60,6 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
           aria-hidden="true"
         />
 
-        {/* Header - Now part of the sliding content */}
         <Header />
 
         <div
@@ -77,10 +71,8 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
             }
         `}
         >
-          {/* Column 1: Mobile Sidebar spacer (0px on desktop) */}
           <div className="hidden md:block"></div>
 
-          {/* Column 2: Desktop Sidebar container - animated width */}
           <div
             className={`
             relative hidden md:block overflow-hidden
@@ -91,7 +83,6 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
             <Sidebar />
           </div>
 
-          {/* Column 3: Main Content */}
           <div className="relative min-w-0 pl-[var(--safe-left)] pr-[var(--safe-right)] pb-[var(--safe-bottom)]">
             <main className="relative pt-[calc(54px+var(--safe-top))] md:pt-[calc(4rem+var(--safe-top))]">
               {children}
