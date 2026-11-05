@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSidebar } from "./SidebarContext";
+import { SIDEBAR_NAVIGATION_ID } from "./landmarkIds";
 
 export function SidebarToggleIcon({
   className,
@@ -63,6 +64,8 @@ export default function Header() {
             <button
               type="button"
               aria-label="Toggle navigation sidebar"
+              aria-expanded={isOpen}
+              aria-controls={SIDEBAR_NAVIGATION_ID}
               onClick={toggle}
               className="text-black/40 dark:text-white/40 bg-transparent hidden min-h-0 min-w-0 text-center p-5 md:block hover:text-black dark:hover:text-white transition-colors"
             >

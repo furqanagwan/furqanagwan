@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
+import { SIDEBAR_NAVIGATION_ID } from "./landmarkIds";
 import { ChevronDown } from "lucide-react";
 import {
   NAV_SECTIONS,
@@ -33,6 +34,9 @@ export default function Sidebar() {
       <div className="md:hidden"></div>
 
       <nav
+        id={SIDEBAR_NAVIGATION_ID}
+        aria-label="Main"
+        inert={!isOpen}
         className={`
           hidden md:block w-[200px] mt-[187px] px-5 absolute right-0 top-0
           transition-transform duration-300 ease-in-out
@@ -73,6 +77,7 @@ export default function Sidebar() {
                       {hasSubitems ? (
                         <button
                           type="button"
+                          aria-expanded={expanded}
                           onClick={() => toggleSection(section.label)}
                           className="text-base font-bold flex items-center justify-between h-full leading-5 w-full pl-3 pr-3 py-2 md:text-sm md:font-medium md:leading-[22.96px] bg-transparent border-none cursor-pointer"
                         >

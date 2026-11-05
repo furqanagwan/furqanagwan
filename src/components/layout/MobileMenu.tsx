@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
+import { MOBILE_MENU_ID } from "./landmarkIds";
 import { ChevronDown } from "lucide-react";
 import {
   NAV_SECTIONS,
@@ -32,13 +33,14 @@ export default function MobileMenu() {
     <>
       <div
         className="fixed inset-y-0 left-0 w-[min(85vw,360px)] z-0 bg-black text-white md:hidden overflow-y-auto pl-[var(--safe-left)]"
-        aria-hidden={!isMobileMenuOpen}
+        id={MOBILE_MENU_ID}
+        inert={!isMobileMenuOpen}
       >
         <div className="flex items-center justify-between h-[calc(54px+var(--safe-top))] pt-[var(--safe-top)] px-6">
           <div aria-hidden="true" className="w-1" />{" "}
         </div>
 
-        <nav className="px-6 pt-8">
+        <nav aria-label="Main" className="px-6 pt-8">
           <ul className="list-none pl-0 space-y-4">
             {NAV_SECTIONS.map((section) => {
               const hasSubitems = section.items && section.items.length > 0;
@@ -51,6 +53,7 @@ export default function MobileMenu() {
                     <>
                       <button
                         type="button"
+                        aria-expanded={expanded}
                         onClick={() => toggleSection(section.label)}
                         className={`
                           flex items-center justify-between w-full text-base font-bold leading-[22.96px] py-1 bg-transparent border-none cursor-pointer transition-colors

@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import Header, { SidebarToggleIcon } from "./Header";
 import Footer from "./Footer";
 import MobileMenu from "./MobileMenu";
+import { MAIN_CONTENT_ID, MOBILE_MENU_ID } from "./landmarkIds";
 
 export function LayoutContent({ children }: { children: React.ReactNode }) {
   const { isOpen, isMobileMenuOpen, closeMobileMenu, toggleMobileMenu } =
@@ -28,6 +29,8 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           aria-label="Toggle mobile menu"
+          aria-expanded={isMobileMenuOpen}
+          aria-controls={MOBILE_MENU_ID}
           onClick={toggleMobileMenu}
           className={`pointer-events-auto bg-transparent p-2 transition-colors duration-300 ${isMobileMenuOpen ? "text-white" : "text-black dark:text-white"
             }`}
@@ -84,7 +87,7 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="relative min-w-0 pl-[var(--safe-left)] pr-[var(--safe-right)] pb-[var(--safe-bottom)]">
-            <main className="relative pt-[calc(54px+var(--safe-top))] md:pt-[calc(4rem+var(--safe-top))]">
+            <main id={MAIN_CONTENT_ID} tabIndex={-1} className="relative outline-none pt-[calc(54px+var(--safe-top))] md:pt-[calc(4rem+var(--safe-top))]">
               {children}
               <Footer />
             </main>

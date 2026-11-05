@@ -7,6 +7,7 @@ import { LayoutContent } from "@/components/layout/LayoutContent";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { generatePersonSchema, generateWebsiteSchema } from "@/lib/schema";
+import { SkipToContentLink } from "@/components/layout/SkipToContentLink";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -95,6 +96,7 @@ export default function RootLayout({
         className="antialiased font-[var(--font-openai)]"
         suppressHydrationWarning
       >
+        <SkipToContentLink />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

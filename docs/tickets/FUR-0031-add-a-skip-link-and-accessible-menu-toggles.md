@@ -2,7 +2,7 @@
 id: FUR-0031
 title: Add a skip link and accessible menu toggles
 type: a11y
-status: backlog
+status: done
 priority: P2
 created: 2026-11-05
 ---
