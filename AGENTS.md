@@ -119,6 +119,16 @@ All work is tracked as a ticket in `docs/tickets/` (see its README):
 - Check open PRs regularly; rebase them onto `main`, merge them as soon as
   they're green and verified, and keep stale PRs to a minimum.
 
+## Dependencies
+
+- Keep every package on its latest release; check release notes and
+  security advisories before upgrading a major version.
+- To upgrade, set the package's version to `"latest"` in `package.json` on
+  the ticket branch and push. The "Sync lockfile" workflow resolves it to
+  the newest version, rewrites `package.json` with a real range, regenerates
+  `bun.lock` and re-runs CI.
+- Never edit `bun.lock` by hand; CI installs with `--frozen-lockfile`.
+
 ## After Every Change
 
 1. `bun run typecheck`

@@ -2,7 +2,7 @@
 id: FUR-0028
 title: Resolve latest dependency specifiers in the lockfile workflow
 type: ci
-status: backlog
+status: done
 priority: P1
 created: 2026-11-05
 ---
@@ -22,12 +22,16 @@ automation environment can't reach the npm registry. The lockfile workflow
 
 ## Acceptance criteria
 
-- [ ] When `package.json` on a non-main branch has any dependency set to
-      `"latest"`, the lockfile workflow runs `bun update --latest <those names>`,
-      which rewrites them to real version ranges, then commits `package.json`
-      and `bun.lock` and dispatches CI
-- [ ] Branches without `"latest"` specifiers behave exactly as before
-- [ ] Documented in AGENTS.md (how to upgrade a dependency)
+- [x] When `package.json` on a non-main branch has any dependency set to
+      `"latest"`, the lockfile workflow runs `bun install` then
+      `bun update --latest <those names>` (Bun errors on names not yet in
+      `bun.lock`, hence the install first), which rewrites them to real
+      version ranges; it then commits `package.json` and `bun.lock` and
+      dispatches CI
+- [x] Branches without `"latest"` specifiers behave exactly as before
+- [x] Documented in AGENTS.md (Dependencies section)
 
 ## Notes
+
+- Exercised end to end by FUR-0004.
 
