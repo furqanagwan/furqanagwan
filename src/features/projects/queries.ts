@@ -1,8 +1,12 @@
 import { unstable_cache } from "next/cache";
 import type { GitHubRepo } from "./types";
 
+function readGitHubApiToken(): string | undefined {
+  return process.env.GITHUB_PAT || process.env.GITHUB_API_TOKEN || undefined;
+}
+
 async function fetchReposFromGitHub(username: string): Promise<GitHubRepo[]> {
-  const token = process.env.GITHUB_PAT;
+  const token = readGitHubApiToken();
 
   const headers: HeadersInit = {
     Accept: "application/vnd.github+json",
@@ -13,11 +17,9 @@ async function fetchReposFromGitHub(username: string): Promise<GitHubRepo[]> {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const url = token
-    ? `https://api.github.com/user/repos?sort=updated&per_page=100&affiliation=owner`
-    : `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`;
+  const publicReposUrl = `https://api.github.com/users/${encodeURIComponent(username)}/repos?type=owner&sort=updated&per_page=100`;
 
-  const response = await fetch(url, { headers });
+  const response = await fetch(publicReposUrl, { headers });
 
   if (!response.ok) {
     console.error("Failed to fetch GitHub repos:", response.statusText);
