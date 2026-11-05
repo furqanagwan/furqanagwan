@@ -40,7 +40,7 @@ export function SidebarToggleIcon({
 }
 
 export default function Header() {
-  const { toggle, toggleMobileMenu, isMobileMenuOpen, isOpen } = useSidebar();
+  const { toggle, isMobileMenuOpen, isOpen } = useSidebar();
 
   return (
     <>
@@ -77,18 +77,6 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              aria-label="Toggle mobile menu"
-              onClick={toggleMobileMenu}
-              className="text-black/40 dark:text-white/40 bg-transparent text-center p-2 hidden hover:text-black dark:hover:text-white transition-colors"
-            >
-              <SidebarToggleIcon
-                className="w-[18px] h-[18px]"
-                isOpen={isMobileMenuOpen}
-              />
-            </button>
-
             <Link
               href="/contact"
               className="hidden md:block text-sm font-medium bg-transparent px-3 py-2 rounded-md hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-black dark:text-white"

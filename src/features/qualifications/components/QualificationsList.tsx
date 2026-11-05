@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { GraduationCap, Award, BadgeCheck, Briefcase } from "lucide-react";
-import { getQualificationTypes, getFilteredQualifications } from "../queries";
+import { getFilteredQualifications } from "../queries";
 import { groupQualificationsByType } from "../utils";
 import { QualificationItem } from "./QualificationItem";
 import { EducationItem } from "./EducationItem";

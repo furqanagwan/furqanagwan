@@ -3,12 +3,12 @@ import { describe, it, expect, vi } from "vitest";
 import Header from "@/components/layout/Header";
 
 const mockToggle = vi.fn();
-const mockToggleMobileMenu = vi.fn();
 
 vi.mock("@/components/layout/SidebarContext", () => ({
   useSidebar: () => ({
     toggle: mockToggle,
-    toggleMobileMenu: mockToggleMobileMenu,
+    isOpen: true,
+    isMobileMenuOpen: false,
   }),
 }));
 
@@ -26,10 +26,9 @@ describe("Header", () => {
     expect(mockToggle).toHaveBeenCalled();
   });
 
-  it("handles mobile menu toggle click", () => {
+  it("reports the sidebar's open state on its toggle", () => {
     render(<Header />);
-    const mobileToggle = screen.getByLabelText("Toggle mobile menu");
-    fireEvent.click(mobileToggle);
-    expect(mockToggleMobileMenu).toHaveBeenCalled();
+    const toggleBtn = screen.getByLabelText("Toggle navigation sidebar");
+    expect(toggleBtn).toHaveAttribute("aria-expanded", "true");
   });
 });

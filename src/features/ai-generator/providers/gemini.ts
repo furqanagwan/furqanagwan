@@ -2,9 +2,6 @@
 import type {
     AIProviderType,
     GeneratedPost,
-    GenerationOptions,
-    NewsArticle,
-    TopicConfig,
 } from "../types";
 import { BaseAIProvider } from "./base";
 
@@ -15,12 +12,7 @@ export class GeminiProvider extends BaseAIProvider {
         super({ ...config, type: "gemini", model: config.model || "gemini-1.5-pro" });
     }
 
-    async generateContent(
-        newsArticles: NewsArticle[],
-        topic: TopicConfig,
-        options?: GenerationOptions,
-    ): Promise<GeneratedPost> {
-
+    async generateContent(): Promise<GeneratedPost> {
         throw new Error(
             "Gemini provider not yet implemented. " +
             "To use Gemini, install @google/generative-ai and implement this provider.",
