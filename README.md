@@ -4,7 +4,7 @@
 
 [![Website](https://img.shields.io/badge/🌐_Website-furqanagwan.com-4285F4?style=for-the-badge)](https://furqanagwan.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/furqanagwan)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/furqanagwan)
+[![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/furqanagwan)
 
 </div>
 
@@ -39,21 +39,14 @@ When I'm not coding, you'll find me traveling, exploring new cuisines, or writin
 
 </div>
 
-## ✍️ Latest Blog Posts
-
-- 🚀 [Career Lessons in Tech](https://furqanagwan.com/blog/career-lessons-tech)
-- 🎓 [My University Journey](https://furqanagwan.com/blog/university)
-- 📈 [Long-Term Investing in Stocks](https://furqanagwan.com/blog/long-term-investing-stocks)
-
-➡️ [Read more on my blog](https://furqanagwan.com/blog)
-
 ## 📫 Let's Connect
 
 I'm always open to interesting conversations and collaboration opportunities!
 
 - 🌐 **Website:** [furqanagwan.com](https://furqanagwan.com)
+- ✍️ **Blog:** [furqanagwan.com/blog](https://furqanagwan.com/blog)
 - 💼 **LinkedIn:** [/in/furqanagwan](https://linkedin.com/in/furqanagwan)
-- 🐦 **Twitter:** [@furqanagwan](https://twitter.com/furqanagwan)
+- 𝕏 **X:** [@furqanagwan](https://x.com/furqanagwan)
 - 📧 **Email:** Check my website for contact info
 
 ---
