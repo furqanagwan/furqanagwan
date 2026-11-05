@@ -27,7 +27,8 @@ src/
 └── lib/                 # Small cross-cutting helpers (cn(), JSON-LD schema)
 content/                 # MDX content: experiences, qualifications
 public/                  # Static files
-scripts/                 # One-off/CLI scripts (e.g. generate-post.ts)
+scripts/                 # CLI scripts: generate-post.ts, ticket.ts
+docs/tickets/            # FUR-#### tickets: one Markdown file per piece of work
 tests/
 ├── unit/                # Vitest tests for shared components
 └── *.spec.ts            # Playwright end-to-end tests (incl. iPhone Duo viewports)
@@ -82,7 +83,10 @@ src/features/[feature-name]/
 4. **No magic numbers** - Put in `constants.ts`
 5. **Push 'use client' deep** - Maximize server rendering
 6. **One source of truth** - Don't copy data or config between components; import it
-7. **Mobile and foldables** - Layouts must work from 382px wide (iPhone Duo outer
+7. **No comments in code** - Names say what things do. If code needs a
+   comment to be understood, rename or split it instead. (Markdown docs and
+   tool directives such as `eslint-disable` are fine.)
+8. **Mobile and foldables** - Layouts must work from 382px wide (iPhone Duo outer
    screen) to desktop; use the `--safe-*` inset variables in `globals.css` for
    anything fixed to a screen edge
 
@@ -95,6 +99,22 @@ src/features/[feature-name]/
 ❌ Client components wrapping server components
 ❌ Duplicated config or data (e.g. nav links defined in two places)
 ❌ Committing generated files, screenshots or local tool output
+❌ Comments explaining what code does (use clearer names instead)
+
+## Tickets and branches
+
+All work is tracked as a ticket in `docs/tickets/` (see its README):
+
+- IDs are `FUR-0001`, `FUR-0002`, … — create with `bun run ticket:new --title "..."`.
+- Research the correct approach from primary sources before implementing,
+  and record it in the ticket (see the README for which sources).
+- The branch for a ticket is its ID in capitals: `FUR-0012`.
+- Commit messages and PR titles start with the ID: `FUR-0012: ...`.
+- Author and committer: `furqanagwan <furqanagwan@outlook.com>` only, with no
+  co-author trailers or tool signatures.
+- Each ticket is squash-merged into `main` as one commit carrying the
+  detailed PR description (before/after screenshots for UI changes).
+- Mark the ticket `done` in the same branch as the fix.
 
 ## After Every Change
 

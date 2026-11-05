@@ -18,7 +18,9 @@
     "content:build": "bunx @content-collections/cli build",
     "generate:post": "bun run scripts/generate-post.ts",
     "generate:post:dry-run": "bun run scripts/generate-post.ts --dry-run",
-    "generate:post:help": "bun run scripts/generate-post.ts --help"
+    "generate:post:help": "bun run scripts/generate-post.ts --help",
+    "ticket:new": "bun run scripts/ticket.ts new",
+    "ticket:list": "bun run scripts/ticket.ts list"
   },
   "dependencies": {
     "@content-collections/core": "^0.13.0",
