@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { fetchGitHubRepos } from "@/features/projects/queries";
 import { reposToProjects } from "@/features/projects/utils";
 import type { Project } from "@/features/projects/types";
@@ -6,10 +8,11 @@ import ProjectsList from "@/features/projects/components/ProjectsList";
 
 export const revalidate = 60;
 
-export const metadata = {
-  title: "Furqan Agwan Projects",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Projects",
   description: "Discover my software projects and open source contributions",
-};
+  path: "/projects",
+});
 
 export default async function ProjectsPage() {
   const repos = await fetchGitHubRepos();

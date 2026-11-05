@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { buildPageMetadata } from "@/lib/metadata";
 import { allPosts } from "content-collections";
 import { getPostBySlug, getRelatedPosts } from "@/features/blog/queries";
 import {
@@ -18,7 +20,7 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
@@ -28,16 +30,12 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     };
   }
 
-  return {
-    title: `Furqan Agwan ${post.title}`,
+  return buildPageMetadata({
+    title: post.title,
     description: post.description,
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: "article",
-      publishedTime: post.date,
-    },
-  };
+    path: `/blog/${slug}`,
+    openGraph: { type: "article", publishedTime: post.date },
+  });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

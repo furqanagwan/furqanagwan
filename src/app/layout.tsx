@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { generatePersonSchema, generateWebsiteSchema } from "@/lib/schema";
 import { SkipToContentLink } from "@/components/layout/SkipToContentLink";
+import { SITE_LOCALE, SITE_RSS_FEED_PATH, SITE_URL, SITE_X_HANDLE } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,6 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Furqan Agwan",
     template: "%s | Furqan Agwan",
@@ -33,8 +35,8 @@ export const metadata: Metadata = {
   creator: "Furqan Agwan",
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://furqanagwan.com",
+    locale: SITE_LOCALE,
+    url: SITE_URL,
     siteName: "Furqan Agwan",
     title: "Furqan Agwan",
     description:
@@ -42,9 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Furqan Agwan",
-    description: "Personal website of Furqan Agwan",
-    creator: "@furqanagwan",
+    creator: SITE_X_HANDLE,
   },
   robots: {
     index: true,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   alternates: {
     types: {
-      "application/rss+xml": "/feed.xml",
+      "application/rss+xml": SITE_RSS_FEED_PATH,
     },
   },
 };

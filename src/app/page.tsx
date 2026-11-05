@@ -1,14 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { allProjects } from "content-collections";
 import ArticleCard from "@/features/blog/components/ArticleCard";
 import { Button } from "@/components/ui/Button";
 import { getFeaturedPost, getRecentPosts } from "@/features/blog/queries";
+import { siteAlternates } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Furqan Agwan",
+export const metadata: Metadata = {
+  title: { absolute: "Furqan Agwan" },
   description:
     "Portfolio and blog of Furqan Agwan, a Cloud & Software Engineer based in the UK.",
+  alternates: siteAlternates("/"),
 };
 
 export default function Home() {

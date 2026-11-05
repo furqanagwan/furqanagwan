@@ -1,11 +1,14 @@
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 import { ArrowRight, Mail, Github, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
-export const metadata = {
-  title: "Furqan Agwan Contact",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Contact",
   description: "Get in touch with Furqan Agwan",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
