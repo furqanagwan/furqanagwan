@@ -1,12 +1,13 @@
 import { test, expect } from "@playwright/test";
+import { SITE_URL } from "../src/lib/site";
 
 const PAGES_WITH_CANONICAL = [
-  { path: "/", canonical: "https://furqanagwan.com" },
-  { path: "/projects", canonical: "https://furqanagwan.com/projects" },
-  { path: "/contact", canonical: "https://furqanagwan.com/contact" },
-  { path: "/blog", canonical: "https://furqanagwan.com/blog" },
-  { path: "/experiences", canonical: "https://furqanagwan.com/experiences" },
-  { path: "/qualifications", canonical: "https://furqanagwan.com/qualifications" },
+  { path: "/", canonical: SITE_URL },
+  { path: "/projects", canonical: `${SITE_URL}/projects` },
+  { path: "/contact", canonical: `${SITE_URL}/contact` },
+  { path: "/blog", canonical: `${SITE_URL}/blog` },
+  { path: "/experiences", canonical: `${SITE_URL}/experiences` },
+  { path: "/qualifications", canonical: `${SITE_URL}/qualifications` },
 ];
 
 for (const { path, canonical } of PAGES_WITH_CANONICAL) {
@@ -36,11 +37,11 @@ test("pages keep the RSS feed link and their own Open Graph URL", async ({ page 
 
   await expect(page.locator('link[rel="alternate"][type="application/rss+xml"]')).toHaveAttribute(
     "href",
-    "https://furqanagwan.com/feed.xml",
+    `${SITE_URL}/feed.xml`,
   );
   await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
     "content",
-    "https://furqanagwan.com/projects",
+    `${SITE_URL}/projects`,
   );
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Projects");
 });

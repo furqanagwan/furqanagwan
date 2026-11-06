@@ -1,3 +1,4 @@
+import { SITE_URL } from "./site";
 
 interface WithContext {
   "@context": string;
@@ -10,7 +11,7 @@ export function generatePersonSchema(): WithContext {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Furqan Agwan",
-    url: "https://furqanagwan.com",
+    url: SITE_URL,
     jobTitle: "Cloud & Software Engineer",
     sameAs: [
       "https://github.com/furqanagwan",
@@ -34,7 +35,7 @@ export function generateWebsiteSchema(): WithContext {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Furqan Agwan",
-    url: "https://furqanagwan.com",
+    url: SITE_URL,
     description:
       "Personal website and blog of Furqan Agwan - Cloud & Software Engineer",
     author: {
@@ -60,11 +61,11 @@ export function generateBlogPostSchema(post: BlogPostingParams) {
     description: post.description,
     datePublished: post.date,
     dateModified: post.date,
-    url: `https://furqanagwan.com/blog/${post.slug}`,
+    url: `${SITE_URL}/blog/${post.slug}`,
     author: {
       "@type": "Person",
       name: "Furqan Agwan",
-      url: "https://furqanagwan.com",
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Person",
@@ -72,7 +73,7 @@ export function generateBlogPostSchema(post: BlogPostingParams) {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://furqanagwan.com/blog/${post.slug}`,
+      "@id": `${SITE_URL}/blog/${post.slug}`,
     },
     articleSection: post.category,
   };

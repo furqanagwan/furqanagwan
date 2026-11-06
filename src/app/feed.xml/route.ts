@@ -1,8 +1,7 @@
 import { allPosts } from "content-collections";
+import { SITE_URL } from "@/lib/site";
 
 export async function GET() {
-  const baseUrl = "https://furqanagwan.com";
-
   const sortedPosts = allPosts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
@@ -12,8 +11,8 @@ export async function GET() {
       (post) => `
     <item>
       <title><![CDATA[${post.title}]]></title>
-      <link>${baseUrl}/blog/${post.slug}</link>
-      <guid isPermaLink="true">${baseUrl}/blog/${post.slug}</guid>
+      <link>${SITE_URL}/blog/${post.slug}</link>
+      <guid isPermaLink="true">${SITE_URL}/blog/${post.slug}</guid>
       <description><![CDATA[${post.description}]]></description>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
       <category>${post.category}</category>
@@ -25,11 +24,11 @@ export async function GET() {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Furqan Agwan</title>
-    <link>${baseUrl}</link>
+    <link>${SITE_URL}</link>
     <description>Blog posts and articles by Furqan Agwan - Cloud &amp; Software Engineer</description>
     <language>en-US</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-    <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
     ${rssItems}
   </channel>
 </rss>`;

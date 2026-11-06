@@ -1,9 +1,8 @@
 import { MetadataRoute } from "next";
 import { allPosts } from "content-collections";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://furqanagwan.com";
-
   const staticPages = [
     "",
     "/experiences",
@@ -12,14 +11,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/contact",
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${SITE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: route === "" ? 1 : 0.8,
   }));
 
   const blogPosts = allPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+    url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: "yearly" as const,
     priority: 0.6,
