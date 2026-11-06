@@ -1,12 +1,12 @@
 "use client";
-import { useState, useMemo, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { allPosts } from "content-collections";
 
 import FilterSortBar from "@/components/ui/FilterSortBar";
 import PostListItem from "@/components/ui/PostListItem";
 import ArticleCard from "./ArticleCard";
+import type { BlogViewMode, ParsedBlogSearchParams } from "../types";
 
 const CATEGORY_ORDER = ["Career", "Finance", "Travel", "Food", "Health", "Technology", "Lifestyle"];
 const INITIAL_LIST_COUNT = 6;
@@ -43,10 +43,12 @@ function getCategoriesFromPosts() {
   return categories;
 }
 
-function BlogContent() {
-  const searchParams = useSearchParams();
-  const categoryParam = searchParams.get("category");
-  const viewParam = searchParams.get("view");
+type BlogPageContentProps = {
+  categoryParam: ParsedBlogSearchParams["category"];
+  viewParam: ParsedBlogSearchParams["view"];
+};
+
+export function BlogPageContent({ categoryParam, viewParam }: BlogPageContentProps) {
 
   const categories = useMemo(() => getCategoriesFromPosts(), []);
 
@@ -59,9 +61,7 @@ function BlogContent() {
   }, [categoryParam, categories]);
 
   const [activeSort, setActiveSort] = useState("newest");
-  const [viewMode, setViewMode] = useState<"grid" | "list">(
-    viewParam === "list" ? "list" : viewParam === "grid" ? "grid" : "grid",
-  );
+  const [viewMode, setViewMode] = useState<BlogViewMode>(viewParam ?? "grid");
   const [visibleCount, setVisibleCount] = useState(INITIAL_LIST_COUNT);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
@@ -121,7 +121,7 @@ function BlogContent() {
   const [viewParamAppliedToViewMode, setViewParamAppliedToViewMode] = useState(viewParam);
   if (viewParam !== viewParamAppliedToViewMode) {
     setViewParamAppliedToViewMode(viewParam);
-    if (viewParam === "grid" || viewParam === "list") {
+    if (viewParam) {
       setViewMode(viewParam);
     }
   }
@@ -382,19 +382,5 @@ function BlogContent() {
         </div>
       )}
     </div>
-  );
-}
-
-export function BlogPageContent() {
-  return (
-    <Suspense
-      fallback={
-        <div className="h-screen w-full flex items-center justify-center">
-          Loading...
-        </div>
-      }
-    >
-      <BlogContent />
-    </Suspense>
   );
 }

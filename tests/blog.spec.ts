@@ -35,4 +35,19 @@ test.describe("Blog Page", () => {
 
     await expect(page).toHaveURL(/\/blog\/.+/);
   });
+
+  test("is rendered on the server", async ({ request }) => {
+    const response = await request.get("/blog");
+    expect(response.ok()).toBe(true);
+    const html = await response.text();
+    expect(html).toMatch(/<h2[^>]*>Blog<\/h2>/);
+    expect(html).not.toContain("Loading...");
+  });
+
+  test("loads with a view chosen in the URL", async ({ page }) => {
+    await page.goto("/blog?view=list");
+    await expect(
+      page.getByRole("heading", { name: "Blog", level: 2 }),
+    ).toBeVisible();
+  });
 });

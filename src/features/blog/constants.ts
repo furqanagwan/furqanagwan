@@ -12,3 +12,7 @@ export type BlogCategory = (typeof BLOG_CATEGORIES)[number]["label"];
 
 export const POSTS_PER_PAGE = 9;
 export const INITIAL_VISIBLE_COUNT = 9;
+
+export const BLOG_VIEW_MODES = ["grid", "list"] as const;
+
+export const BLOG_SEARCH_PARAM_MAX_LENGTH = 64;

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { formatDate } from "./utils";
+import { formatDate, parseBlogSearchParams } from "./utils";
 import { getSortedPosts, getRelatedPosts } from "./queries";
 
 vi.mock("content-collections", () => ({
@@ -72,5 +72,36 @@ describe("getRelatedPosts", () => {
   it("respects limit parameter", () => {
     const related = getRelatedPosts("post-3", "Tech", 1);
     expect(related).toHaveLength(1);
+  });
+});
+
+describe("parseBlogSearchParams", () => {
+  it("returns nulls when no params are given", () => {
+    expect(parseBlogSearchParams({})).toEqual({ category: null, view: null });
+  });
+
+  it("reads the category and a valid view", () => {
+    expect(parseBlogSearchParams({ category: "career", view: "list" })).toEqual(
+      { category: "career", view: "list" },
+    );
+  });
+
+  it("uses the first value when a param repeats", () => {
+    expect(
+      parseBlogSearchParams({ category: ["finance", "food"], view: ["grid", "list"] }),
+    ).toEqual({ category: "finance", view: "grid" });
+  });
+
+  it("ignores an unknown view", () => {
+    expect(parseBlogSearchParams({ view: "table" }).view).toBeNull();
+  });
+
+  it("ignores an empty or overlong category", () => {
+    expect(parseBlogSearchParams({ category: "   " }).category).toBeNull();
+    expect(parseBlogSearchParams({ category: "x".repeat(65) }).category).toBeNull();
+  });
+
+  it("trims the category", () => {
+    expect(parseBlogSearchParams({ category: " travel " }).category).toBe("travel");
   });
 });

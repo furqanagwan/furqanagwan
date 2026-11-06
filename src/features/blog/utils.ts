@@ -1,4 +1,11 @@
-import { BLOG_CATEGORIES, type BlogCategory } from "./constants";
+import { z } from "zod";
+import {
+  BLOG_CATEGORIES,
+  BLOG_SEARCH_PARAM_MAX_LENGTH,
+  BLOG_VIEW_MODES,
+  type BlogCategory,
+} from "./constants";
+import type { BlogSearchParams, ParsedBlogSearchParams } from "./types";
 
 export const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -26,4 +33,31 @@ export const getActiveCategory = (
     (c) => c.label.toLowerCase() === categoryParam.toLowerCase(),
   );
   return found ? (found.label as BlogCategory) : "All";
+};
+
+const blogCategoryParamSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .max(BLOG_SEARCH_PARAM_MAX_LENGTH);
+
+const blogViewModeSchema = z.enum(BLOG_VIEW_MODES);
+
+const firstSearchParamValue = (value: string | string[] | undefined) =>
+  Array.isArray(value) ? value[0] : value;
+
+export const parseBlogSearchParams = (
+  searchParams: BlogSearchParams,
+): ParsedBlogSearchParams => {
+  const category = blogCategoryParamSchema.safeParse(
+    firstSearchParamValue(searchParams.category),
+  );
+  const view = blogViewModeSchema.safeParse(
+    firstSearchParamValue(searchParams.view),
+  );
+
+  return {
+    category: category.success ? category.data : null,
+    view: view.success ? view.data : null,
+  };
 };
