@@ -13,8 +13,7 @@ TypeScript already runs with `strict` and `noUncheckedIndexedAccess`, and
 the code has no `any`, `@ts-ignore` or non-null assertions. But the
 conventions aren't enforced:
 
-- CI never runs `tsc` (FUR-0014); type errors only surface inside
-  `next build`.
+- ~~CI never runs `tsc`~~ (fixed in FUR-0014).
 - ESLint uses `eslint-config-next/typescript` (typescript-eslint's basic
   recommended rules), not the type-aware rule sets that catch unsafe
   `any` flows, floating promises, unnecessary conditions and inconsistent
@@ -39,7 +38,7 @@ conventions aren't enforced:
 - [ ] ESLint uses typescript-eslint's type-checked strict and stylistic
       configs with `parserOptions.projectService`
 - [ ] All resulting errors fixed properly (no blanket disables)
-- [ ] CI runs `bun run typecheck` (closes FUR-0014)
+- [x] CI runs `bun run typecheck` (done in FUR-0014)
 - [ ] TypeScript conventions written into AGENTS.md
 
 ## Notes

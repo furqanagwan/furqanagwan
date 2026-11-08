@@ -13,7 +13,7 @@
     "format:check": "bun prettier --check .",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "validate": "bun run typecheck && bun run lint && bun run test:unit",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",

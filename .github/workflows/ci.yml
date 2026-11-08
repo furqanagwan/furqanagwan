@@ -39,6 +39,12 @@ jobs:
       - name: Run ESLint
         run: bun run lint --max-warnings=0
 
+      - name: Build content collections
+        run: bun run content:build
+
+      - name: Type check
+        run: bun run typecheck
+
   build:
     name: Build
     runs-on: ubuntu-latest
