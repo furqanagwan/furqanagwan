@@ -71,7 +71,7 @@ export function QualificationsList() {
   return (
     <div className="px-6 lg:px-10 py-8 max-w-4xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight heading-display">
+        <h1 className="text-page-title md:text-6xl font-semibold tracking-tight heading-display">
           Qualifications
         </h1>
       </div>

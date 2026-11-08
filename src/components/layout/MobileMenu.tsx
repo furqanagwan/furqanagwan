@@ -32,15 +32,15 @@ export default function MobileMenu() {
   return (
     <>
       <div
-        className="fixed inset-y-0 left-0 w-[min(85vw,360px)] z-0 bg-black text-white md:hidden overflow-y-auto pl-[var(--safe-left)]"
+        className="fixed inset-y-0 left-0 w-[min(85vw,360px)] z-0 flex flex-col bg-black text-white md:hidden overflow-y-auto pl-[var(--safe-left)]"
         id={MOBILE_MENU_ID}
         inert={!isMobileMenuOpen}
       >
-        <div className="flex items-center justify-between h-[calc(54px+var(--safe-top))] pt-[var(--safe-top)] px-6">
+        <div className="flex shrink-0 items-center justify-between h-[calc(54px+var(--safe-top))] pt-[var(--safe-top)] px-6">
           <div aria-hidden="true" className="w-1" />{" "}
         </div>
 
-        <nav aria-label="Main" className="px-6 pt-8">
+        <nav aria-label="Main" className="shrink-0 px-6 pt-8">
           <ul className="list-none pl-0 space-y-4">
             {NAV_SECTIONS.map((section) => {
               const hasSubitems = section.items && section.items.length > 0;
@@ -108,7 +108,7 @@ export default function MobileMenu() {
           </ul>
         </nav>
 
-        <div className="absolute bottom-[max(1.5rem,var(--safe-bottom))] left-6 right-6 flex items-center justify-end">
+        <div className="mt-auto flex shrink-0 items-center justify-end px-6 pt-8 pb-[max(1.5rem,var(--safe-bottom))]">
           <Link
             href="/contact"
             onClick={closeMobileMenu}

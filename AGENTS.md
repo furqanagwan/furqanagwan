@@ -31,7 +31,7 @@ scripts/                 # CLI scripts: generate-post.ts, ticket.ts
 docs/tickets/            # FUR-#### tickets: one Markdown file per piece of work
 tests/
 ├── unit/                # Vitest tests for shared components
-└── *.spec.ts            # Playwright end-to-end tests (incl. iPhone Duo viewports)
+└── *.spec.ts            # Playwright end-to-end tests (incl. iPhone Duo and Galaxy Z viewports)
 ```
 
 Each feature folder follows the same shape:
@@ -86,9 +86,12 @@ src/features/[feature-name]/
 7. **No comments in code** - Names say what things do. If code needs a
    comment to be understood, rename or split it instead. (Markdown docs and
    tool directives such as `eslint-disable` are fine.)
-8. **Mobile and foldables** - Layouts must work from 382px wide (iPhone Duo outer
-   screen) to desktop; use the `--safe-*` inset variables in `globals.css` for
-   anything fixed to a screen edge
+8. **Mobile and foldables** - Layouts must work from 320px wide (WCAG reflow;
+   Galaxy Z Flip covers are 322px) to desktop, and on short landscape screens
+   down to 256px tall: no fixed or absolute element may cover content that
+   scrolls. Use the `--safe-*` inset variables in `globals.css` for anything
+   fixed to a screen edge. `tests/iphone-duo.spec.ts` and
+   `tests/foldables.spec.ts` check this
 
 ## Anti-Patterns
 

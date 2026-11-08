@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div className="max-w-full mx-auto px-6 md:max-w-[1440px] md:px-8 py-12 md:py-20 space-y-24">
       <section className="max-w-4xl">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 heading-display">
+        <h1 className="text-page-title md:text-7xl font-bold tracking-tight mb-8 heading-display">
           Documenting my journey in engineering & life.
         </h1>
         <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mb-10">

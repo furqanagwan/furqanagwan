@@ -15,7 +15,7 @@ export default function ContactPage() {
   return (
     <div className="px-6 lg:px-10 py-8 max-w-4xl mx-auto">
       <div className="text-center mb-16">
-        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight heading-display mb-4">
+        <h1 className="text-page-title md:text-6xl font-semibold tracking-tight heading-display mb-4">
           Get in Touch
         </h1>
         <p className="text-lg text-muted-foreground max-w-xl mx-auto">
