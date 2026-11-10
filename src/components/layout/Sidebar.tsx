@@ -37,17 +37,13 @@ export default function Sidebar() {
         id={SIDEBAR_NAVIGATION_ID}
         aria-label="Main"
         inert={!isOpen}
-        className={`
-          hidden md:block w-[200px] mt-[187px] px-5 absolute right-0 top-0
-          transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-[200px]"}
-        `}
+        className="hidden md:block w-[200px] mt-[187px] px-5 absolute right-0 top-0"
       >
         <div
           className={`
-            fixed max-h-[808px] overflow-x-hidden overflow-y-auto pb-[46px]
-            transition-opacity duration-300 ease-in-out
-            ${isOpen ? "opacity-100" : "opacity-0"}
+            fixed max-h-[min(808px,calc(100dvh-187px))] overflow-x-hidden overflow-y-auto pb-[46px]
+            transition-[opacity,translate] duration-300 ease-in-out
+            ${isOpen ? "opacity-100" : "opacity-0 -translate-x-[200px]"}
           `}
         >
           <div className="w-40">

@@ -27,6 +27,15 @@ describe("Sidebar", () => {
     render(<Sidebar />);
     const homeLink = screen.getByText("Home");
     const nav = homeLink.closest("nav");
-    expect(nav).toHaveClass("-translate-x-[200px]");
+    expect(nav).toHaveAttribute("inert");
+    expect(nav?.firstElementChild).toHaveClass("opacity-0", "-translate-x-[200px]");
+  });
+
+  it("never translates the nav, so its link list stays fixed to the viewport", () => {
+    render(<Sidebar />);
+    const nav = screen.getByText("Home").closest("nav");
+    expect(nav?.className).not.toMatch(/translate/);
+    expect(nav?.firstElementChild).toHaveClass("fixed", "opacity-100");
+    expect(nav?.firstElementChild).not.toHaveClass("-translate-x-[200px]");
   });
 });

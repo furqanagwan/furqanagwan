@@ -24,8 +24,8 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         className={`
           relative min-h-screen bg-background transition-transform ${MOBILE_MENU_SLIDE_TRANSITION} z-50
           ${isMobileMenuOpen
-            ? "translate-x-[min(85vw,360px)] md:translate-x-0 overflow-hidden h-screen"
-            : "translate-x-0"
+            ? "translate-x-[min(85vw,360px)] md:[translate:none] overflow-hidden h-screen"
+            : "[translate:none]"
           }
         `}
       >
