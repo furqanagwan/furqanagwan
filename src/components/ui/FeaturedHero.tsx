@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Post } from "content-collections";
+import type { Post } from "content-collections";
 
 interface FeaturedHeroProps {
   posts: Post[];

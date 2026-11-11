@@ -92,6 +92,13 @@ src/features/[feature-name]/
    scrolls. Use the `--safe-*` inset variables in `globals.css` for anything
    fixed to a screen edge. `tests/iphone-duo.spec.ts` and
    `tests/foldables.spec.ts` check this
+9. **Strict TypeScript** - `tsconfig.json` runs `strict` plus
+   `noUncheckedIndexedAccess`, `noImplicitReturns`, `noUnusedLocals`,
+   `noUnusedParameters` and `verbatimModuleSyntax`. No `any`, `@ts-ignore`
+   or non-null `!`; narrow `unknown` with Zod or type guards instead. Import
+   types with `import type { X }` (or `type X` inside a mixed import). Delete
+   unused variables and parameters rather than prefixing them with `_`.
+   TypeScript files only (`allowJs` is off); tool configs may stay `.mjs`
 
 ## Anti-Patterns
 

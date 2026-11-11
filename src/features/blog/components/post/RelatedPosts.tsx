@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { formatDate } from "../../utils";
-import { type Post } from "content-collections";
+import type { Post } from "content-collections";
 
 interface RelatedPostsProps {
   relatedPosts: Post[];

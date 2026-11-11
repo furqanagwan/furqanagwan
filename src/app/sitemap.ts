@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { allPosts } from "content-collections";
 import { SITE_URL } from "@/lib/site";
 

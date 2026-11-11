@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
-import { type ThemeProviderProps } from "next-themes";
+import type { ThemeProviderProps } from "next-themes";
 import { useEffect } from "react";
 
 function getTimeBasedTheme(): "light" | "dark" {
