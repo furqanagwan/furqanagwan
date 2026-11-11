@@ -1,7 +1,7 @@
 "use client";
 
 import { useSidebar } from "./SidebarContext";
-import { SidebarToggleIcon } from "./Header";
+import { SidebarToggleIcon } from "./SidebarToggleIcon";
 import { MOBILE_MENU_ID } from "./landmarkIds";
 import {
   MOBILE_CHROME_TEXT_OVER_MENU,

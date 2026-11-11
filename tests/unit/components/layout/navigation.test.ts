@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   NAV_SECTIONS,
   isActivePath,
+  isNavGroup,
   isSectionActive,
 } from "@/components/layout/navigation";
 
@@ -34,7 +35,14 @@ describe("isSectionActive", () => {
     expect(isSectionActive("/blog/post", blog)).toBe(true);
   });
 
-  it("is inactive for a section with neither a link nor items", () => {
-    expect(isSectionActive("/", { label: "Empty" })).toBe(false);
+  it("is inactive for a group whose links aren't the current page", () => {
+    expect(isSectionActive("/", work)).toBe(false);
+  });
+});
+
+describe("isNavGroup", () => {
+  it("tells groups of links apart from single links", () => {
+    expect(isNavGroup({ label: "Work", items: [] })).toBe(true);
+    expect(isNavGroup({ label: "Blog", href: "/blog" })).toBe(false);
   });
 });

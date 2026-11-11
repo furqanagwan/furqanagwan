@@ -94,8 +94,9 @@ src/features/[feature-name]/
    `tests/foldables.spec.ts` check this
 9. **Strict TypeScript** - `tsconfig.json` runs `strict` plus
    `noUncheckedIndexedAccess`, `noImplicitReturns`, `noUnusedLocals`,
-   `noUnusedParameters` and `verbatimModuleSyntax`. No `any`, `@ts-ignore`
-   or non-null `!`; narrow `unknown` with Zod or type guards instead. Import
+   `noUnusedParameters` and `verbatimModuleSyntax`. No `any` or
+   `@ts-ignore`, and no new non-null `!` (a few remain; FUR-0044 removes
+   them): narrow with Zod, type guards or discriminated unions instead. Import
    types with `import type { X }` (or `type X` inside a mixed import). Delete
    unused variables and parameters rather than prefixing them with `_`.
    TypeScript files only (`allowJs` is off); tool configs may stay `.mjs`

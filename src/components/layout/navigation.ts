@@ -3,11 +3,17 @@ export interface NavItem {
   href: string;
 }
 
-export interface NavSection {
+export interface NavLinkSection {
   label: string;
-  href?: string;
-  items?: NavItem[];
+  href: string;
 }
+
+export interface NavGroupSection {
+  label: string;
+  items: NavItem[];
+}
+
+export type NavSection = NavLinkSection | NavGroupSection;
 
 export const NAV_SECTIONS: NavSection[] = [
   { label: "Home", href: "/" },
@@ -30,7 +36,13 @@ export function isActivePath(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+export function isNavGroup(section: NavSection): section is NavGroupSection {
+  return "items" in section;
+}
+
 export function isSectionActive(pathname: string, section: NavSection): boolean {
-  if (section.href) return isActivePath(pathname, section.href);
-  return section.items?.some((item) => isActivePath(pathname, item.href)) ?? false;
+  if (isNavGroup(section)) {
+    return section.items.some((item) => isActivePath(pathname, item.href));
+  }
+  return isActivePath(pathname, section.href);
 }

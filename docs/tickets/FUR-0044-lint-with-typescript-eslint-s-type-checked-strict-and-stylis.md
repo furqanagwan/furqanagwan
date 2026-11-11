@@ -30,7 +30,10 @@ for combining them with `eslint-config-next` in flat config.
       `parserOptions.projectService`; JS config files excluded from typed rules
 - [ ] `consistent-type-imports` agrees with `verbatimModuleSyntax`
       (`import type`)
-- [ ] All resulting errors fixed properly (no blanket disables)
+- [ ] All resulting errors fixed properly (no blanket disables), including
+      the remaining non-null `!` assertions (`no-non-null-assertion`) in
+      `app/page.tsx`, `projects/utils.ts`, `ai-generator` and
+      `BlogPageContent.tsx`
 - [ ] AGENTS.md TypeScript rule mentions the lint rules
 
 ## Notes
